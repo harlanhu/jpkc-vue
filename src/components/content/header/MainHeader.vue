@@ -1,25 +1,44 @@
 <template>
   <div id="main-header">
-    <el-row :gutter="60">
-      <el-col :span="6">
+    <el-row :gutter="0">
+      <el-col :span="4">
         <img src="~assets/images/logo.png" alt="logo">
       </el-col>
-      <el-col :span="8">
-        <div style="background-color:red; height: 64px"></div>
+      <el-col :span="8" :offset="1">
+        <div class="content">
+          <drop-down id="drop-down" :title="dropdownTitle" :items="dropdownItems"/>
+          <el-button type="text">学校</el-button>
+          <el-button type="text">学校云</el-button>
+          <el-button type="text">慕课堂</el-button>
+          <el-button type="text">APP下载</el-button>
+        </div>
       </el-col>
-      <el-col :span="6">
-        <div style="background-color:red; height: 64px"></div>
+      <el-col :span="6" :offset="2">
+        <search-input id="search-input"/>
       </el-col>
-      <el-col :span="4">
-        <div style="background-color:red; height: 64px"></div>
+      <el-col :span="2" :offset="1">
+        <el-button type="text">注册<el-divider direction="vertical"/>登录</el-button>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import DropDown from "@/components/common/DropDown";
+import SearchInput from "@/components/common/SearchInput";
+
 export default {
-  name: "MainHeader"
+  name: "MainHeader",
+  components: {
+    SearchInput,
+    DropDown
+  },
+  data() {
+    return {
+      dropdownTitle: "课程",
+      dropdownItems: ["Java", "Vue", "Python", "C++", "C#", "PHP"]
+    }
+  }
 }
 </script>
 
@@ -42,7 +61,33 @@ export default {
 }
 
 #main-header img {
-  width: 217px;
+  margin-top: 15px;
+  border-radius: 0;
   height: 32px;
+  vertical-align: middle;
+  border-style: none;
+}
+
+#drop-down {
+  margin-top: 20px;
+}
+
+#search-input {
+  margin-top: 13px;
+}
+
+.el-col {
+  text-align: center;
+}
+
+.content {
+  display: flex;
+}
+
+.el-button {
+  margin-top: 11px;
+  font-size: 16px;
+  color: black;
+  flex: 1;
 }
 </style>
