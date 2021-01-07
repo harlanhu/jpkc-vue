@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import TopAside from "@/components/content/home/banner/TopAside/TopAside";
+import TopAside from "@/components/content/main/home/banner/TopAside/TopAside";
 import Carousel from "@/components/common/Carousel";
-import CourseType from "@/components/content/home/banner/TopAside/CourseType";
-import AccountInfo from "@/components/content/home/banner/TopAside/AccountInfo";
-import School from "@/components/content/home/banner/school/School";
+import CourseType from "@/components/content/main/home/banner/TopAside/CourseType";
+import AccountInfo from "@/components/content/main/home/banner/TopAside/AccountInfo";
+import School from "@/components/content/main/home/banner/school/School";
 
 export default {
   name: "HomeBanner",

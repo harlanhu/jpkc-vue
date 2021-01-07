@@ -100,6 +100,7 @@ h1, h2, h3, h4, h5, h6, small {
 body {
   background: #f5f5f5 !important;
   font-size: 12px;
+  overflow-x: hidden;
 }
 
 h2 {

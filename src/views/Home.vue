@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import HomeBanner from "@/components/content/home/banner/HomeBanner";
+import HomeBanner from "@/components/content/main/home/banner/HomeBanner";
 export default {
   name: "Home",
   components: {

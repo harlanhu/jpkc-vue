@@ -4,8 +4,9 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 
-import 'lib-flexible/flexible.js'
+import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
+import '@/assets/css/normalize.css';
 
 Vue.config.productionTip = false
 

@@ -2,27 +2,27 @@
   <div id="app">
     <el-container>
       <el-header height="64px">
-        <div id="header">
-          <main-header/>
-        </div>
+        <main-header/>
       </el-header>
       <el-main>
-        <home/>
         <router-view/>
       </el-main>
+      <el-footer height="209px">
+        <main-footer/>
+      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
-import '@/assets/css/normalize.css';
-
 import MainHeader from "@/components/content/header/MainHeader";
+import MainFooter from "@/components/content/footer/MainFooter";
 import Home from "@/views/Home";
 
 export default {
   name: 'App',
   components: {
+    MainFooter,
     Home,
     MainHeader
   }
@@ -30,17 +30,16 @@ export default {
 </script>
 
 <style>
-#head {
-  width: 1200px;
-  margin: 0 auto;
-}
-
-#content {
-  width: 1200px;
-  margin: 0 auto;
-}
-
 .el-header {
   background-color: white;
+}
+
+.el-footer {
+  background-color: #272727;
+  position: fixed;
+  line-height: 209px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>
