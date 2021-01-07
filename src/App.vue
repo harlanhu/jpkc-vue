@@ -37,7 +37,6 @@ export default {
 .el-footer {
   background-color: #272727;
   position: fixed;
-  line-height: 209px;
   left: 0;
   right: 0;
   bottom: 0;
