@@ -1,6 +1,6 @@
 <template>
-  <div id="content" style="height: 360px">
-    <el-row type="flex"  justify="space-between">
+  <div id="home-banner">
+    <el-row type="flex" justify="space-between">
       <el-col :span="4">
         <top-aside>
           <course-type/>
@@ -15,18 +15,23 @@
         </top-aside>
       </el-col>
     </el-row>
+    <div id="school">
+      <school/>
+    </div>
   </div>
 </template>
 
 <script>
-import TopAside from "@/components/content/main/TopAside/TopAside";
+import TopAside from "@/components/content/home/banner/TopAside/TopAside";
 import Carousel from "@/components/common/Carousel";
-import CourseType from "@/components/content/main/TopAside/CourseType";
-import AccountInfo from "@/components/content/main/TopAside/AccountInfo";
+import CourseType from "@/components/content/home/banner/TopAside/CourseType";
+import AccountInfo from "@/components/content/home/banner/TopAside/AccountInfo";
+import School from "@/components/content/home/banner/school/School";
 
 export default {
-  name: "MainView",
+  name: "HomeBanner",
   components: {
+    School,
     AccountInfo,
     CourseType,
     Carousel,
@@ -41,5 +46,8 @@ export default {
 </script>
 
 <style scoped>
-
+#school {
+  margin-top: 15px;
+  height: 60px;
+}
 </style>

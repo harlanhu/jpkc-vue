@@ -7,7 +7,8 @@
         </div>
       </el-header>
       <el-main>
-        <main-view/>
+        <home/>
+        <router-view/>
       </el-main>
     </el-container>
   </div>
@@ -17,11 +18,14 @@
 import '@/assets/css/normalize.css';
 
 import MainHeader from "@/components/content/header/MainHeader";
-import MainView from "@/views/MainView";
+import Home from "@/views/Home";
 
 export default {
   name: 'App',
-  components: {MainView, MainHeader}
+  components: {
+    Home,
+    MainHeader
+  }
 }
 </script>
 
