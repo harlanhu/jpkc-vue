@@ -4,6 +4,7 @@
       <home-banner/>
     </div>
     <div id="live-banner">
+      <p class="live-banner-title">最近直播</p>
       <live-banner/>
     </div>
   </div>
@@ -27,8 +28,16 @@ export default {
   margin: 0 auto;
   width: 1200px;
 }
+
 #banner {
-  margin: 0 auto;
+  margin: 45px auto;
   width: 1200px;
+}
+
+.live-banner-title {
+  color: #333;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 13px;
 }
 </style>
