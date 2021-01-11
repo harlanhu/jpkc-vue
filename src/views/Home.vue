@@ -3,9 +3,11 @@
     <div id="banner">
       <home-banner/>
     </div>
-    <div id="live-banner">
-      <p class="live-banner-title">最近直播</p>
+    <div id="live-banner" class="common-banner">
       <live-banner/>
+    </div>
+    <div id="recommend-banner" class="common-banner">
+      <recommend/>
     </div>
   </div>
 
@@ -14,9 +16,11 @@
 <script>
 import HomeBanner from "@/components/content/main/home/banner/HomeBanner";
 import LiveBanner from "@/components/content/main/home/liveBanner/LiveBanner";
+import Recommend from "@/components/content/main/home/recommendBanner/Recommend";
 export default {
   name: "Home",
   components: {
+    Recommend,
     LiveBanner,
     HomeBanner
   }
@@ -27,6 +31,7 @@ export default {
 #home {
   margin: 0 auto;
   width: 1200px;
+  height: 100%;
 }
 
 #banner {
@@ -34,10 +39,9 @@ export default {
   width: 1200px;
 }
 
-.live-banner-title {
-  color: #333;
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 13px;
+.common-banner {
+  width: 1200px;
+  padding-bottom: 30px;
+  flex-wrap: wrap;
 }
 </style>

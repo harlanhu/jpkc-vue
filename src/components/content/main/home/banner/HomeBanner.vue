@@ -1,20 +1,24 @@
 <template>
   <div id="home-banner">
     <el-row type="flex" justify="space-between">
+      <!-- 左边栏 -->
       <el-col :span="4">
         <top-aside>
           <course-type/>
         </top-aside>
       </el-col>
+      <!-- 轮播图 -->
       <el-col :span="15">
         <carousel :items="carouselItems"/>
       </el-col>
+      <!-- 右边栏 -->
       <el-col :span="4">
         <top-aside>
           <account-info/>
         </top-aside>
       </el-col>
     </el-row>
+    <!-- 底边栏 -->
     <div id="school">
       <school/>
     </div>

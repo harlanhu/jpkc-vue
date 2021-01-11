@@ -30,8 +30,16 @@ export default {
 </script>
 
 <style>
+.el-container {
+  height: 100%;
+}
+
 .el-header {
   background-color: white;
+}
+
+.el-main {
+  min-height: calc(100vh - 209px);
 }
 
 .el-footer {

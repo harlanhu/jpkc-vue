@@ -56,7 +56,7 @@ export default {
 <style scoped>
 #main-footer {
   width: 1200px;
-  height: 209px;
+  height: 100px;
   margin: 0 auto;
 }
 
