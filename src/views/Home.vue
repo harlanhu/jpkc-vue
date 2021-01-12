@@ -12,6 +12,9 @@
     <div id="advertising" class="common-banner">
       <advertising/>
     </div>
+    <div id="ranking" class="common-banner">
+      <ranking/>
+    </div>
   </div>
 
 </template>
@@ -21,9 +24,12 @@ import HomeBanner from "@/components/content/main/home/banner/HomeBanner";
 import LiveBanner from "@/components/content/main/home/live/LiveBanner";
 import Recommend from "@/components/content/main/home/recommend/Recommend";
 import Advertising from "@/components/content/main/home/advertising/Advertising";
+import Ranking from "@/components/content/main/home/ranking/Ranking";
+
 export default {
   name: "Home",
   components: {
+    Ranking,
     Advertising,
     Recommend,
     LiveBanner,
