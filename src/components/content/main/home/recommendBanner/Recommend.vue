@@ -9,7 +9,9 @@
 import LargeCard from "@/components/common/LargeCard";
 export default {
   name: "Recommend",
-  components: {LargeCard}
+  components: {
+    LargeCard
+  }
 }
 </script>
 
