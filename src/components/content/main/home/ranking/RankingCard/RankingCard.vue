@@ -1,9 +1,25 @@
 <template>
-  <div id="ranking-card">
-    <div></div>
+  <div class="ranking-card">
     <div class="title">
       热门排行TOP50
       <span>HOT</span>
+    </div>
+    <!-- 内容 -->
+    <div class="card-item">
+      <span>1</span>
+      <mini-card class="mini-card"/>
+    </div>
+    <div class="card-item">
+      <span>1</span>
+      <mini-card class="mini-card"/>
+    </div>
+    <div class="card-item">
+      <span>1</span>
+      <mini-card class="mini-card"/>
+    </div>
+    <div class="card-item">
+      <span>1</span>
+      <mini-card class="mini-card"/>
     </div>
     <div class="card-item">
       <span>1</span>
@@ -23,7 +39,7 @@ export default {
 </script>
 
 <style scoped>
-#ranking-card {
+.ranking-card {
   background-color: #fff;
   width: 387px;
   height: 496px;
@@ -51,6 +67,11 @@ export default {
   font-weight: bold;
   font-style: italic;
   color: #e2e2e2;
+}
+
+.card-item {
+  margin-bottom: 20px;
+  height: 63px;
 }
 
 .card-item span{
