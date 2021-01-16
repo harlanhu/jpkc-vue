@@ -1,8 +1,8 @@
 <template>
     <div class="block">
       <el-carousel :height="height" style="border-radius: 4px">
-        <el-carousel-item v-for="item in items" :key="item">
-          <h3 class="small">{{ item }}</h3>
+        <el-carousel-item v-for="item in items">
+          <img :src="item.resourcePath" alt="加载失败">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -19,7 +19,7 @@ export default {
     items: {
       type: Array,
       default() {
-        return ["暂无数据"];
+        return [];
       }
     }
   }
@@ -29,5 +29,10 @@ export default {
 <style scoped>
 .block {
   border-radius: 4px;
+}
+
+img {
+  width: 750px;
+  height: 360px;
 }
 </style>

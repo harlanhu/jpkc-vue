@@ -28,7 +28,7 @@ axios.defaults.timeout = 10000
  * 设置CORS跨域携带资源
  * @type {boolean} 是否允许
  */
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = false
 
 /**
  * 设置POST请求头，告知服务器请求主体数据格式
@@ -91,24 +91,5 @@ function getErrorMessage(message) {
   })
 }
 
-/**
- * get请求
- * @param url 请求地址
- * @param params 参数
- * @return 结果
- */
-export function get(url, params) {
-  return new Promise(((resolve, reject) => {
-    axios.get(url, {params: params})
-        .then(res => {
-          resolve(res.data)
-        }).catch(err => {
-          reject(err.data)
-    })
-  }))
-}
-
-export function post(url, params) {
-  return axios.post(url, params)
-}
+export default axios
 

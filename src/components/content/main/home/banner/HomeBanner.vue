@@ -43,8 +43,18 @@ export default {
   },
   data() {
     return {
-      carouselItems: ["测试数据1", "测试数据2", "测试数据3", "测试数据4", "测试数据5"]
+      carouselItems: []
     }
+  },
+  methods: {
+    getCarouselItems() {
+      this.$api.webResource.getWebResourceByLayoutName( "home-banner-carousel").then(res => {
+        this.carouselItems = res.data
+      })
+    }
+  },
+  created() {
+    this.getCarouselItems()
   }
 }
 </script>
