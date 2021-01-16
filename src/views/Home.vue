@@ -15,9 +15,7 @@
     <div id="ranking" class="common-banner">
       <ranking/>
     </div>
-    <button @click="getAllCategory">test</button>
   </div>
-
 </template>
 
 <script>
@@ -27,7 +25,7 @@ import Recommend from "@/components/content/main/home/recommend/Recommend";
 import Advertising from "@/components/content/main/home/advertising/Advertising";
 import Ranking from "@/components/content/main/home/ranking/Ranking";
 
-import {getAllCategory} from "@/network/api";
+import {getAllCategory} from "@/api/api";
 
 export default {
   name: "Home",
@@ -38,17 +36,10 @@ export default {
     LiveBanner,
     HomeBanner
   },
-  methods: {
-    getAllCategory() {
-      getAllCategory(null).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-  },
   created() {
-    this.getAllCategory()
+    getAllCategory().then(data => {
+      console.log(data)
+    })
   }
 }
 </script>
