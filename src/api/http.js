@@ -1,5 +1,4 @@
 import axios from "axios";
-import qs from 'qs';
 import {Message} from "element-ui";
 
 /**
@@ -29,14 +28,13 @@ axios.defaults.timeout = 10000
  * 设置CORS跨域携带资源
  * @type {boolean} 是否允许
  */
-axios.defaults.withCredentials = false
+axios.defaults.withCredentials = true
 
 /**
  * 设置POST请求头，告知服务器请求主体数据格式
  * @type {string} application/json;charset=UTF-8;multipart/form-data
  */
 axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8;multipart/form-data'
-axios.defaults.transformRequest = data => qs.stringify(data)
 
 /**
  * 设置请求拦截器

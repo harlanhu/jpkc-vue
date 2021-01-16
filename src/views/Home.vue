@@ -25,8 +25,6 @@ import Recommend from "@/components/content/main/home/recommend/Recommend";
 import Advertising from "@/components/content/main/home/advertising/Advertising";
 import Ranking from "@/components/content/main/home/ranking/Ranking";
 
-import {getAllCategory} from "@/api/api";
-
 export default {
   name: "Home",
   components: {
@@ -35,11 +33,6 @@ export default {
     Recommend,
     LiveBanner,
     HomeBanner
-  },
-  created() {
-    getAllCategory().then(data => {
-      console.log(data)
-    })
   }
 }
 </script>
