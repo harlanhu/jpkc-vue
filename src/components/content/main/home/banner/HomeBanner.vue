@@ -20,7 +20,7 @@
     </el-row>
     <!-- 底边栏 -->
     <div id="school">
-      <school/>
+      <school :school-items="schoolItems"/>
     </div>
   </div>
 </template>
@@ -43,7 +43,8 @@ export default {
   },
   data() {
     return {
-      carouselItems: []
+      carouselItems: [],
+      schoolItems: [],
     }
   },
   methods: {
@@ -51,10 +52,16 @@ export default {
       this.$api.webResource.getWebResourceByLayoutName( "home-banner-carousel").then(res => {
         this.carouselItems = res.data
       })
+    },
+    getSchoolItems() {
+      this.$api.webResource.getWebResourceByLayoutName("home-banner-school").then(res => {
+        this.schoolItems = res.data
+      })
     }
   },
   created() {
     this.getCarouselItems()
+    this.getSchoolItems()
   }
 }
 </script>
