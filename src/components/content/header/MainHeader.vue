@@ -6,6 +6,7 @@
       </el-col>
       <el-col :span="8" :offset="1">
         <div class="content">
+          <login-dialog ref="login-dialog"/>
           <drop-down id="drop-down" :title="dropdownTitle" :items="dropdownItems"/>
           <el-button type="text">学校</el-button>
           <el-button type="text">学校云</el-button>
@@ -17,7 +18,7 @@
         <search-input id="search-input"/>
       </el-col>
       <el-col :span="2" :offset="1">
-        <el-button type="text">注册<el-divider direction="vertical"/>登录</el-button>
+        <el-button @click="activeLoginDialog" type="text">注册<el-divider direction="vertical"/>登录</el-button>
       </el-col>
     </el-row>
   </div>
@@ -26,10 +27,12 @@
 <script>
 import DropDown from "@/components/common/DropDown";
 import SearchInput from "@/components/common/SearchInput";
+import LoginDialog from "@/components/content/dialog/login/LoginDialog";
 
 export default {
   name: "MainHeader",
   components: {
+    LoginDialog,
     SearchInput,
     DropDown
   },
@@ -37,6 +40,11 @@ export default {
     return {
       dropdownTitle: "课程",
       dropdownItems: ["Java", "Vue", "Python", "C++", "C#", "PHP"]
+    }
+  },
+  methods: {
+    activeLoginDialog() {
+      this.$refs.loginDialog.dialogVisible = true
     }
   }
 }
