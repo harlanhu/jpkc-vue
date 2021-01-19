@@ -1,15 +1,29 @@
 <template>
-  <div>
+  <div id="login-dialog">
     <el-dialog
-        title="提示"
         :visible.sync="centerDialogVisible"
-        width="30%"
+        width="560px"
         center>
-      <span>需要注意的是内容是默认不居中的</span>
+      <div v-if="loginMethodState === 0">
+        <h1>二维码登录</h1>
+      </div>
+      <div v-else-if="loginMethodState === 1">
+        <h1>手机登录</h1>
+      </div>
+      <div v-else-if="loginMethodState === 2">
+        <h1>邮箱登录</h1>
+      </div>
+      <div v-else>
+        <h1>学生号登录</h1>
+      </div>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="centerDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
-  </span>
+        <div v-if="loginMethodState === 0">
+          <span @click="changeLoginMethod(1)">其他登录方式</span>
+        </div>
+        <div v-else>
+          <span @click="changeLoginMethod(0)">二维码登录</span>
+        </div>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -17,17 +31,31 @@
 <script>
 export default {
   name: "LoginDialog",
-  props: {
-    dialogVisible: false
-  },
   data() {
     return {
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      loginMethodState: 0
     }
+  },
+  methods: {
+    changeLoginMethod(state) {
+      this.loginMethodState = state
+    }
+  },
+  mounted() {
+    this.$bus.$on("activeLoginDialog", isActive => {
+      this.centerDialogVisible = isActive
+    })
   }
 }
 </script>
 
 <style scoped>
-
+.dialog-footer span{
+  cursor: pointer;
+  display: inline-block;
+  color: #666;
+  font-size: 14px;
+  text-align: left;
+}
 </style>

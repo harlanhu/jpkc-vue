@@ -1,12 +1,12 @@
 <template>
   <div id="main-header">
+    <login-dialog/>
     <el-row :gutter="0">
       <el-col :span="4">
         <img src="~assets/images/logo.png" alt="logo">
       </el-col>
       <el-col :span="8" :offset="1">
         <div class="content">
-          <login-dialog ref="login-dialog"/>
           <drop-down id="drop-down" :title="dropdownTitle" :items="dropdownItems"/>
           <el-button type="text">学校</el-button>
           <el-button type="text">学校云</el-button>
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     activeLoginDialog() {
-      this.$refs.loginDialog.dialogVisible = true
+      this.$bus.$emit("activeLoginDialog", true)
     }
   }
 }
