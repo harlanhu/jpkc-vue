@@ -23,8 +23,8 @@
               <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" :placeholder="placeholder"
                         clearable></el-input>
             </el-form-item>
-            <el-form-item label-width="0px" prop="pass">
-              <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.pass" autocomplete="off" placeholder="请输入密码" show-password
+            <el-form-item label-width="0px" prop="password">
+              <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
                         clearable></el-input>
             </el-form-item>
             <el-form-item label-width="0px">
@@ -62,15 +62,25 @@ export default {
       activeIndex: '1',
       rememberMe: false,
       loginForm: {
-        pass: '',
+        password: '',
         username: '',
+        email: '',
+        phone: ''
       },
       rules: {
         username: [
           {required: true, message: '用户名不能为空', trigger: 'blur'},
           {pattern: "^[a-zA-Z][a-zA-Z0-9_]{3,15}$", message: '用户名格式不正确', trigger: "blur"}
         ],
-        pass: [
+        email: [
+          {required: true, message: '邮箱不能为空', trigger: 'blur'},
+          {patten: "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", message: '请输入正确的邮箱', trigger: "blue"}
+        ],
+        phone: [
+          {required: true, message: '手机号不能为空', trigger: 'blur'},
+          {patten: "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$", message: '请输入正确的手机号', trigger: 'blur'}
+        ],
+        password: [
           {required: true, message: '密码不能为空', trigger: 'blur'},
           {pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$", message: '密码格式不正确', trigger: "blur"}
         ]
