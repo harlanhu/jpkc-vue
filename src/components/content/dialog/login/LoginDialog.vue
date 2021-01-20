@@ -9,9 +9,9 @@
       </div>
       <div v-else>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="1">邮箱登录</el-menu-item>
-          <el-menu-item index="2">手机号登录</el-menu-item>
-          <el-menu-item index="3">学生号登录</el-menu-item>
+          <el-menu-item class="login-menu" index="1">邮箱登录</el-menu-item>
+          <el-menu-item class="login-menu" index="2">手机号登录</el-menu-item>
+          <el-menu-item class="login-menu" index="3">学生号登录</el-menu-item>
         </el-menu>
         <div class="sms-verify" v-show="activeIndex === '2'">
           <span><i class="el-icon-mobile"/>短信快捷登录</span>
@@ -19,18 +19,25 @@
         <div class="form-content">
           <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="100px" class="login-form"
                    :hide-required-asterisk="true">
-            <el-form-item label="账号" label-width="50px" prop="username">
-              <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="邮箱/手机/用户名"
+            <el-form-item label-width="0px" prop="username">
+              <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" :placeholder="placeholder"
                         clearable></el-input>
             </el-form-item>
-            <el-form-item label="密码" label-width="50px" prop="pass">
-              <el-input type="password" v-model="loginForm.pass" autocomplete="off" placeholder="请输入密码" show-password
+            <el-form-item label-width="0px" prop="pass">
+              <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.pass" autocomplete="off" placeholder="请输入密码" show-password
                         clearable></el-input>
             </el-form-item>
             <el-form-item label-width="0px">
               <el-button class="submit" type="primary" @click="submitForm('loginForm')">登录</el-button>
             </el-form-item>
           </el-form>
+          <div class="login-other">
+            <el-checkbox v-model="rememberMe">十天内免登录</el-checkbox>
+            <el-divider direction="vertical"/>
+            <el-link>忘记密码?</el-link>
+            <el-divider direction="vertical"/>
+            <el-link type="success">立即注册</el-link>
+          </div>
         </div>
       </div>
       <span slot="footer" class="dialog-footer div-dialog-footer">
@@ -53,6 +60,7 @@ export default {
       centerDialogVisible: false,
       loginMethodState: 0,
       activeIndex: '1',
+      rememberMe: false,
       loginForm: {
         pass: '',
         username: '',
@@ -85,6 +93,20 @@ export default {
           return false
         }
       })
+    }
+  },
+  computed: {
+    placeholder() {
+      switch (this.activeIndex) {
+        case "1":
+          return "请输入个人邮箱"
+        case "2":
+          return "请输入手机号码"
+        case "3":
+          return "请输入学生账号"
+        default:
+          return "请输入账号"
+      }
     }
   },
   mounted() {
@@ -128,7 +150,7 @@ export default {
 
 .sms-verify {
   margin-top: 10px;
-  width: 100%;
+  width: 85%;
   text-align: right;
 }
 
@@ -136,10 +158,20 @@ export default {
   width: 360px;
   margin-top: 20px;
   text-align: center;
-  margin-left: 60px;
+  margin-left: 80px;
 }
 
 .submit {
   width: 100%;
+}
+
+.login-menu {
+  font-size: 20px;
+  color: #999;
+}
+
+.login-other {
+  font-size: 12px;
+  color: #999;
 }
 </style>
