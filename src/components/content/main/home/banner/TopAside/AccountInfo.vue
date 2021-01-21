@@ -6,7 +6,7 @@
         <avatar/>
       </div>
       <div class="login-btn">
-        <el-button class="login-btn" size="small" type="success" round>登录/注册</el-button>
+        <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>登录/注册</el-button>
       </div>
       <div class="foot-info">网易和高等教育出版社出品</div>
     </div>
@@ -15,10 +15,16 @@
 
 <script>
 import Avatar from "@/components/common/Avatar";
+
 export default {
   name: "AccountInfo",
   components: {
     Avatar
+  },
+  methods: {
+    activeLoginDialog() {
+      this.$bus.$emit("activeLoginDialog", true)
+    }
   }
 }
 </script>

@@ -3,6 +3,8 @@
     <el-dialog
         :visible.sync="centerDialogVisible"
         width="560px"
+        @open="openLoginDialog"
+        @close="closeLoginDialog"
         center>
       <div v-if="loginMethodState === 0">
         <h1>二维码登录</h1>
@@ -20,12 +22,20 @@
           <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="100px" class="login-form"
                    :hide-required-asterisk="true">
             <el-form-item label-width="0px" prop="username">
-              <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" :placeholder="placeholder"
+              <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off"
+                        :placeholder="placeholder"
                         clearable></el-input>
             </el-form-item>
             <el-form-item label-width="0px" prop="password">
-              <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码" show-password
+              <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" autocomplete="off"
+                        placeholder="请输入密码" show-password
                         clearable></el-input>
+            </el-form-item>
+            <el-form-item label-width="0xp" prop="verifyCode">
+              <el-input style="width: 160px; float: left" placeholder="请输入验证码" type="text"
+                        v-model="loginForm.verifyCode" maxlength="4"></el-input>
+              <div style="width: 40px; height: 10px; float: left"></div>
+              <img style="float: left" class="verify-code" :src="verifyCodeImage" alt="加载失败">
             </el-form-item>
             <el-form-item label-width="0px">
               <el-button class="submit" type="primary" @click="submitForm('loginForm')">登录</el-button>
@@ -56,33 +66,53 @@
 export default {
   name: "LoginDialog",
   data() {
+    let usernameValidator = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error("当前内容不能为空!"))
+      }
+      if (this.activeIndex === '1') {
+        if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)) {
+          callback(new Error("请填写正确的邮箱!"))
+        } else {
+          callback()
+        }
+      } else if (this.activeIndex === '2') {
+        if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
+          callback(new Error("请填写正确的手机号!"))
+        } else {
+          callback()
+        }
+      } else if (this.activeIndex === '3') {
+        if (!/^[a-zA-Z][a-zA-Z0-9_]{3,15}$/.test(value)) {
+          callback(new Error("请填写正确的账号!"))
+        } else {
+          callback()
+        }
+      }
+    }
+
     return {
       centerDialogVisible: false,
       loginMethodState: 0,
       activeIndex: '1',
       rememberMe: false,
+      verifyCodeImage: '',
       loginForm: {
         password: '',
         username: '',
-        email: '',
-        phone: ''
+        verifyCode: ''
       },
       rules: {
         username: [
-          {required: true, message: '用户名不能为空', trigger: 'blur'},
-          {pattern: "^[a-zA-Z][a-zA-Z0-9_]{3,15}$", message: '用户名格式不正确', trigger: "blur"}
-        ],
-        email: [
-          {required: true, message: '邮箱不能为空', trigger: 'blur'},
-          {patten: "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", message: '请输入正确的邮箱', trigger: "blue"}
-        ],
-        phone: [
-          {required: true, message: '手机号不能为空', trigger: 'blur'},
-          {patten: "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$", message: '请输入正确的手机号', trigger: 'blur'}
+          {validator: usernameValidator, trigger: 'blur'}
         ],
         password: [
           {required: true, message: '密码不能为空', trigger: 'blur'},
           {pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$", message: '密码格式不正确', trigger: "blur"}
+        ],
+        verifyCode: [
+          {required: true, message: '验证码不能为空', trigger: 'blur'},
+          {pattern: "^[0-9]{4}$", message: '请填写正确的验证码', trigger: 'blur'}
         ]
       }
     }
@@ -92,6 +122,8 @@ export default {
       this.loginMethodState = state
     },
     handleSelect(key) {
+      this.$refs['loginForm'].resetFields()
+      this.showVerifyCode()
       this.activeIndex = key
     },
     submitForm(formName) {
@@ -102,6 +134,21 @@ export default {
           alert("failed!")
           return false
         }
+      })
+    },
+    closeLoginDialog() {
+      if (this.loginMethodState !== 0) {
+        this.$refs['loginForm'].resetFields()
+      }
+    },
+    openLoginDialog() {
+      this.showVerifyCode()
+    },
+    showVerifyCode() {
+      this.$api.verifyCode.getVerifyCode().then(res => {
+        this.verifyCodeImage = window.URL.createObjectURL(res)
+      }).catch(err => {
+        console.log(err)
       })
     }
   },
@@ -183,5 +230,10 @@ export default {
 .login-other {
   font-size: 12px;
   color: #999;
+}
+
+.verify-code {
+  height: 40px;
+  border-radius: 4px;
 }
 </style>
