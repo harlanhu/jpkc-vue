@@ -1,5 +1,6 @@
 import axios from "axios";
 import {Message} from "element-ui";
+import store from "../store";
 
 /**
  * 环境变量接口区分默认地址
@@ -41,8 +42,10 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8;multipa
  */
 axios.interceptors.request.use(config => {
   //携带token
-  let token = localStorage.getItem('token')
+  let token = store.state.token
+  let kaptchaCode = store.state.kaptchaCode
   token && (config.headers.Authorization = token)
+  kaptchaCode && (config.headers.KaptchaCode = kaptchaCode)
   return config
 }, error => {
   return Promise.reject(error)
@@ -62,6 +65,8 @@ axios.defaults.validateStatus = status => {
  * 响应拦截器
  */
 axios.interceptors.response.use(response => {
+  store.state.token = response.headers.Authorization
+  store.state.kaptchaCode = response.headers.kaptchacode
   return response.data
 }, error => {
   let {response} = error
