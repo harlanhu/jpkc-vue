@@ -35,7 +35,7 @@
               <el-input style="width: 160px; float: left" placeholder="请输入验证码" type="text"
                         v-model="loginForm.verifyCode" maxlength="4"></el-input>
               <div style="width: 40px; height: 10px; float: left"></div>
-              <img style="float: left" class="verify-code" :src="verifyCodeImage" alt="加载失败">
+              <img style="float: left" class="verify-code" :src="verifyCodeImage" @click="showVerifyCode" alt="加载失败">
             </el-form-item>
             <el-form-item label-width="0px">
               <el-button class="submit" type="primary" @click="submitForm('loginForm')">登录</el-button>
@@ -65,7 +65,7 @@
 <script>
 export default {
   name: "LoginDialog",
-  data() {
+  data: function () {
     let usernameValidator = (rule, value, callback) => {
       if (value === '') {
         callback(new Error("当前内容不能为空!"))
@@ -91,6 +91,17 @@ export default {
       }
     }
 
+    let verifyCodeValidator = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error("验证码不能为空!"))
+      }
+      if (!/^[A-Za-z0-9]{4}$/.test(value)) {
+        callback(new Error("请填写正确的验证码"))
+      } else {
+        callback()
+      }
+    }
+
     return {
       centerDialogVisible: false,
       loginMethodState: 0,
@@ -111,8 +122,7 @@ export default {
           {pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$", message: '密码格式不正确', trigger: "blur"}
         ],
         verifyCode: [
-          {required: true, message: '验证码不能为空', trigger: 'blur'},
-          {pattern: "^[0-9]{4}$", message: '请填写正确的验证码', trigger: 'blur'}
+          {validator: verifyCodeValidator, trigger: 'blur'},
         ]
       }
     }
@@ -129,7 +139,14 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("done!")
+          this.$api.account.login(this.loginForm)
+          .then(res => {
+            if (res.status !== 200) {
+              this.showVerifyCode()
+            } else {
+              this.$store.state.account = res.data
+            }
+          })
         } else {
           alert("failed!")
           return false

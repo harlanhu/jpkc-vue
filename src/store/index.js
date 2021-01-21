@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: null,
-    kaptchaCode: null
+    kaptchaCode: null,
+    account: null
   },
   mutations: {
   },

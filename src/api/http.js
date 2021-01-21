@@ -35,6 +35,7 @@ axios.defaults.withCredentials = false
  * 设置POST请求头，告知服务器请求主体数据格式
  * @type {string} application/json;charset=UTF-8;multipart/form-data
  */
+//axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8;multipart/form-data'
 axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8;multipart/form-data'
 
 /**
@@ -73,6 +74,7 @@ axios.interceptors.response.use(response => {
   let message = response.data.message
   if (response) {
     getErrorMessage(message)
+    return response.data
   }else {
     //服务器未返回结果
     if (!window.navigator.onLine) {
