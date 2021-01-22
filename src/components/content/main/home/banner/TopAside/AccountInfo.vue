@@ -1,11 +1,18 @@
 <template>
   <div id="account-info">
-    <div id="logout">
+    <div id="login" v-if="isLogin">
+      <div class="avatar-login">
+        <avatar :src="account.avatar"/>
+        <h1>{{account.username}}</h1>
+      </div>
+
+    </div>
+    <div id="logout" v-else>
       <div class="title">免费学习来自名校名师的精品课程</div>
       <div class="avatar">
         <avatar/>
       </div>
-      <div v-if="this.$store.state.token === null" class="login-btn">
+      <div class="login-btn">
         <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>登录/注册</el-button>
       </div>
       <div class="foot-info">网易和高等教育出版社出品</div>
@@ -24,6 +31,14 @@ export default {
   methods: {
     activeLoginDialog() {
       this.$bus.$emit("activeLoginDialog", true)
+    }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.token !== null
+    },
+    account() {
+      return this.$store.state.accountInfo
     }
   }
 }

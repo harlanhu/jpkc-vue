@@ -5,11 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null,
+    token: localStorage.getItem('accessToken') || null,
     kaptchaCode: null,
-    account: null
+    accountInfo: JSON.parse(localStorage.getItem('accountInfo')) || null
   },
   mutations: {
+    setToken(state, token) {
+      state.token = token
+    },
+    setAccount(state, account) {
+      state.accountInfo = account
+    }
   },
   actions: {
   },

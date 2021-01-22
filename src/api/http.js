@@ -43,7 +43,8 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8;multipa
  */
 axios.interceptors.request.use(config => {
   //携带token
-  let token = store.state.token
+  // let token = store.state.token
+  let  token = localStorage.getItem('accessToken')
   let kaptchaCode = store.state.kaptchaCode
   token && (config.headers.Authorization = token)
   kaptchaCode && (config.headers.KaptchaCode = kaptchaCode)
@@ -66,7 +67,10 @@ axios.defaults.validateStatus = status => {
  * 响应拦截器
  */
 axios.interceptors.response.use(response => {
-  store.state.token = response.headers.Authorization
+  if (response.headers.authorization) {
+    localStorage.setItem('accessToken', response.headers.authorization)
+    store.state.token = response.headers.authorization
+  }
   store.state.kaptchaCode = response.headers.kaptchacode
   return response.data
 }, error => {

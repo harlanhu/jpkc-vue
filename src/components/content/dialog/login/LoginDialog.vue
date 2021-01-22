@@ -154,10 +154,13 @@ export default {
               this.showVerifyCode()
               this.errorMessage = res.message
             } else {
-              this.$store.state.account = res.data
+              alert(JSON.stringify(res.data))
+              localStorage.setItem('accountInfo', JSON.stringify(res.data))
+              this.centerDialogVisible = false
             }
           })
         } else {
+          this.showVerifyCode()
           this.errorMessage = '请填写正确的信息'
           return false
         }
