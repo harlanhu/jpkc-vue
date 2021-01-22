@@ -15,6 +15,7 @@
           <el-menu-item class="login-menu" index="2">手机号登录</el-menu-item>
           <el-menu-item class="login-menu" index="3">学生号登录</el-menu-item>
         </el-menu>
+        <el-alert v-show="errorMessage !== ''" :title="errorMessage" type="error" center show-icon></el-alert>
         <div class="sms-verify" v-show="activeIndex === '2'">
           <span><i class="el-icon-mobile"/>短信快捷登录</span>
         </div>
@@ -22,18 +23,20 @@
           <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="100px" class="login-form"
                    :hide-required-asterisk="true">
             <el-form-item label-width="0px" prop="username">
-              <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off"
+              <el-input :prefix-icon="prefixIcon" type="text" v-model="loginForm.username" auto-complete="off"
+                        :maxlength="maxlength"
                         :placeholder="placeholder"
-                        clearable></el-input>
+                        clearable/>
             </el-form-item>
             <el-form-item label-width="0px" prop="password">
               <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" autocomplete="off"
+                        maxlength="16"
                         placeholder="请输入密码" show-password
-                        clearable></el-input>
+                        clearable/>
             </el-form-item>
             <el-form-item label-width="0xp" prop="verifyCode">
               <el-input style="width: 160px; float: left" placeholder="请输入验证码" type="text"
-                        v-model="loginForm.verifyCode" maxlength="4"></el-input>
+                        v-model="loginForm.verifyCode" maxlength="4h"/>
               <div style="width: 40px; height: 10px; float: left"></div>
               <img style="float: left" class="verify-code" :src="verifyCodeImage" @click="showVerifyCode" alt="加载失败">
             </el-form-item>
@@ -108,6 +111,7 @@ export default {
       activeIndex: '1',
       rememberMe: false,
       verifyCodeImage: '',
+      errorMessage: '',
       loginForm: {
         password: '',
         username: '',
@@ -119,7 +123,7 @@ export default {
         ],
         password: [
           {required: true, message: '密码不能为空', trigger: 'blur'},
-          {pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$", message: '密码格式不正确', trigger: "blur"}
+          {pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$", message: '密码格式不正确', trigger: "blur"}
         ],
         verifyCode: [
           {validator: verifyCodeValidator, trigger: 'blur'},
@@ -130,10 +134,15 @@ export default {
   methods: {
     changeLoginMethod(state) {
       this.loginMethodState = state
+      this.errorMessage = ''
+      if (state === 0) {
+        this.$refs['loginForm'].resetFields()
+      }
     },
     handleSelect(key) {
       this.$refs['loginForm'].resetFields()
       this.showVerifyCode()
+      this.errorMessage = ''
       this.activeIndex = key
     },
     submitForm(formName) {
@@ -143,18 +152,20 @@ export default {
           .then(res => {
             if (res.status !== 200) {
               this.showVerifyCode()
+              this.errorMessage = res.message
             } else {
               this.$store.state.account = res.data
             }
           })
         } else {
-          alert("failed!")
+          this.errorMessage = '请填写正确的信息'
           return false
         }
       })
     },
     closeLoginDialog() {
       if (this.loginMethodState !== 0) {
+        this.errorMessage = ''
         this.$refs['loginForm'].resetFields()
       }
     },
@@ -180,6 +191,30 @@ export default {
           return "请输入学生账号"
         default:
           return "请输入账号"
+      }
+    },
+    prefixIcon() {
+      switch (this.activeIndex) {
+        case "1":
+          return "el-icon-user"
+        case "2":
+          return "el-icon-mobile-phone"
+        case "3":
+          return "el-icon-school"
+        default:
+          return "el-icon-user"
+      }
+    },
+    maxlength() {
+      switch (this.activeIndex) {
+        case "1":
+          return 32
+        case "2":
+          return 11
+        case "3":
+          return 16
+        default:
+          return 16
       }
     }
   },

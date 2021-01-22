@@ -59,7 +59,7 @@ axios.interceptors.request.use(config => {
  */
 axios.defaults.validateStatus = status => {
   //自定义响应成功HTTP状态码
-  return /^(2|3)\d{2}$/.test(status)
+  return /^(2|3|4)\d{2}$/.test(status)
 }
 
 /**

@@ -5,7 +5,7 @@
       <div class="avatar">
         <avatar/>
       </div>
-      <div class="login-btn">
+      <div v-if="this.$store.state.token === null" class="login-btn">
         <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>登录/注册</el-button>
       </div>
       <div class="foot-info">网易和高等教育出版社出品</div>
