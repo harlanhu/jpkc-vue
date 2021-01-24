@@ -2,10 +2,9 @@
   <div id="account-info">
     <div id="login" v-if="isLogin">
       <div class="avatar-login">
-        <avatar :src="account.avatar"/>
-        <h1>{{account.username}}</h1>
+        <avatar :src="account.userAvatar"/>
+        <h1 v-model="account">{{account.username}}</h1>
       </div>
-
     </div>
     <div id="logout" v-else>
       <div class="title">免费学习来自名校名师的精品课程</div>

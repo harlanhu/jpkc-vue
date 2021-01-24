@@ -69,9 +69,11 @@ axios.defaults.validateStatus = status => {
 axios.interceptors.response.use(response => {
   if (response.headers.authorization) {
     localStorage.setItem('accessToken', response.headers.authorization)
-    store.state.token = response.headers.authorization
+    store.commit('setToken', response.headers.authorization)
   }
-  store.state.kaptchaCode = response.headers.kaptchacode
+  if (response.headers.kaptchacode) {
+    store.commit('setKaptchaCode', response.headers.kaptchacode)
+  }
   return response.data
 }, error => {
   let {response} = error

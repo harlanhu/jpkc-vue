@@ -15,9 +15,18 @@ export default new Vuex.Store({
     },
     setAccount(state, account) {
       state.accountInfo = account
+    },
+    setKaptchaCode(state, code) {
+      state.kaptchaCode = code
     }
   },
   actions: {
+    setToken(context, token) {
+      context.commit('setToken', token)
+    },
+    setAccount(context, accountInfo) {
+      context.commit('setAccount', accountInfo)
+    }
   },
   modules: {
   }
