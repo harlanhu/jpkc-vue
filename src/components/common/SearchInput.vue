@@ -3,7 +3,7 @@
     <el-autocomplete
         v-model="state"
         :fetch-suggestions="querySearchAsync"
-        placeholder="请输入内容"
+        :placeholder="placeholder"
         size="medium"
         suffix-icon="el-icon-search"
         @select="handleSelect">
@@ -14,6 +14,12 @@
 <script>
 export default {
   name: "SearchInput",
+  props: {
+    placeholder: {
+      type: String,
+      default: "请输入搜索内容"
+    }
+  },
   data() {
     return {
       restaurants: [],

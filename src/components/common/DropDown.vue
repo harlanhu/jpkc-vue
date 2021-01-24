@@ -5,7 +5,7 @@
         {{title}}<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item v-for="item in items">{{item}}</el-dropdown-item>
+        <el-dropdown-item v-for="item in items">{{item.categoryName}}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>

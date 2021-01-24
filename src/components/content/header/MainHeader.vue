@@ -15,10 +15,13 @@
         </div>
       </el-col>
       <el-col :span="6" :offset="2">
-        <search-input id="search-input"/>
+        <search-input id="search-input" placeholder="请输入感兴趣的课程"/>
       </el-col>
       <el-col :span="2" :offset="1">
-        <el-button @click="activeLoginDialog" type="text">注册<el-divider direction="vertical"/>登录</el-button>
+        <el-button v-if="$store.state.token === null" @click="activeLoginDialog" type="text">注册<el-divider direction="vertical"/>登录</el-button>
+        <div v-else>
+          <el-button @click="activeLoginDialog" type="text">个人中心</el-button>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -28,10 +31,12 @@
 import DropDown from "@/components/common/DropDown";
 import SearchInput from "@/components/common/SearchInput";
 import LoginDialog from "@/components/content/dialog/login/LoginDialog";
+import Avatar from "@/components/common/Avatar";
 
 export default {
   name: "MainHeader",
   components: {
+    Avatar,
     LoginDialog,
     SearchInput,
     DropDown
@@ -45,7 +50,16 @@ export default {
   methods: {
     activeLoginDialog() {
       this.$bus.$emit("activeLoginDialog", true)
+    },
+    getAllCategory() {
+      this.$api.category.getAllCategory()
+      .then(res => {
+        this.dropdownItems = res.data
+      })
     }
+  },
+  created() {
+    this.getAllCategory()
   }
 }
 </script>
