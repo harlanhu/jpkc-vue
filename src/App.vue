@@ -40,6 +40,8 @@ export default {
 
 .el-main {
   min-height: calc(100vh - 209px);
+  margin: 0;
+  padding: 0;
 }
 
 .el-footer {

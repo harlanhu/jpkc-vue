@@ -14,7 +14,7 @@ export default {
     },
     src: {
       type: String,
-      default: "https://web-applications.oss-cn-chengdu.aliyuncs.com/jpck/user/default/avatar/user-default-avatar.png?Expires=1610800828&OSSAccessKeyId=TMP.3KeuTQQTj4gGDs155jD4pHx37ZZyNjDwrDh3B4MsZ9wfn1rsCFYs9L9Qkw89URJKnq5TNAqzzQcNxKafnrAkWnqgWbkS3y&Signature=ODsbvaXZznI81hKhQGlgNL1L%2BP4%3D&versionId=CAEQPRiBgIDjy_zuthciIDQ1OTQ4NzcxNmI2YzQzZGJiMmUyMjgwMDgyNDk5OGNk&response-content-type=application%2Foctet-stream"
+      default: "https://web-applications.oss-cn-chengdu.aliyuncs.com/jpck/user/default/avatar/user-default-avatar.png?Expires=1611484497&OSSAccessKeyId=TMP.3KgudnC61CxX5eqfPGUHYSFAywBdUHkWfEKHnG7eoEjwX73KuywTebZuTqKoR93CKkTv1A5kH2CZbwnyFXKMrqXiDE4cMs&Signature=zZxwRb%2FvCXGCJ3A8D106pylnc5Q%3D&versionId=CAEQPRiBgIDjy_zuthciIDQ1OTQ4NzcxNmI2YzQzZGJiMmUyMjgwMDgyNDk5OGNk&response-content-type=application%2Foctet-stream"
     }
   }
 }

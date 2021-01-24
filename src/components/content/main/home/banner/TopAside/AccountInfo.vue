@@ -2,8 +2,16 @@
   <div id="account-info">
     <div id="login" v-if="isLogin">
       <div class="avatar-login">
-        <avatar :src="account.userAvatar"/>
-        <h1 v-model="account">{{account.username}}</h1>
+        <div class="login-avatar">
+          <avatar :src="account.userAvatar"/>
+        </div>
+        <div class="username">{{account.username}}</div>
+        <div>
+          课程相关
+        </div>
+        <div class="course-btn">
+          <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>我的课程</el-button>
+        </div>
       </div>
     </div>
     <div id="logout" v-else>
@@ -91,5 +99,30 @@ export default {
   bottom: 20px;
   font-weight: 400;
   left: 16px;
+}
+
+.username {
+  position: absolute;
+  top: 120px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width-space: nowrap;
+  margin-left: 25px;
+}
+
+.login-avatar {
+  position: absolute;
+  top: 30px;
+  margin-left: 15px;
+}
+
+.course-btn {
+  position: relative;
+  left: 8px;
+  top: 30px;
 }
 </style>
