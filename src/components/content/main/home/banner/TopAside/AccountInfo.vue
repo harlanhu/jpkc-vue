@@ -3,7 +3,7 @@
     <div id="login" v-if="isLogin">
       <div class="avatar-login">
         <div class="login-avatar">
-          <avatar :src="account.userAvatar"/>
+          <avatar :image="account.userAvatar"/>
         </div>
         <div class="username">{{account.username}}</div>
         <div>

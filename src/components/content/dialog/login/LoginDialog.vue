@@ -161,7 +161,6 @@ export default {
                   this.showVerifyCode()
                   this.errorMessage = res.message
                 } else {
-                  alert(JSON.stringify(res.data))
                   localStorage.setItem('accountInfo', JSON.stringify(res.data))
                   this.$store.commit('setAccount', res.data)
                   this.centerDialogVisible = false
