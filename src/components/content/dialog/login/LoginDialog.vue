@@ -101,7 +101,14 @@ export default {
       if (!/^[A-Za-z0-9]{4}$/.test(value)) {
         callback(new Error("请填写正确的验证码"))
       } else {
-        callback()
+        this.isVerifyCode(value)
+            .then(res => {
+              if (res.status === 400) {
+                callback(new Error(res.message))
+              }else {
+                callback()
+              }
+            })
       }
     }
 
@@ -149,17 +156,17 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$api.account.login(this.loginForm)
-          .then(res => {
-            if (res.status !== 200) {
-              this.showVerifyCode()
-              this.errorMessage = res.message
-            } else {
-              alert(JSON.stringify(res.data))
-              localStorage.setItem('accountInfo', JSON.stringify(res.data))
-              this.$store.commit('setAccount', res.data)
-              this.centerDialogVisible = false
-            }
-          })
+              .then(res => {
+                if (res.status !== 200) {
+                  this.showVerifyCode()
+                  this.errorMessage = res.message
+                } else {
+                  alert(JSON.stringify(res.data))
+                  localStorage.setItem('accountInfo', JSON.stringify(res.data))
+                  this.$store.commit('setAccount', res.data)
+                  this.centerDialogVisible = false
+                }
+              })
         } else {
           this.showVerifyCode()
           this.errorMessage = '请填写正确的信息'
@@ -182,6 +189,9 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    isVerifyCode(value) {
+      return this.$api.verifyCode.isVerifyCode(value)
     }
   },
   computed: {
