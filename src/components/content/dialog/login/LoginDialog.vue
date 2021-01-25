@@ -36,7 +36,7 @@
             </el-form-item>
             <el-form-item label-width="0xp" prop="verifyCode">
               <el-input style="width: 160px; float: left" placeholder="请输入验证码" type="text"
-                        v-model="loginForm.verifyCode" maxlength="4h"/>
+                        v-model="loginForm.verifyCode" maxlength="4"/>
               <div style="width: 40px; height: 10px; float: left"></div>
               <img style="float: left" class="verify-code" :src="verifyCodeImage" @click="showVerifyCode" alt="加载失败">
             </el-form-item>
@@ -49,7 +49,7 @@
             <el-divider direction="vertical"/>
             <el-link>忘记密码?</el-link>
             <el-divider direction="vertical"/>
-            <el-link type="success">立即注册</el-link>
+            <el-link type="success" @click="toRegister">立即注册</el-link>
           </div>
         </div>
       </div>
@@ -191,6 +191,12 @@ export default {
     },
     isVerifyCode(value) {
       return this.$api.verifyCode.isVerifyCode(value)
+    },
+    toRegister() {
+      this.errorMessage = ''
+      this.$refs['loginForm'].resetFields()
+      this.centerDialogVisible = false
+      this.$router.push("register")
     }
   },
   computed: {
