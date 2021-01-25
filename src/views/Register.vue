@@ -6,18 +6,30 @@
         <el-step title="验证手机号码"></el-step>
         <el-step title="完成注册"></el-step>
       </el-steps>
-      <div class="content-input">
+      <div class="form-content">
         <el-form :model="registerForm" status-icon :rules="rules" ref="registerForm" label-width="100px" class="registerForm">
-          <el-form-item label-width="0px" prop="pass">
-            <el-input type="text" v-model="registerForm.email" autocomplete="off" placeholder="请输入邮箱地址"></el-input>
+          <el-form-item label-width="0px" prop="username">
+            <el-input type="text"
+                v-model="registerForm.username"
+                      autocomplete="off"
+                      placeholder="请输入邮箱地址"
+                      clearable/>
           </el-form-item>
-          <el-form-item label-width="0px" prop="checkPass">
-            <el-input type="password" v-model="registerForm.password" autocomplete="off" placeholder="请输入8-16位密码" show-password></el-input>
+          <el-form-item label-width="0px" prop="password">
+            <el-input type="password"
+                      v-model="registerForm.password"
+                      autocomplete="off"
+                      minlength="8"
+                      maxlength="16"
+                      placeholder="请输入8-16位密码"
+                      show-password/>
           </el-form-item>
           <el-checkbox>用户勾选即代表同意《xxx条款》</el-checkbox>
         </el-form>
       </div>
-      <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+      <div class="next-button">
+        <el-button @click="next">下一步</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -30,17 +42,25 @@ export default {
       if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)) {
         callback(new Error("请填写正确的邮箱!"))
       } else {
-        callback()
+        this.$api.user.isExistUser(this.registerForm.username)
+        .then(res => {
+          if (res.status === 400){
+            callback(new Error(res.message))
+          }
+          else {
+            callback()
+          }
+        })
       }
     }
     return {
       active: 0,
       registerForm: {
-        email: '',
+        username: '',
         password: ''
       },
       rules: {
-        email: [
+        username: [
           {validator: emailValidator, trigger: 'blur'}
         ],
         password: [
@@ -53,6 +73,16 @@ export default {
   methods: {
     next() {
       if (this.active++ > 2) this.active = 0;
+    },
+    submitForm() {
+      this.$refs['registerForm'].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   }
 }
@@ -71,5 +101,19 @@ export default {
   top: 60px;
   margin: 0 auto;
   width: 650px;
+}
+
+.form-content {
+  position: relative;
+  top: 50px;
+  margin: 0 auto;
+  width: 500px;
+}
+
+.next-button {
+  top: 100px;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
 }
 </style>
