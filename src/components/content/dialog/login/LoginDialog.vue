@@ -15,7 +15,7 @@
           <el-menu-item class="login-menu" index="2">手机号登录</el-menu-item>
           <el-menu-item class="login-menu" index="3">学生号登录</el-menu-item>
         </el-menu>
-        <el-alert v-show="errorMessage !== ''" :title="errorMessage" type="error" center show-icon></el-alert>
+        <el-alert v-show="errorMessage !== ''" :title="errorMessage" type="error" @close="clearErrorMessage" center show-icon></el-alert>
         <div class="sms-verify" v-show="activeIndex === '2'">
           <span><i class="el-icon-mobile"/>短信快捷登录</span>
         </div>
@@ -197,6 +197,9 @@ export default {
       this.$refs['loginForm'].resetFields()
       this.centerDialogVisible = false
       this.$router.push("register")
+    },
+    clearErrorMessage() {
+      this.errorMessage = ''
     }
   },
   computed: {
