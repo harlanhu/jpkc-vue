@@ -1,6 +1,7 @@
 import axios from "axios";
 import {Message} from "element-ui";
 import store from "../store";
+import router from "@/router";
 
 /**
  * 环境变量接口区分默认地址
@@ -60,7 +61,7 @@ axios.interceptors.request.use(config => {
  */
 axios.defaults.validateStatus = status => {
   //自定义响应成功HTTP状态码
-  return /^(2|3|4)\d{2}$/.test(status)
+  return /^(2|3)\d{2}$/.test(status)
 }
 
 /**
@@ -79,8 +80,16 @@ axios.interceptors.response.use(response => {
   let {response} = error
   let message = response.data.message
   if (response) {
-    getErrorMessage(message)
-    return response.data
+    if (response.status === 401) {
+      localStorage.clear()
+      store.commit("accessToken", null)
+      store.commit("setAccount", null)
+      router.push("/login")
+          .then(response)
+    }else {
+      getErrorMessage(message)
+      return response.data
+    }
   }else {
     //服务器未返回结果
     if (!window.navigator.onLine) {
