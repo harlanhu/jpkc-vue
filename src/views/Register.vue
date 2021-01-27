@@ -51,7 +51,7 @@
                               maxlength="4"
                               clearable/>
                   </el-form-item>
-                  <el-button @click="getSmsVerifyCode">{{smsBtnContent}}</el-button>
+                  <el-button :disabled="smsBtnDisabled" @click="getSmsVerifyCode">{{smsBtnContent}}</el-button>
                 </div>
               </div>
             </el-collapse-transition>
@@ -109,7 +109,8 @@ export default {
       errorMessage: "",
       smsBtnActive: false,
       isFirstGetCode: true,
-      sendSmsTime: 60,
+      smsBtnDisabled: false,
+      sendSmsTime: 61,
       registerForm: {
         email: '',
         password: '',
@@ -168,12 +169,15 @@ export default {
           })
     },
     sendSmsVerifyTimeOn() {
-      return setInterval(() => {
+      let timer = setInterval(() => {
+        this.smsBtnDisabled = true
         console.log(this.sendSmsTime)
         if (this.sendSmsTime > 0) {
-          this.sendSmsTime--
+          this.sendSmsTime --
         }else {
-          clearInterval(this.sendSmsVerifyTimeOn())
+          this.sendSmsTime = 61
+          this.smsBtnDisabled = false
+          clearInterval(timer)
         }
       }, 1000)
     }
@@ -190,8 +194,10 @@ export default {
     smsBtnContent() {
       if (this.isFirstGetCode) {
         return "获取验证码"
-      }else {
+      }else if (this.sendSmsTime <= 60) {
         return "重新发送(" + this.sendSmsTime + "秒)"
+      } else {
+        return "重新发送"
       }
     }
   }
