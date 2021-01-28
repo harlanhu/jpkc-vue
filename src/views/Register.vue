@@ -44,14 +44,14 @@
               <div v-show="smsBtnActive">
                 <div class="transition-box">
                   <el-form-item label-width="0px" prop="smsVerifyCode">
-                    <el-input type="text"
+                    <el-input class="verify-code-input" type="text"
                               v-model="registerForm.smsVerifyCode"
                               autocomplete="off"
                               placeholder="请输入验证码"
                               maxlength="4"
                               clearable/>
                   </el-form-item>
-                  <el-button :disabled="smsBtnDisabled" @click="getSmsVerifyCode">{{smsBtnContent}}</el-button>
+                  <el-button class="verify-code-btn" :disabled="smsBtnDisabled" @click="getSmsVerifyCode">{{smsBtnContent}}</el-button>
                 </div>
               </div>
             </el-collapse-transition>
@@ -63,7 +63,11 @@
         </el-form>
       </div>
       <div class="next-button">
-        <el-button @click="next">{{btnContent}}</el-button>
+        <el-button
+            class="next-button"
+            @click="next"
+            type="success"
+            plain :loading="isBtnLoading">{{btnContent}}</el-button>
       </div>
     </div>
   </div>
@@ -114,6 +118,7 @@ export default {
       smsBtnActive: false,
       isFirstGetCode: true,
       smsBtnDisabled: false,
+      isBtnLoading: false,
       sendSmsTime: 61,
       registerForm: {
         email: '',
@@ -162,10 +167,14 @@ export default {
           }
         } else if (this.active === 1) {
           if (valid) {
+            this.isBtnLoading = true
             this.$api.user.register(this.registerForm.email, this.registerForm.phone, this.registerForm.password, this.registerForm.smsVerifyCode)
             .then(res => {
+              this.isBtnLoading = false
               if (res.status === 200) {
                 this.active = 3
+              }else if (res.status === 400) {
+                this.errorMessage = res.message
               }
             })
           }
@@ -242,8 +251,9 @@ export default {
 }
 
 .next-button {
-  top: 100px;
+  top: 40px;
   position: relative;
+  width: 90%;
   margin: 0 auto;
   text-align: center;
 }
@@ -256,5 +266,16 @@ export default {
   border-radius: 4px;
   line-height: 24px;
   margin-bottom: 40px;
+}
+
+.verify-code-input {
+  width: 40%;
+}
+
+.verify-code-btn {
+  position: absolute;
+  width: 50%;
+  top: 163px;
+  left: 250px;
 }
 </style>
