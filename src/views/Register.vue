@@ -56,6 +56,10 @@
               </div>
             </el-collapse-transition>
           </div>
+          <div v-if="active === 3">
+            <h1>注册成功</h1>
+            <p>{{"您的账号为： " + registerForm.email}}</p>
+          </div>
         </el-form>
       </div>
       <div class="next-button">
@@ -141,6 +145,9 @@ export default {
       this.errorMessage = ''
     },
     next() {
+      if (this.active > 3) {
+        this.active = 0
+      }
       this.$refs['registerForm'].validate((valid) => {
         if (this.active === 0) {
           if (valid) {
@@ -155,8 +162,15 @@ export default {
           }
         } else if (this.active === 1) {
           if (valid) {
-
+            this.$api.user.register(this.registerForm.email, this.registerForm.phone, this.registerForm.password, this.registerForm.smsVerifyCode)
+            .then(res => {
+              if (res.status === 200) {
+                this.active = 3
+              }
+            })
           }
+        } else if (this.active === 3) {
+          this.$router.push('/login')
         }
       })
     },
@@ -169,14 +183,13 @@ export default {
           })
     },
     sendSmsVerifyTimeOn() {
+      this.smsBtnDisabled = true
       let timer = setInterval(() => {
-        this.smsBtnDisabled = true
-        console.log(this.sendSmsTime)
         if (this.sendSmsTime > 0) {
           this.sendSmsTime --
         }else {
-          this.sendSmsTime = 61
           this.smsBtnDisabled = false
+          this.sendSmsTime = 61
           clearInterval(timer)
         }
       }, 1000)
@@ -189,6 +202,8 @@ export default {
           return "下一步"
         case 1:
           return "立即验证"
+        case 3:
+          return "返回首页登录"
       }
     },
     smsBtnContent() {
