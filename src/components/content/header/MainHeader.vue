@@ -3,7 +3,7 @@
     <login-dialog/>
     <el-row :gutter="0">
       <el-col :span="4">
-        <img src="~assets/images/logo.png" alt="logo">
+        <img @click="$router.push('/home')" src="~assets/images/logo.png" alt="logo">
       </el-col>
       <el-col :span="8" :offset="1">
         <div class="content">

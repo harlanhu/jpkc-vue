@@ -48,7 +48,7 @@
                               v-model="registerForm.smsVerifyCode"
                               autocomplete="off"
                               placeholder="请输入验证码"
-                              maxlength="4"
+                              maxlength="6"
                               clearable/>
                   </el-form-item>
                   <el-button class="verify-code-btn" :disabled="smsBtnDisabled" @click="getSmsVerifyCode">{{smsBtnContent}}</el-button>
@@ -136,11 +136,11 @@ export default {
           {pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$", message: '密码格式不正确', trigger: "blur"}
         ],
         phone: [
-          {validator: phoneValidator, trigger: 'blur'}
+          {validator: phoneValidator, trigger: 'change'}
         ],
         smsVerifyCode: [
           {required: true, message: '验证码不能为空', trigger: 'blur'},
-          {pattern: "^[0-9]{4}$", message: "请输入正确的验证码", trigger: 'blur'}
+          {pattern: "^[0-9]{6}$", message: "请输入正确的验证码", trigger: 'blur'}
         ]
       }
     }
