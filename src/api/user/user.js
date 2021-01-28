@@ -5,7 +5,12 @@ function isExistUser(userInfo) {
 }
 
 function register(email, phone, password, smsVerifyCode) {
-  return axios.post("user/register")
+  return axios.post("user/register", {
+    userEmail: email,
+    userPhone: phone,
+    password: password,
+    smsVerifyCode: smsVerifyCode
+  })
 }
 
 export default {
