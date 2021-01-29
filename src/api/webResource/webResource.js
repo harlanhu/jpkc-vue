@@ -1,8 +1,7 @@
 import axios from "@/api/http"
 
-function getWebResourceByLayoutName(params) {
-  return axios.get("/website-resource/getWebResourceByLayoutName",
-      {params: {layoutName: params}})
+function getWebResourceByLayoutName(layoutName, current, size) {
+  return axios.get("/website-resource/getWebResourceByLayoutName/" + layoutName + "/" + current + "/" + size )
 }
 
 export default {

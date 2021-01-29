@@ -179,7 +179,7 @@ export default {
             })
           }
         } else if (this.active === 3) {
-          this.$router.push('/login')
+          this.$router.push('/home')
         }
       })
     },

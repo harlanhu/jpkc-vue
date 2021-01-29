@@ -58,6 +58,8 @@ export default {
       })
     }
   },
+  computed: {
+  },
   created() {
     this.getAllCategory()
   }
