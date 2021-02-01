@@ -1,15 +1,15 @@
 <template>
   <div id="large-card">
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
-      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image" alt="加载失败">
+      <img :src="data.resourcePath" class="image" alt="加载失败">
       <div id="info">
-        <h3>测试数据</h3>
+        <h3>{{course.courseName}}</h3>
         <p>测试大学</p>
       </div>
       <div id="detail">
-        <span>123123人参加</span>
+        <span>{{course.courseViews}}人参加</span>
         <el-divider></el-divider>
-        <span>测试数据的详细信息</span>
+        <span>{{course.courseDesc}}</span>
       </div>
     </el-card>
   </div>
@@ -17,7 +17,28 @@
 
 <script>
 export default {
-  name: "LargeCard"
+  name: "LargeCard",
+  props: {
+    data: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      course: {}
+    }
+  },
+  methods: {
+   getCourseById() {
+     this.$api.course.getCourseById(this.data.associateDataId)
+     .then(res => {
+       this.course = res.data
+     })
+   }
+  },
+  mounted() {
+    this.getCourseById()
+  }
 }
 </script>
 
