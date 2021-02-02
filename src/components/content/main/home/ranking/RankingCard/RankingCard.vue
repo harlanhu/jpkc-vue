@@ -5,12 +5,12 @@
       <span>HOT</span>
     </div>
     <!-- 内容 -->
-    <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage">
+    <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage" height="425px">
       <el-carousel-item v-for="page in pages">
-          <div class="card-item" v-for="item in list">
-            <span>1</span>
-            <mini-card :course="item" class="mini-card"/>
-          </div>
+        <div class="card-item" v-for="(item, index) in list">
+          <span>1</span>
+          <mini-card :course="item" class="mini-card"/>
+        </div>
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -18,6 +18,7 @@
 
 <script>
 import MiniCard from "@/components/common/MiniCard";
+
 export default {
   name: "RankingCard",
   components: {
@@ -34,13 +35,20 @@ export default {
   methods: {
     getCourseRanking() {
       this.$api.course.getRanking(this.current, this.size)
-      .then(res => {
-        this.pages = res.pages
-        this.list = res.list
-      })
+          .then(res => {
+            this.pages = res.data.pages
+            this.list = res.data.list
+          })
     },
     changePage() {
       console.log("test")
+    }
+  },
+  computed: {
+    isNum(index) {
+      if (this.current !== 0) {
+        return {}
+      }
     }
   },
   created() {
@@ -69,7 +77,7 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-height: 1.5;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 }
 
 .title span {
@@ -85,14 +93,26 @@ export default {
   height: 63px;
 }
 
-.card-item span{
+.card-item span {
   position: relative;
   float: left;
-  color: #fa5055;
+  color: #b8b8b8;
   font-size: 20px;
   margin-right: 14px;
   margin-left: 10px;
   text-align: center;
+}
+
+.first {
+  color: #FA5055;
+}
+
+.second {
+  color: #FF7130;
+}
+
+.third {
+  color: #FFB425;
 }
 
 .mini-card {

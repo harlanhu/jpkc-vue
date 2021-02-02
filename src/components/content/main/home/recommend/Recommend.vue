@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     getHomeRecommend() {
-      console.log(this.current)
       this.$api.webResource.getHomeRecommendResource(this.current, this.size)
       .then(res => {
         this.list = res.data.list
