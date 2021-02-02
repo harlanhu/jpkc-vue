@@ -10,7 +10,10 @@ import MiniCard from "@/components/common/MiniCard";
 import RankingCard from "@/components/content/main/home/ranking/RankingCard/RankingCard";
 export default {
   name: "Ranking",
-  components: {RankingCard, MiniCard}
+  components: {
+    RankingCard,
+    MiniCard
+  }
 }
 </script>
 

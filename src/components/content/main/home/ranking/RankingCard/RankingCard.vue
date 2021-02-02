@@ -5,26 +5,14 @@
       <span>HOT</span>
     </div>
     <!-- 内容 -->
-    <div class="card-item">
-      <span>1</span>
-      <mini-card class="mini-card"/>
-    </div>
-    <div class="card-item">
-      <span>1</span>
-      <mini-card class="mini-card"/>
-    </div>
-    <div class="card-item">
-      <span>1</span>
-      <mini-card class="mini-card"/>
-    </div>
-    <div class="card-item">
-      <span>1</span>
-      <mini-card class="mini-card"/>
-    </div>
-    <div class="card-item">
-      <span>1</span>
-      <mini-card class="mini-card"/>
-    </div>
+    <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage">
+      <el-carousel-item v-for="page in pages">
+          <div class="card-item" v-for="item in list">
+            <span>1</span>
+            <mini-card :course="item" class="mini-card"/>
+          </div>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
@@ -34,6 +22,29 @@ export default {
   name: "RankingCard",
   components: {
     MiniCard
+  },
+  data() {
+    return {
+      current: 0,
+      size: 5,
+      pages: 0,
+      list: []
+    }
+  },
+  methods: {
+    getCourseRanking() {
+      this.$api.course.getRanking(this.current, this.size)
+      .then(res => {
+        this.pages = res.pages
+        this.list = res.list
+      })
+    },
+    changePage() {
+      console.log("test")
+    }
+  },
+  created() {
+    this.getCourseRanking()
   }
 }
 </script>

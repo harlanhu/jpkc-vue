@@ -1,20 +1,24 @@
 <template>
   <div id="mini-card">
     <div id="images">
-      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image"
-           alt="加载失败">
+      <img :src="course.courseLogo" class="image" alt="加载失败">
     </div>
     <div class="detail">
-      <p class="title">测试数据</p>
+      <p class="title">{{course.courseName}}</p>
       <p class="producer">测试数据</p>
-      <p class="join-count">123123人参加</p>
+      <p class="join-count">{{course.courseViews}}人参加</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MiniCard"
+  name: "MiniCard",
+  props: {
+    course: {
+      type: Object
+    }
+  }
 }
 </script>
 
