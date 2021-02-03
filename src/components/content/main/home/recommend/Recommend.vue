@@ -50,7 +50,6 @@ export default {
         this.sonRefresh= true;
       });
       this.getHomeRecommend()
-      console.log(current + "---" + index + "---" + this.current)
     }
   },
   computed: {

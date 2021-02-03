@@ -8,7 +8,7 @@
     <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage" height="425px">
       <el-carousel-item v-for="page in pages">
         <div class="card-item" v-for="(item, index) in list">
-          <span>1</span>
+          <span :class="isNum(getIndexNum(index))">{{getIndexNum(index)}}</span>
           <mini-card :course="item" class="mini-card"/>
         </div>
       </el-carousel-item>
@@ -26,10 +26,11 @@ export default {
   },
   data() {
     return {
-      current: 0,
+      current: 1,
       size: 5,
       pages: 0,
-      list: []
+      list: [],
+      sonRefresh: true
     }
   },
   methods: {
@@ -40,16 +41,36 @@ export default {
             this.list = res.data.list
           })
     },
-    changePage() {
-      console.log("test")
+    changePage(current, index) {
+      if (current >= index) {
+        this.current ++
+      }else {
+        this.current --
+      }
+      this.sonRefresh = false
+      this.$nextTick(() => {
+        this.sonRefresh = true
+      })
+      this.getCourseRanking()
+    },
+    getIndexNum(index) {
+      return ((this.current - 1) * this.size) + (index + 1)
+    },
+    isNum(index) {
+      switch (index) {
+        case 1:
+          return {first: true}
+        case 2:
+          return {second: true}
+        case 3:
+          return {third: true}
+        default:
+          return {other: true}
+      }
     }
   },
   computed: {
-    isNum(index) {
-      if (this.current !== 0) {
-        return {}
-      }
-    }
+
   },
   created() {
     this.getCourseRanking()
@@ -95,12 +116,12 @@ export default {
 
 .card-item span {
   position: relative;
+  text-align: right;
   float: left;
-  color: #b8b8b8;
   font-size: 20px;
   margin-right: 14px;
   margin-left: 10px;
-  text-align: center;
+  width: 15px;
 }
 
 .first {
@@ -113,6 +134,10 @@ export default {
 
 .third {
   color: #FFB425;
+}
+
+.other {
+  color: #b8b8b8;
 }
 
 .mini-card {
