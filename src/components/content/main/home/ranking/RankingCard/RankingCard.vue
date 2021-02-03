@@ -1,8 +1,7 @@
 <template>
   <div class="ranking-card">
     <div class="title">
-      热门排行TOP50
-      <span>HOT</span>
+      <slot></slot>
     </div>
     <!-- 内容 -->
     <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage" height="425px">
@@ -21,6 +20,18 @@ import MiniCard from "@/components/common/MiniCard";
 
 export default {
   name: "RankingCard",
+  props: {
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    pages: {
+      type: Number,
+      default: 0
+    }
+  },
   components: {
     MiniCard
   },
@@ -28,19 +39,10 @@ export default {
     return {
       current: 1,
       size: 5,
-      pages: 0,
-      list: [],
-      sonRefresh: true
+      sonRefresh: true,
     }
   },
   methods: {
-    getCourseRanking() {
-      this.$api.course.getRanking(this.current, this.size)
-          .then(res => {
-            this.pages = res.data.pages
-            this.list = res.data.list
-          })
-    },
     changePage(current, index) {
       if (current >= index) {
         this.current ++
@@ -51,7 +53,7 @@ export default {
       this.$nextTick(() => {
         this.sonRefresh = true
       })
-      this.getCourseRanking()
+      this.$emit("changePage", this.current, this.size)
     },
     getIndexNum(index) {
       return ((this.current - 1) * this.size) + (index + 1)
@@ -68,12 +70,6 @@ export default {
           return {other: true}
       }
     }
-  },
-  computed: {
-
-  },
-  created() {
-    this.getCourseRanking()
   }
 }
 </script>

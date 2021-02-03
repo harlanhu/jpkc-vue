@@ -10,7 +10,17 @@ function getRanking(current, size) {
   return axios.get(baseUrl + "/getRanking/" + current + "/" + size)
 }
 
+function getNew(current, size) {
+  return axios.get(baseUrl + "/getNew/" + current + "/" + size)
+}
+
+function getStar(current, size) {
+  return axios.get(baseUrl + "/getStar/" + current + "/" +size)
+}
+
 export default {
   getCourseById,
-  getRanking
+  getRanking,
+  getNew,
+  getStar
 }
