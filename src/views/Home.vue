@@ -39,13 +39,14 @@ export default {
 
 <style scoped>
 #home {
+  padding: 0;
   margin: 0 auto;
   width: 1200px;
   height: 100%;
 }
 
 #banner {
-  margin: 45px auto;
+  margin: 0 0 40px 0;
   width: 1200px;
 }
 
