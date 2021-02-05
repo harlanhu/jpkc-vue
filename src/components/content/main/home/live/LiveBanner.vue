@@ -27,6 +27,7 @@ export default {
       current: 1,
       pages: 0,
       total: 0,
+      size: 8,
       sonRefresh: true
     }
   },
@@ -40,12 +41,21 @@ export default {
         this.total = res.data.total
       })
     },
-    changePage() {
-
+    changePage(current, index) {
+      if (current >= index) {
+        this.current ++
+      }else {
+        this.current --
+      }
+      this.sonRefresh = false
+      this.$nextTick(() => {
+        this.sonRefresh = true
+      })
+      this.getLiveCourse(this.current, this.size)
     }
   },
   created() {
-    this.getLiveCourse(1, 8)
+    this.getLiveCourse(1, this.size)
   }
 }
 </script>
