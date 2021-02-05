@@ -2,14 +2,14 @@
   <div id="live-card">
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
       <div id="date">
-        <div class="live-date">{{ date }}</div>
+        <div class="live-date"><i class="el-icon-message-solid"/>&nbsp;&nbsp;{{ reserveTime }}</div>
       </div>
       <div class="avatar">
         <avatar :size="52"/>
       </div>
       <div class="detail">
-        <p class="detail-title">{{ info }}</p>
-        <p class="detail-author">{{ author }}</p>
+        <p class="detail-title">{{ data.title }}</p>
+        <p class="detail-author">xxx</p>
       </div>
     </el-card>
   </div>
@@ -17,6 +17,7 @@
 
 <script>
 import Avatar from "@/components/common/Avatar";
+import dateFormatUtils from "@/common/dateFormat/dateFormatUtils";
 
 export default {
   name: "LiveCard",
@@ -24,22 +25,14 @@ export default {
     Avatar
   },
   props: {
-    date: {
-      type: String,
-      default: "暂无数据"
-    },
-    info: {
-      type: String,
-      default: "暂无数据"
-    },
-    author: {
-      type: String,
-      default: "暂无数据"
+    data: {
+      type: Object
     }
   },
-  data() {
-    return {
-
+  computed: {
+    reserveTime: function () {
+      let fullTime = new Date(this.data.reserveTime)
+      return dateFormatUtils.dateFormat("mm-dd HH:MM", fullTime) + "  开始"
     }
   }
 }
@@ -68,11 +61,12 @@ export default {
   height: 20px;
   line-height: 20px;
   border-radius: 10px;
-  padding: 0 10px 0 17px;
+  padding: 0 10px 0 10px;
   position: relative;
   margin-bottom: 12px;
   color: rgba(153, 153, 153, 1);
   background-color: rgba(245, 245, 245, 1);
+  text-align: center;
 }
 
 .avatar {
