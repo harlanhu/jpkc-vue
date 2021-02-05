@@ -5,6 +5,7 @@ import category from "@/api/category/category";
 import user from "@/api/user/user";
 import smsVerifyCode from "@/api/smsVerifyCode/smsVerifyCode";
 import course from "@/api/course/Course";
+import liveCourse from "@/api/liveCourse/liveCourse";
 
 /**
  * 数据请求唯一入口
@@ -16,5 +17,6 @@ export default {
   category,
   user,
   smsVerifyCode,
-  course
+  course,
+  liveCourse
 }
