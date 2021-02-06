@@ -34,6 +34,12 @@ export default {
       let fullTime = new Date(this.data.reserveTime)
       return dateFormatUtils.dateFormat("mm-dd HH:MM", fullTime) + "  开始"
     }
+  },
+  methods: {
+
+  },
+  created() {
+
   }
 }
 </script>
