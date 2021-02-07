@@ -5,11 +5,11 @@
         <div class="live-date"><i class="el-icon-message-solid"/>&nbsp;&nbsp;{{ reserveTime }}</div>
       </div>
       <div class="avatar">
-        <avatar :size="52"/>
+        <avatar :image="dataInfo.teacherAvatar" :size="52"/>
       </div>
       <div class="detail">
         <p class="detail-title">{{ data.title }}</p>
-        <p class="detail-author">xxx</p>
+        <p class="detail-author">{{ dataInfo.teacherName }}</p>
       </div>
     </el-card>
   </div>
@@ -29,6 +29,11 @@ export default {
       type: Object
     }
   },
+  data() {
+    return {
+      dataInfo: Object
+    }
+  },
   computed: {
     reserveTime: function () {
       let fullTime = new Date(this.data.reserveTime)
@@ -36,10 +41,15 @@ export default {
     }
   },
   methods: {
-
+    getTeacherInfo() {
+      this.$api.teacher.getOneById(this.data.teacherId)
+      .then(res => {
+        this.dataInfo = res.data
+      })
+    }
   },
   created() {
-
+    this.getTeacherInfo()
   }
 }
 </script>

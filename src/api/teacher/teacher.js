@@ -6,6 +6,11 @@ function getOneByCourseId(courseId) {
   return axios.get(baseUrl + "/getOneByCourseId/" + courseId)
 }
 
+function getOneById(teacherId) {
+  return axios.get(baseUrl + "/getOneById/" + teacherId)
+}
+
 export default {
-  getOneByCourseId
+  getOneByCourseId,
+  getOneById
 }
