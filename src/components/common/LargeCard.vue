@@ -3,13 +3,13 @@
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
       <img :src="data.resourcePath" class="image" alt="加载失败">
       <div id="info">
-        <h3>{{course.courseName}}</h3>
-        <p>测试大学</p>
+        <h3>{{ course.courseName }}</h3>
+        <p>{{ school.schoolName }}</p>
       </div>
       <div id="detail">
-        <span>{{course.courseViews}}人参加</span>
+        <span>{{ course.courseViews }}人参加</span>
         <el-divider></el-divider>
-        <span>{{course.courseDesc}}</span>
+        <span>{{ course.courseDesc }}</span>
       </div>
     </el-card>
   </div>
@@ -25,19 +25,27 @@ export default {
   },
   data() {
     return {
-      course: {}
+      course: {},
+      school: {}
     }
   },
   methods: {
-   getCourseById() {
-     this.$api.course.getCourseById(this.data.associateDataId)
-     .then(res => {
-       this.course = res.data
-     })
-   }
+    getCourseById() {
+      this.$api.course.getCourseById(this.data.associateDataId)
+          .then(res => {
+            this.course = res.data
+          })
+    },
+    getSchoolByTeacherId() {
+      this.$api.school.getByTeacherId(this.data.teacherId)
+      .then(res => {
+        this.school = res.data
+      })
+    }
   },
-  mounted() {
+  created() {
     this.getCourseById()
+    this.getSchoolByTeacherId()
   }
 }
 </script>
@@ -84,7 +92,7 @@ export default {
 
 #detail {
   width: 200px;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 #detail span {

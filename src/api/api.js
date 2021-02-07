@@ -7,6 +7,7 @@ import smsVerifyCode from "@/api/smsVerifyCode/smsVerifyCode";
 import course from "@/api/course/Course";
 import liveCourse from "@/api/liveCourse/liveCourse";
 import teacher from "@/api/teacher/teacher";
+import school from "@/api/school/school";
 
 /**
  * 数据请求唯一入口
@@ -20,5 +21,6 @@ export default {
   smsVerifyCode,
   course,
   liveCourse,
-  teacher
+  teacher,
+  school
 }
