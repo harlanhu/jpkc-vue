@@ -5,18 +5,53 @@
         <p></p>
       </div>
     </h3>
+    <div class="school-content">
+      <div class="school-item" v-for="school in schoolList">
+        <el-image :src="school.schoolLogo">
+          <div slot="placeholder">
+            努力加载中...
+          </div>
+          <div slot="error">
+            加载失败!
+          </div>
+        </el-image>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "School"
+  name: "School",
+  data() {
+    return {
+      schoolList: []
+    }
+  },
+  methods: {
+    getAllSchool() {
+      this.$api.school.getAll()
+      .then(res => {
+        this.schoolList = res.data
+      })
+    }
+  },
+  created() {
+    this.getAllSchool()
+  }
 }
 </script>
 
 <style scoped>
+#school {
+  width: 1232px;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
 .title {
-  padding: 90px 0 20px 0;
+  padding: 50px 0 20px 0;
   border-bottom: 1px solid #ccc;
 }
 
@@ -29,7 +64,25 @@ export default {
   left: 0;
   height: 0;
   bottom: -22px;
-  width: 120px;
+  width: 155px;
   border: 2px solid #8bb721;
+  position: relative;
+  top: 55px;
+}
+
+.el-image {
+  top: 8px;
+  width: 90%;
+  height: 90%;
+}
+
+.school-item {
+  text-align: center;
+  width: 286px;
+  height: 146px;
+  margin: 20px 20px 0 0;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  float: left;
 }
 </style>
