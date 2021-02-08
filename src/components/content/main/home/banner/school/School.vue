@@ -2,7 +2,7 @@
   <div id="school">
     <el-row type="flex" justify="space-around">
       <el-col :span="4">
-        <el-button type="text">全部749所高校<i class="el-icon-school"/></el-button>
+        <el-button type="text" @click="allSchoolClick">全部749所高校<i class="el-icon-school"/></el-button>
       </el-col>
       <el-col :span="4" v-for="(school, index) in schoolItems" :key="index">
         <img :src="school.resourcePath" alt="加载失败">
@@ -20,6 +20,11 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    allSchoolClick() {
+      this.$router.push("/school")
     }
   }
 }
