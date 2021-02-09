@@ -35,7 +35,6 @@ export default {
     getLiveCourse(current, size) {
       this.$api.liveCourse.getAll(current, size)
       .then(res => {
-        console.log(res.data.list)
         this.dataList = res.data.list
         this.pages = res.data.pages
         this.total = res.data.total

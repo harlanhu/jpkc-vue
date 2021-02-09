@@ -34,10 +34,11 @@ export default {
       this.$api.course.getCourseById(this.data.associateDataId)
           .then(res => {
             this.course = res.data
+            this.getSchoolByTeacherId(res.data.teacherId)
           })
     },
-    getSchoolByTeacherId() {
-      this.$api.school.getByTeacherId(this.data.teacherId)
+    getSchoolByTeacherId(teacherId) {
+      this.$api.school.getByTeacherId(teacherId)
       .then(res => {
         this.school = res.data
       })
@@ -45,7 +46,6 @@ export default {
   },
   created() {
     this.getCourseById()
-    this.getSchoolByTeacherId()
   }
 }
 </script>
@@ -62,7 +62,7 @@ export default {
 
 #info {
   width: 200px;
-  height: 80px;
+  height: 70px;
   margin: 10px auto;
   padding: 0;
   outline: none;
@@ -92,7 +92,9 @@ export default {
 
 #detail {
   width: 200px;
+  height: 65px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #detail span {
@@ -102,7 +104,6 @@ export default {
   font-size: 12px;
   color: #999;
   overflow: hidden;
-  bottom: 11px;
   width: calc(100% - 24px);
 }
 

@@ -11,7 +11,7 @@ switch (process.env.NODE_ENV) {
     axios.defaults.baseURL = 'http://localhost:8080'
     break
   case "beta":
-    axios.defaults.baseURL = 'http://localhost:8081'
+    axios.defaults.baseURL = 'http://192.168.31.51:8080'
     break
   case "production":
     axios.defaults.baseURL = 'http://47.108.151.199:8080'

@@ -18,6 +18,19 @@ export default {
     course: {
       type: Object
     }
+  },
+  data() {
+    return {
+      school: {}
+    }
+  },
+  methods: {
+    getSchoolByCourseId() {
+
+    }
+  },
+  created() {
+
   }
 }
 </script>
