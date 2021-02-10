@@ -5,7 +5,7 @@
     </div>
     <div class="detail">
       <p class="title">{{course.courseName}}</p>
-      <p class="producer">测试数据</p>
+      <p class="producer">{{school.schoolName}}</p>
       <p class="join-count">{{course.courseViews}}人参加</p>
     </div>
   </div>
@@ -26,11 +26,14 @@ export default {
   },
   methods: {
     getSchoolByCourseId() {
-
+      this.$api.school.getByCourseId(this.course.courseId)
+      .then(res => {
+        this.school = res.data
+      })
     }
   },
   created() {
-
+    this.getSchoolByCourseId()
   }
 }
 </script>
