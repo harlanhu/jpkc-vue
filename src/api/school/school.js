@@ -14,8 +14,13 @@ function getByCourseId(courseId) {
   return axios.get(baseURL + "/getByCourseId/" + courseId)
 }
 
+function getCount() {
+  return axios.get(baseURL + "/getCount")
+}
+
 export default {
   getByTeacherId,
   getAll,
-  getByCourseId
+  getByCourseId,
+  getCount
 }
