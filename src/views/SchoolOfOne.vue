@@ -30,6 +30,29 @@
         </div>
       </el-menu>
     </div>
+    <div class="school-class-item">
+      <div class="class-card">
+        <el-card :body-style="{ padding: '0px'}">
+          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <div class="class-info">
+            <span>英语阅读</span>
+            <span>进行第 7 周</span>
+          </div>
+          <div class="school-info">
+            <span>北京大学</span>
+            <span>12313</span>
+          </div>
+        </el-card>
+      </div>
+      <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="1000"
+          :page-count="11"
+          :page-size="20"
+          :hide-on-single-page="true">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -155,5 +178,23 @@ export default {
   position: relative;
   left: 620px;
   top: 13px;
+}
+
+.school-class-item {
+  width: 1205px;
+  margin: 20px auto 20px auto;
+  text-align: center;
+}
+
+.class-card {
+  width: 228px;
+  height: 100%;
+}
+
+.class-logo {
+  transition: all 0.3s cubic-bezier(0, 0.5, 0.5, 1) 0s;
+  width: 228px;
+  height: 128px;
+  vertical-align: middle;
 }
 </style>
