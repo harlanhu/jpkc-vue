@@ -18,9 +18,14 @@ function getStar(current, size) {
   return axios.get(baseUrl + "/getStar/" + current + "/" +size)
 }
 
+function getBySchoolId(schoolId, current, size) {
+  return axios.get(baseUrl + "/getBySchoolId/" + schoolId +"/"+ current + "/" + size)
+}
+
 export default {
   getCourseById,
   getRanking,
   getNew,
-  getStar
+  getStar,
+  getBySchoolId
 }

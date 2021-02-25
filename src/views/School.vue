@@ -6,8 +6,8 @@
       </div>
     </h3>
     <div class="school-content">
-      <div class="school-item" v-for="school in schoolList">
-        <el-image :src="school.schoolLogo">
+      <a class="school-item" v-for="school in schoolList">
+        <el-image :src="school.schoolLogo" @click="routeToSchoolOfOne(school.schoolName)">
           <div slot="placeholder">
             努力加载中...
           </div>
@@ -15,7 +15,7 @@
             加载失败!
           </div>
         </el-image>
-      </div>
+      </a>
     </div>
   </div>
 </template>
@@ -34,6 +34,9 @@ export default {
       .then(res => {
         this.schoolList = res.data
       })
+    },
+    routeToSchoolOfOne(schoolName) {
+      this.$router.push("/school/" + schoolName)
     }
   },
   created() {

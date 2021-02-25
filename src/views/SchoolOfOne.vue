@@ -4,7 +4,7 @@
       <div class="banner">
         <div class="banner-bg"></div>
         <div class="banner-avatar">
-          <img src="https://nos.netease.com/edu-image/F78C41FA9703708FB193137A688F7195.png?imageView&thumbnail=150y150&quality=100" alt="加载失败">
+          <img class="school-logo" :src="school.schoolLogo" alt="加载失败">
         </div>
       </div>
     </div>
@@ -12,8 +12,8 @@
       <div class="b-20"></div>
       <div class="doc">
         <div class="doc-content">
-          <h1>北京大学</h1>
-          <p>北京大学创办于1898年，初名京师大学堂，是中国第一所国立综合性大学，也是当时中国最高教育行政机关。辛亥革命后，于1912年改为现名。 学校为教育部直属全国重点大学，国家“211工程”、“985工程”建设大学、C9联盟，以及东亚研究型大学协会、国际研究型大学联盟、环太平洋大学联盟、东亚四大学论坛的重要成员。</p>
+          <h1>{{school.schoolName}}</h1>
+          <p class="school-desc">{{school.schoolDesc}}</p>
         </div>
       </div>
     </div>
@@ -31,81 +31,16 @@
       </el-menu>
     </div>
     <div class="school-class-item">
-      <div class="class-card">
+      <div class="class-card" v-for="course in courseList">
         <el-card :body-style="{ padding: '0px'}" shadow="hover">
-          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <img class="class-logo" :src="course.courseLogo" alt="加载失败">
           <div class="class-info">
-            <span class="class-title">英语阅读</span>
-            <span class="class-schedule">进行第 7 周</span>
+            <span class="class-title">{{course.courseName}}</span>
+            <span class="class-schedule">总共 {{course.courseHour}} 个学时</span>
           </div>
           <div class="school-info">
-            <span class="school-name">北京大学</span>
-            <span class="follow"><i class="el-icon-user"/>12313</span>
-          </div>
-        </el-card>
-      </div>
-      <div class="class-card">
-        <el-card :body-style="{ padding: '0px'}" shadow="hover">
-          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
-          <div class="class-info">
-            <span class="class-title">英语阅读</span>
-            <span class="class-schedule">进行第 7 周</span>
-          </div>
-          <div class="school-info">
-            <span class="school-name">北京大学</span>
-            <span class="follow"><i class="el-icon-user"/>12313</span>
-          </div>
-        </el-card>
-      </div>
-      <div class="class-card">
-        <el-card :body-style="{ padding: '0px'}" shadow="hover">
-          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
-          <div class="class-info">
-            <span class="class-title">英语阅读</span>
-            <span class="class-schedule">进行第 7 周</span>
-          </div>
-          <div class="school-info">
-            <span class="school-name">北京大学</span>
-            <span class="follow"><i class="el-icon-user"/>12313</span>
-          </div>
-        </el-card>
-      </div>
-      <div class="class-card">
-        <el-card :body-style="{ padding: '0px'}" shadow="hover">
-          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
-          <div class="class-info">
-            <span class="class-title">英语阅读</span>
-            <span class="class-schedule">进行第 7 周</span>
-          </div>
-          <div class="school-info">
-            <span class="school-name">北京大学</span>
-            <span class="follow"><i class="el-icon-user"/>12313</span>
-          </div>
-        </el-card>
-      </div>
-      <div class="class-card">
-        <el-card :body-style="{ padding: '0px'}" shadow="hover">
-          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
-          <div class="class-info">
-            <span class="class-title">英语阅读</span>
-            <span class="class-schedule">进行第 7 周</span>
-          </div>
-          <div class="school-info">
-            <span class="school-name">北京大学</span>
-            <span class="follow"><i class="el-icon-user"/>12313</span>
-          </div>
-        </el-card>
-      </div>
-      <div class="class-card">
-        <el-card :body-style="{ padding: '0px'}" shadow="hover">
-          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
-          <div class="class-info">
-            <span class="class-title">英语阅读</span>
-            <span class="class-schedule">进行第 7 周</span>
-          </div>
-          <div class="school-info">
-            <span class="school-name">北京大学</span>
-            <span class="follow"><i class="el-icon-user"/>12313</span>
+            <span class="school-name">{{school.schoolName}}</span>
+            <span class="follow"><i class="el-icon-user"/>{{course.courseViews}}</span>
           </div>
         </el-card>
       </div>
@@ -114,9 +49,9 @@
       <el-pagination
           background
           layout="prev, pager, next"
-          :total="1000"
-          :page-count="11"
-          :page-size="20"
+          :total="pageInfo.total"
+          :page-count="pageInfo.pages"
+          :page-size="pageInfo.size"
           :hide-on-single-page="true">
       </el-pagination>
     </div>
@@ -130,13 +65,41 @@ export default {
   components: {SearchInput},
   data() {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      school: {},
+      pageInfo: {
+        current: 1,
+        size: 25,
+        total: 0,
+        pages: 0
+      },
+      courseList: []
     }
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath)
+    },
+    getSchoolInfo() {
+      this.$api.school.getByName(this.$route.params.school)
+      .then(res => {
+        this.school = res.data
+        if (res.data.schoolId) {
+          this.getCourseBySchoolId(res.data.schoolId)
+        }
+      })
+    },
+    getCourseBySchoolId(schoolId) {
+      this.$api.course.getBySchoolId(schoolId, this.pageInfo.current, this.pageInfo.size)
+      .then(res => {
+        this.courseList = res.data.list
+        this.pageInfo.total = res.total
+        this.pageInfo.pages = res.pages
+      })
     }
+  },
+  created() {
+    this.getSchoolInfo()
   }
 }
 </script>
@@ -168,6 +131,12 @@ export default {
   border-radius: 4px;
   background: url(https://img-ph-mirror.nosdn.127.net/SkD-CO-sd86gJDlfsRix0A==/6608230909190265551.jpg) no-repeat center center;
   box-shadow: inset 50px 0 120px -20px #000000, inset 50px 0 120px -40px #000000, inset -50px 0 120px -20px #000000, inset -50px 0 120px -40px #000000, inset 0 10px 10px -10px #000000, inset 0 -10px 10px -10px #000000;
+}
+
+.school-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 81px;
 }
 
 .banner-avatar {
@@ -246,6 +215,14 @@ export default {
   position: relative;
   left: 620px;
   top: 13px;
+}
+
+.school-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .school-class-item {

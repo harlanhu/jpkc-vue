@@ -18,9 +18,23 @@ function getCount() {
   return axios.get(baseURL + "/getCount")
 }
 
+function getByName(schoolName) {
+  return axios.get(baseURL + "/getByName", {
+      params: {
+        schoolName
+      }
+  })
+}
+
+function getNameByResourceId(resourceId) {
+  return axios.get(baseURL + "/getNameByResourceId/" + resourceId)
+}
+
 export default {
   getByTeacherId,
   getAll,
   getByCourseId,
-  getCount
+  getCount,
+  getByName,
+  getNameByResourceId
 }
