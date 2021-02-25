@@ -32,18 +32,85 @@
     </div>
     <div class="school-class-item">
       <div class="class-card">
-        <el-card :body-style="{ padding: '0px'}">
+        <el-card :body-style="{ padding: '0px'}" shadow="hover">
           <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
           <div class="class-info">
-            <span>英语阅读</span>
-            <span>进行第 7 周</span>
+            <span class="class-title">英语阅读</span>
+            <span class="class-schedule">进行第 7 周</span>
           </div>
           <div class="school-info">
-            <span>北京大学</span>
-            <span>12313</span>
+            <span class="school-name">北京大学</span>
+            <span class="follow"><i class="el-icon-user"/>12313</span>
           </div>
         </el-card>
       </div>
+      <div class="class-card">
+        <el-card :body-style="{ padding: '0px'}" shadow="hover">
+          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <div class="class-info">
+            <span class="class-title">英语阅读</span>
+            <span class="class-schedule">进行第 7 周</span>
+          </div>
+          <div class="school-info">
+            <span class="school-name">北京大学</span>
+            <span class="follow"><i class="el-icon-user"/>12313</span>
+          </div>
+        </el-card>
+      </div>
+      <div class="class-card">
+        <el-card :body-style="{ padding: '0px'}" shadow="hover">
+          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <div class="class-info">
+            <span class="class-title">英语阅读</span>
+            <span class="class-schedule">进行第 7 周</span>
+          </div>
+          <div class="school-info">
+            <span class="school-name">北京大学</span>
+            <span class="follow"><i class="el-icon-user"/>12313</span>
+          </div>
+        </el-card>
+      </div>
+      <div class="class-card">
+        <el-card :body-style="{ padding: '0px'}" shadow="hover">
+          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <div class="class-info">
+            <span class="class-title">英语阅读</span>
+            <span class="class-schedule">进行第 7 周</span>
+          </div>
+          <div class="school-info">
+            <span class="school-name">北京大学</span>
+            <span class="follow"><i class="el-icon-user"/>12313</span>
+          </div>
+        </el-card>
+      </div>
+      <div class="class-card">
+        <el-card :body-style="{ padding: '0px'}" shadow="hover">
+          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <div class="class-info">
+            <span class="class-title">英语阅读</span>
+            <span class="class-schedule">进行第 7 周</span>
+          </div>
+          <div class="school-info">
+            <span class="school-name">北京大学</span>
+            <span class="follow"><i class="el-icon-user"/>12313</span>
+          </div>
+        </el-card>
+      </div>
+      <div class="class-card">
+        <el-card :body-style="{ padding: '0px'}" shadow="hover">
+          <img class="class-logo" src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="加载失败">
+          <div class="class-info">
+            <span class="class-title">英语阅读</span>
+            <span class="class-schedule">进行第 7 周</span>
+          </div>
+          <div class="school-info">
+            <span class="school-name">北京大学</span>
+            <span class="follow"><i class="el-icon-user"/>12313</span>
+          </div>
+        </el-card>
+      </div>
+    </div>
+    <div class="page-control">
       <el-pagination
           background
           layout="prev, pager, next"
@@ -148,6 +215,7 @@ export default {
   color: rgba(0, 0, 0, .85);
   font-weight: 600;
 }
+
 .doc-content p {
   font-size: 14px;
   padding-right: 55px;
@@ -181,14 +249,19 @@ export default {
 }
 
 .school-class-item {
-  width: 1205px;
+  width: 1240px;
   margin: 20px auto 20px auto;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .class-card {
   width: 228px;
   height: 100%;
+  margin-left: 17px;
+  margin-bottom: 20px;
 }
 
 .class-logo {
@@ -196,5 +269,61 @@ export default {
   width: 228px;
   height: 128px;
   vertical-align: middle;
+}
+
+.class-info {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.class-title {
+  line-height: 24px;
+  display: inline-block;
+  width: 100%;
+  font-family: 微软雅黑, 'Microsoft YaHei',serif;
+  font-size: 14px;
+  color: #666;
+  font-weight: bold;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.class-schedule {
+  color: #00c758;
+  box-sizing: border-box;
+  font-family: 微软雅黑, 'Microsoft YaHei',serif;
+  text-align: left;
+  vertical-align: middle;
+  width: 100%;
+  display: inline-block;
+}
+
+.school-info {
+  margin-top: 35px;
+  margin-bottom: 10px;
+}
+
+.school-name {
+  display: inline-block;
+  width: 124px;
+  font-family: 微软雅黑, "Microsoft YaHei",serif;
+  font-size: 12px;
+  color: #999;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.follow {
+  display: inline-block;
+  width: 80px;
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.page-control {
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>
