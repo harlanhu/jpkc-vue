@@ -58,7 +58,7 @@ export default {
       })
     },
     linkToSchoolView() {
-      this.$router.push("school")
+      this.$router.push("/school")
     }
   },
   computed: {

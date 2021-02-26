@@ -52,6 +52,10 @@
           :total="pageInfo.total"
           :page-count="pageInfo.pages"
           :page-size="pageInfo.size"
+          :current-page="pageInfo.currentPage"
+          @prev-click="prevPage"
+          @next-click="nextPage"
+          @current-change="currentChange"
           :hide-on-single-page="true">
       </el-pagination>
     </div>
@@ -69,7 +73,7 @@ export default {
       school: {},
       pageInfo: {
         current: 1,
-        size: 25,
+        size: 2,
         total: 0,
         pages: 0
       },
@@ -93,9 +97,33 @@ export default {
       this.$api.course.getBySchoolId(schoolId, this.pageInfo.current, this.pageInfo.size)
       .then(res => {
         this.courseList = res.data.list
-        this.pageInfo.total = res.total
-        this.pageInfo.pages = res.pages
+        this.pageInfo.total = res.data.total
+        this.pageInfo.pages = res.data.pages
       })
+    },
+    prevPage(val) {
+      if (this.pageInfo.current <= 1) {
+        console.log("不能往前翻页了!")
+      } else {
+        this.pageInfo.current = val
+        this.getCourseBySchoolId(this.school.schoolId)
+      }
+    },
+    nextPage(val) {
+      if (this.pageInfo.current >= this.pageInfo.pages) {
+        console.log("不能往后翻页了！")
+      } else {
+        this.pageInfo.current = val
+        this.getCourseBySchoolId(this.school.schoolId)
+      }
+    },
+    currentChange(val) {
+      if (this.pageInfo.current < 1 || this.pageInfo.current > this.pageInfo.pages) {
+        console.log("页面错乱了！")
+      } else {
+        this.pageInfo.current = val
+        this.getCourseBySchoolId(this.school.schoolId)
+      }
     }
   },
   created() {
