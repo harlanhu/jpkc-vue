@@ -24,6 +24,9 @@
 <script>
 export default {
   name: "NavMenu",
+  props: {
+    courseList: []
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath)

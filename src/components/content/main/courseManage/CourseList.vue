@@ -1,23 +1,40 @@
 <template>
   <div id="course-list">
     <el-table :data="courseList">
-      <el-table-column fixed prop="courseName" label="课程名"/>
-      <el-table-column prop="courseLogo" label="课程Logo">
-        <el-button type="text" size="small">预览</el-button>
+      <el-table-column fixed prop="courseName" label="名称"/>
+      <el-table-column width="60" prop="courseLogo" label="Logo">
+        <el-popover placement="top-start"
+                    title="Logo预览"
+                    width="100"
+                    trigger="hover"
+                    slot-scope="scope">
+          <el-image style="width: 100px; height: 100px; border-radius: 4px" :src="scope.row.courseLogo"></el-image>
+          <el-button type="text" size="small" slot="reference">预览</el-button>
+        </el-popover>
       </el-table-column>
-      <el-table-column prop="courseDesc" label="课程描述"/>
-      <el-table-column prop="courseCreated" label="课程创建时间"/>
-      <el-table-column prop="courseUpdated" label="课程修改时间"/>
-      <el-table-column prop="sectionCount" label="课程章节数"/>
-      <el-table-column prop="courseHour" label="课程学时数"/>
-      <el-table-column prop="courseViews" label="课程观看数"/>
-      <el-table-column prop="courseStar" label="课程收藏数"/>
-      <el-table-column prop="coursePrice" label="课程价格"/>
-      <el-table-column prop="courseStatus" label="课程状态"/>
-      <el-table-column fixed="right" label="操作">
+      <el-table-column prop="courseCreated" label="创建时间"/>
+      <el-table-column prop="courseUpdated" label="修改时间"/>
+      <el-table-column width="70" prop="sectionCount" label="章节数"/>
+      <el-table-column width="70" prop="courseHour" label="学时数"/>
+      <el-table-column width="80" prop="courseViews" label="观看数"/>
+      <el-table-column width="80" prop="courseStar" label="收藏数"/>
+      <el-table-column width="80" prop="coursePrice" label="价格"/>
+      <el-table-column width="70" prop="courseStatus" label="状态">
+        <el-tag :type="statusTagType(scope.row)" slot-scope="scope">{{courseStatus(scope.row)}}</el-tag>
+      </el-table-column>
+      <el-table-column prop="categoryList" label="分类">
+        <template slot-scope="scope">
+          <el-tag style="margin-right: 5px" v-for="item in scope.row.categoryList">{{item.categoryName}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="labelList" label="课程标签">
+        <template slot-scope="scope">
+          <el-tag type="info" style="margin-right: 5px" v-for="item in scope.row.labelList">{{item.labelName}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column width="60" fixed="right" label="操作">
         <div slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看详情</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
         </div>
       </el-table-column>
     </el-table>
@@ -27,41 +44,29 @@
 <script>
 export default {
   name: "CourseList",
-  data() {
-    return {
-      courseList: [
-        {
-          courseName: "测试课程名称",
-          courseDesc: "测试课程描述",
-          courseLogo: "测试课程logo",
-          courseCreated: "2020-1-1",
-          courseUpdated: "2020-1-2",
-          sectionCount: 5,
-          courseHour: 125,
-          courseViews: 10,
-          courseStar: 20,
-          coursePrice: 120.00,
-          courseStatus: 0
-        },
-        {
-          courseName: "高等数学A",
-          courseDesc: "高等数学微积分，概率",
-          courseLogo: "高等数学logo",
-          courseCreated: "2020-5-2",
-          courseUpdated: "2020-5-9",
-          sectionCount: 10,
-          courseHour: 140,
-          courseViews: 50,
-          courseStar: 173,
-          coursePrice: 155.00,
-          courseStatus: 0
-        }
-      ]
+  props: {
+    courseList: {
+      type: Array,
+      required: true
     }
   },
   methods: {
     handleClick(row) {
       console.log(row)
+    },
+    courseStatus(course) {
+      if (course.courseStatus === 0) {
+        return "开启"
+      } else {
+        return "关闭"
+      }
+    },
+    statusTagType(course) {
+      if (course.courseStatus === 0) {
+        return "success"
+      } else {
+        return "danger"
+      }
     }
   }
 }

@@ -22,10 +22,15 @@ function getBySchoolId(schoolId, current, size) {
   return axios.get(baseUrl + "/getBySchoolId/" + schoolId +"/"+ current + "/" + size)
 }
 
+function getByUserId(userId, current, size) {
+  return axios.get(baseUrl + "/getCourseByUserId/" + userId)
+}
+
 export default {
   getCourseById,
   getRanking,
   getNew,
   getStar,
-  getBySchoolId
+  getBySchoolId,
+  getByUserId
 }
