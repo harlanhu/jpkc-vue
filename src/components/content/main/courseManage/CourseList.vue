@@ -34,7 +34,7 @@
       </el-table-column>
       <el-table-column width="60" fixed="right" label="操作">
         <div slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
         </div>
       </el-table-column>
     </el-table>
@@ -51,8 +51,14 @@ export default {
     }
   },
   methods: {
-    handleClick(row) {
+    handleEditClick(row) {
       console.log(row)
+      this.$router.replace({
+        path: "/course-manage/edit/" + row.courseName,
+        params: {
+          course: row
+        }
+      })
     },
     courseStatus(course) {
       if (course.courseStatus === 0) {
