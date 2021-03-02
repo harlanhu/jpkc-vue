@@ -48,9 +48,10 @@ export default {
   },
   methods: {
     showDialog(data) {
-      this.$bus.$emit("activeCourseAddDialog", true, data, id++)
+      this.$bus.$emit("activeCourseAddDialog", true, data, id)
     },
     append(newChild, data) {
+      id += 1
       if (!data.children) {
         this.$set(data, 'children', [])
       }
