@@ -68,18 +68,15 @@
       </el-row>
     </el-form>
     <tree :data="sectionTree"/>
-    <course-add-dialog/>
   </div>
 </template>
 
 <script>
 import Tree from "@/components/common/Tree";
-import CourseAddDialog from "@/components/content/dialog/course/CourseAddDialog";
 
 export default {
   name: "CourseAdd",
   components: {
-    CourseAddDialog,
     Tree
   },
   data() {

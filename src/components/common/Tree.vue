@@ -11,19 +11,24 @@
       <span slot-scope="{node, data}">
         <span>{{node.label}}</span>
         <span>
-          <el-button type="text" @click="() => append(data)">添加章节</el-button>
+          <el-button type="text" @click="() => showDialog(data)">添加章节</el-button>
           <el-button v-show="data.id !== 0" type="text" @click="() => remove(node, data)">删除章节</el-button>
         </span>
       </span>
     </el-tree>
+    <course-add-dialog @createNewChild="append"/>
   </div>
 </template>
 
 <script>
+import CourseAddDialog from "@/components/content/dialog/course/CourseAddDialog";
 let id = 1
 
 export default {
   name: "Tree",
+  components: {
+    CourseAddDialog
+  },
   props: {
     data: {
       type: Array,
@@ -42,13 +47,10 @@ export default {
     }
   },
   methods: {
-    append(data) {
-      this.$bus.$emit("activeCourseAddDialog", true)
-      const newChild = {
-        id: id ++,
-        label: 'testTree',
-        children: []
-      }
+    showDialog(data) {
+      this.$bus.$emit("activeCourseAddDialog", true, data, id++)
+    },
+    append(newChild, data) {
       if (!data.children) {
         this.$set(data, 'children', [])
       }

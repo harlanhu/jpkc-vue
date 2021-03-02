@@ -4,15 +4,16 @@
                width="60%"
                center
                :visible.sync="courseAddDialog">
-      <el-form>
+      <el-form ref="sectionForm" :model="section">
         <el-form-item label="章节名称">
-          <el-input type="text" placeholder="请输入章节名称"/>
+          <el-input v-model="section.sectionName" type="text" placeholder="请输入章节名称"/>
         </el-form-item>
         <el-form-item label="章节描述">
-          <el-input type="textarea" placeholder="请输入关于本章节的描述"/>
+          <el-input v-model="section.sectionDesc" type="textarea" placeholder="请输入关于本章节的描述"/>
         </el-form-item>
       </el-form>
       <el-upload drag
+                 :auto-upload="false"
                  class="upload-demo"
                  multiple
                  accept=".mp3, .mp4, .avi, .mpg, .mpeg, .wmv, .rmvb, .rm, .flv"
@@ -23,7 +24,7 @@
       </el-upload>
       <span slot="footer" class="dialog-footer">
         <el-button @click="courseAddDialog = false">取消</el-button>
-        <el-button type="primary" @click="courseAddDialog = false">确定</el-button>
+        <el-button type="primary" @click="createSection">确定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -35,12 +36,33 @@ export default {
   name: "CourseAddDialog",
   data() {
     return {
-      courseAddDialog: false
+      section: {
+        sectionName: "",
+        sectionDesc: ""
+      },
+      courseAddDialog: false,
+      treeData: {},
+      id: 0
+    }
+  },
+  methods: {
+    createSection() {
+      const newChild = {
+        id: this.id,
+        label: this.section.sectionName,
+        sectionDesc: this.section.sectionDesc,
+        child: []
+      }
+      this.$refs.sectionForm.resetFields()
+      this.$emit("createNewChild", newChild, this.treeData)
+      this.courseAddDialog = false
     }
   },
   mounted() {
-    this.$bus.$on("activeCourseAddDialog", isActive => {
+    this.$bus.$on("activeCourseAddDialog", (isActive, treeData, id) => {
       this.courseAddDialog = isActive
+      this.treeData = treeData
+      this.id = id
     })
   }
 }
