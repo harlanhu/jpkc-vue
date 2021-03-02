@@ -1,7 +1,7 @@
 <template>
   <div id="course-manage">
     <el-container style="height: 100%">
-      <el-aside style="width: 150px; margin: 20px 0">
+      <el-aside style="width: 150px; border-radius: 8px">
         <nav-menu :course-list="courseList"/>
       </el-aside>
       <el-main>
@@ -43,5 +43,14 @@ export default {
 </script>
 
 <style scoped>
+.el-main {
+  margin-left: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
 
+.el-aside {
+  border-radius: 8px;
+  height: 100%;
+}
 </style>

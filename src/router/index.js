@@ -13,6 +13,7 @@ const CourseList = () => import("@/components/content/main/courseManage/CourseLi
 const CourseEdit = () => import("@/components/content/main/courseManage/CourseEdit");
 const CourseData = () => import("@/components/content/main/courseManage/CourseData");
 const CourseDetails = () => import("@/components/content/main/courseManage/CourseDetails");
+const LiveOrder = () => import("@/components/content/main/courseManage/CourseLiveOrder");
 
 Vue.use(VueRouter)
 
@@ -79,6 +80,12 @@ const routes = [
         path: 'data',
         components: {
           courseManage: CourseData
+        }
+      },
+      {
+        path: 'live-order',
+        components: {
+          courseManage: LiveOrder
         }
       }
     ]

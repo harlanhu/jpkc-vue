@@ -7,15 +7,15 @@
       </el-menu-item>
       <el-menu-item index="add">
         <i class="el-icon-circle-plus-outline"/>
-        <span slot="title">添加课程</span>
+        <span slot="title">课程创建</span>
       </el-menu-item>
-      <el-menu-item index="edit">
+      <el-menu-item index="live-order">
         <i class="el-icon-edit-outline"/>
-        <span slot="title">修改课程</span>
+        <span slot="title">直播预约</span>
       </el-menu-item>
       <el-menu-item index="data">
         <i class="el-icon-pie-chart"/>
-        <span slot="title">课程数据</span>
+        <span slot="title">数据统计</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -25,7 +25,9 @@
 export default {
   name: "NavMenu",
   props: {
-    courseList: []
+    courseList: {
+      type: Array
+    }
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -42,5 +44,8 @@ export default {
 </script>
 
 <style scoped>
-
+#nav-menu {
+  border-radius: 8px;
+  height: 100%;
+}
 </style>
