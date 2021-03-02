@@ -5,12 +5,12 @@
         <el-input  style="width: 200px" prefix-icon="el-icon-collection" show-word-limit v-model="course.courseName" placeholder="请输入课程名称"/>
       </el-form-item>
       <el-row>
-        <el-col span="12">
+        <el-col :span="12">
           <el-form-item label-width="100px" label="课程描述">
             <el-input style="width: 500px" type="textarea" prefix-icon="el-icon-document" v-model="course.courseDesc" placeholder="请输入关于课程的描述"/>
           </el-form-item>
         </el-col>
-        <el-col span="12">
+        <el-col :span="12">
           <el-form-item label-width="100px" label="课程Logo">
             <el-upload ref="logoUpload"
                        action="#"
@@ -42,7 +42,7 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label-width="100px" label="课程价格">
-            <el-input-number :min="0" :max="9999" precision="1" step="0.1" v-model="course.coursePrice"/>
+            <el-input-number :min="0" :max="9999" :precision="1" :step="0.1" v-model="course.coursePrice"/>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -67,12 +67,21 @@
         </el-col>
       </el-row>
     </el-form>
+    <tree :data="sectionTree"/>
+    <course-add-dialog/>
   </div>
 </template>
 
 <script>
+import Tree from "@/components/common/Tree";
+import CourseAddDialog from "@/components/content/dialog/course/CourseAddDialog";
+
 export default {
   name: "CourseAdd",
+  components: {
+    CourseAddDialog,
+    Tree
+  },
   data() {
     return {
       course: {
@@ -88,7 +97,14 @@ export default {
         url: "",
         dialogVisible: false,
         disabled: false
-      }
+      },
+      sectionTree: [
+        {
+          id: 0,
+          label: '课程根目录',
+          children: []
+        }
+      ]
     }
   },
   methods: {
