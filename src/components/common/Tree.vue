@@ -1,27 +1,29 @@
 <template>
   <div id="tree">
-    <h1>章节设置</h1>
-    <el-tree :data="treeData"
-             :props="defaultProps"
-             node-key="id"
-             default-expand-all
-             :expand-on-click-node="false"
-             @node-click="handleNodeClick"
-             show-checkbox>
+    <span style="font-size: 20px;">章节设置</span>
+    <div class="section-tree">
+      <el-tree :data="treeData"
+               :props="defaultProps"
+               node-key="id"
+               default-expand-all
+               :expand-on-click-node="false"
+               @node-click="handleNodeClick">
       <span slot-scope="{node, data}">
-        <span>{{node.label}}</span>
-        <span>
+        <span style="font-size: 20px">{{ node.label }}</span>
+        <span style="margin-left: 20px">
           <el-button type="text" @click="() => showDialog(data)">添加章节</el-button>
           <el-button v-show="data.id !== 0" type="text" @click="() => remove(node, data)">删除章节</el-button>
         </span>
       </span>
-    </el-tree>
+      </el-tree>
+    </div>
     <course-add-dialog @createNewChild="append"/>
   </div>
 </template>
 
 <script>
 import CourseAddDialog from "@/components/content/dialog/course/CourseAddDialog";
+
 let id = 1
 
 export default {
@@ -71,5 +73,7 @@ export default {
 </script>
 
 <style scoped>
-
+.section-tree {
+  margin-top: 20px;
+}
 </style>
