@@ -134,6 +134,8 @@ export default {
       },
       logoFile: {
         url: "",
+        raw: {},
+        file: {},
         dialogVisible: false,
         disabled: false
       },
@@ -142,24 +144,26 @@ export default {
   },
   methods: {
     logoPreview(file) {
-      console.log(file)
       this.logoFile.url = file.url
+      this.logoFile.file = file
+      this.logoFile.raw = file.raw
       this.logoFile.dialogVisible = true
     },
     logoDelete(file) {
       this.logoFile.url = ''
+      this.logoFile.file = {}
+      this.logoFile.raw = {}
       this.$refs.logoUpload.clearFiles()
     },
     changeUploadLogo(file, fileList) {
       if (fileList.length > 1) {
         fileList.splice(0, 1)
       }
-      console.log(file.raw.type)
       const isJPEG = file.raw.type === "image/jpeg"
       const isJPG = file.raw.type === "image/jpg"
       const isPNG = file.raw.type === "image/png"
       const isLt2M = file.size / 1024 / 1024 < 5
-      console.log(!isJPEG + "---" + !isJPG + "---" + isPNG)
+
       if (!isJPG && !isPNG && !isJPEG) {
         this.$message.error("请上传 PNG 或 JPG 格式图片！")
         this.$refs.logoUpload.clearFiles()
@@ -168,6 +172,8 @@ export default {
         this.$message.error("上传大小不能超过 5MB")
         this.$refs.logoUpload.clearFiles()
       }
+      this.logoFile.file = file
+      this.logoFile.raw = file.raw
       return isLt2M && isPNG && isJPG
     },
     handleChange(val) {
@@ -187,8 +193,15 @@ export default {
             return false
           }
           this.course.sectionCount = this.sectionTree.length
-          console.log(this.course)
-          console.log(this.sectionTree)
+          this.$api.course.create(this.course)
+          .then(res => {
+            if (res.status === 200) {
+              this.$api.course.uploadLogo(res.data, this.logoFile.file.raw)
+              .then(res => {
+                console.log(res)
+              })
+            }
+          })
           return true
         }
         MessageUtils.showError("请填写正确的信息！")
