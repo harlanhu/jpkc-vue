@@ -1,8 +1,40 @@
 <template>
-  <div id="course-add">
+  <div id="course-add"
+       :element-loading-text="loading.loadingText"
+       v-loading.fullscreen.lock="loading.isLoading">
     <el-form ref="courseForm" :model="course" :rules="rules">
       <el-form-item prop="courseName" label-width="100px" label="课程名称">
         <el-input  style="width: 200px" prefix-icon="el-icon-collection" show-word-limit v-model="course.courseName" placeholder="请输入课程名称"/>
+      </el-form-item>
+      <el-form-item label-width="100px" label="课程类别">
+        <el-select v-model="categoryData.categoryValue"
+                   placeholder="请选择课程类别"
+                   @change="showChange"
+                   filterable>
+          <el-option v-for="category in categoryData.categories"
+                     :label="category.categoryName"
+                     :value="category.categoryId"
+                     :key="category.categoryId">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label-width="100px" label="课程标签">
+        <el-tag :key="label"
+                closable
+                :disable-transitions="false"
+                @close="labelClose(label)"
+                v-for="label in labelData.labels">
+          {{label}}
+        </el-tag>
+        <el-input class="input-new-tag"
+               v-if="labelData.addLabelAble"
+               v-model="labelData.newLabel"
+               ref="newLabelInput"
+               size="small"
+               @keyup.enter.native="handleLabelInputConfirm"
+               @blur="handleLabelInputConfirm">
+        </el-input>
+        <el-button v-else class="button-new-tag" size="small" @click="showLabelInput">+ 添加标签</el-button>
       </el-form-item>
       <el-row>
         <el-col :span="12">
@@ -139,7 +171,20 @@ export default {
         dialogVisible: false,
         disabled: false
       },
-      sectionTree: []
+      sectionTree: [],
+      categoryData: {
+        categories: [],
+        categoryValue: ""
+      },
+      labelData: {
+        labels: ["测试标签"],
+        addLabelAble: false,
+        newLabel: ""
+      },
+      loading: {
+        isLoading: false,
+        loadingText: ""
+      }
     }
   },
   methods: {
@@ -185,6 +230,9 @@ export default {
     createSection(newSection) {
       this.sectionTree.push(newSection)
     },
+    showChange() {
+      console.log(this.categoryData.categoryValue)
+    },
     addCourse() {
       this.$refs.courseForm.validate((valid) => {
         if (valid) {
@@ -192,15 +240,13 @@ export default {
             MessageUtils.showError("请至少添加一个章节！")
             return false
           }
+          this.showLoading(true, "正在创建课程...")
           this.course.sectionCount = this.sectionTree.length
-          this.$api.course.create(this.course)
+          this.$api.course.save(this.course, this.logoFile.file.raw, this.categoryData.categoryValue, this.labelData.labels)
           .then(res => {
-            if (res.status === 200) {
-              this.$api.course.uploadLogo(res.data, this.logoFile.file.raw)
-              .then(res => {
-                console.log(res)
-              })
-            }
+            this.showLoading(true, "正在上传课件...")
+            console.log(res)
+            this.showLoading(false, "")
           })
           return true
         }
@@ -208,11 +254,46 @@ export default {
         return false
       })
     },
+    labelClose(label) {
+      this.labelData.labels.splice(this.labelData.labels.indexOf(label), 1);
+    },
+    showLabelInput() {
+      if (this.labelData.labels.length < 3) {
+        this.labelData.addLabelAble = true
+        this.$nextTick(_ => {
+          this.$refs.newLabelInput.$refs.input.focus()
+        })
+      } else {
+        this.$msg.showError("课程标签最多添加三个！")
+      }
+    },
+    handleLabelInputConfirm() {
+      let inputValue = this.labelData.newLabel
+      if (inputValue) {
+        this.labelData.labels.push(inputValue)
+      }
+      this.labelData.addLabelAble = false
+      this.labelData.newLabel = ""
+    },
+    getAllCategory() {
+      this.$api.category.getAllCategory()
+      .then(res => {
+        this.categoryData.categories = res.data
+      })
+    },
+    showLoading(isLoading, loadingText) {
+      this.loading.isLoading = isLoading
+      this.loading.loadingText = loadingText
+    }
+  },
+  created() {
+    this.getAllCategory()
   }
 }
 </script>
 
 <style scoped>
+
 .bg-1 {
   margin-left: -20px;
   margin-right: -20px;
@@ -237,5 +318,23 @@ export default {
 .submit-btn {
   margin-top: 20px;
   margin-left: 47%;
+}
+
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
 }
 </style>

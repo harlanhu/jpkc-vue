@@ -26,23 +26,19 @@ function getByUserId(userId, current, size) {
   return axios.get(baseUrl + "/getCourseByUserId/" + userId)
 }
 
-function create(course) {
-  return axios.post(baseUrl + "/create",{
-    courseName: course.courseName,
-    courseDesc: course.courseDesc,
-    coursePrice: course.coursePrice,
-    sectionCount: course.sectionCount,
-    courseStatus: course.courseStatus,
-    courseHour: course.courseHour
-  })
+function save(course, logoFile, categoryId, labelNames) {
+  const formData = new FormData()
+  formData.append("logoFile", logoFile)
+  formData.append("courseJsonStr", JSON.stringify(course))
+  formData.append("categoryId", categoryId)
+  formData.append("labelNames", JSON.stringify(labelNames))
+  return axios.post(baseUrl + "/create", formData)
 }
 
 function uploadLogo(courseId, logoFile) {
   const formData = new FormData()
   formData.append("logoFile", logoFile)
-  return axios.post(baseUrl + "/uploadLogo/" + courseId, formData, {
-    headers: {'Content-Type': 'multipart/form-data'}
-  })
+  return axios.post(baseUrl + "/uploadLogo/" + courseId, formData)
 }
 
 export default {
@@ -52,6 +48,6 @@ export default {
   getStar,
   getBySchoolId,
   getByUserId,
-  create,
+  save,
   uploadLogo
 }
