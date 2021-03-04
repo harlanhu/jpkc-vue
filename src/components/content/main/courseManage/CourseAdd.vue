@@ -244,8 +244,14 @@ export default {
           this.course.sectionCount = this.sectionTree.length
           this.$api.course.save(this.course, this.logoFile.file.raw, this.categoryData.categoryValue, this.labelData.labels)
           .then(res => {
-            this.showLoading(true, "正在上传课件...")
-            console.log(res)
+            const courseId = res.data
+            for (let i = 0; i < this.sectionTree.length; i++) {
+              this.showLoading(true, "正在上传第" + (i+1) + "章课件...")
+              this.$api.section.save(courseId, this.sectionTree[i])
+              .then(res => {
+                console.log(res);
+              })
+            }
             this.showLoading(false, "")
           })
           return true
