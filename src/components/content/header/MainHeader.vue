@@ -9,8 +9,8 @@
         <div class="content">
           <drop-down id="drop-down" :title="dropdownTitle" :items="dropdownItems"/>
           <el-button type="text"  @click="linkToSchoolView">学校</el-button>
-          <el-button type="text">学校云</el-button>
-          <el-button type="text">慕课堂</el-button>
+          <el-button type="text">课程直播</el-button>
+          <el-button type="text">名师辅导</el-button>
           <el-button type="text">APP下载</el-button>
         </div>
       </el-col>
@@ -70,6 +70,7 @@ export default {
 </script>
 
 <style scoped>
+
 #main-header {
   left: 0;
   top: 0;

@@ -41,6 +41,12 @@ function uploadLogo(courseId, logoFile) {
   return axios.post(baseUrl + "/uploadLogo/" + courseId, formData)
 }
 
+function getByName(courseName) {
+  return axios.post(baseUrl + "/getByName", {
+    courseName: courseName
+  })
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -49,5 +55,6 @@ export default {
   getBySchoolId,
   getByUserId,
   save,
-  uploadLogo
+  uploadLogo,
+  getByName
 }

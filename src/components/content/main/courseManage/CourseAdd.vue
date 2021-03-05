@@ -178,7 +178,7 @@ export default {
         categoryValue: ""
       },
       labelData: {
-        labels: ["测试标签"],
+        labels: [],
         addLabelAble: false,
         newLabel: ""
       },
