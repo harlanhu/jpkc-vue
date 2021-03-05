@@ -42,9 +42,7 @@ function uploadLogo(courseId, logoFile) {
 }
 
 function getByName(courseName) {
-  return axios.post(baseUrl + "/getByName", {
-    courseName: courseName
-  })
+  return axios.post(baseUrl + "/getByName", courseName)
 }
 
 export default {
