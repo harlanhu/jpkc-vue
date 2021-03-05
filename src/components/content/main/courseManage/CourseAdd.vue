@@ -233,7 +233,7 @@ export default {
       this.sectionNo = newSection.nextSectionNo
     },
     showChange() {
-      console.log(this.categoryData.categoryValue)
+      //console.log(this.categoryData.categoryValue)
     },
     addCourse() {
       this.$refs.courseForm.validate((valid) => {
@@ -242,12 +242,17 @@ export default {
             MessageUtils.showError("请至少添加一个章节！")
             return false
           }
+          /**
+           * 课程创建
+           */
           this.showLoading(true, "正在创建课程...")
           this.course.sectionCount = this.sectionTree.length
           this.$api.course.save(this.course, this.logoFile.file.raw, this.categoryData.categoryValue, this.labelData.labels)
-          .then(res => {
-            const courseId = res.data
-            console.log("课程创建成功：" + courseId)
+          .then(courseRes => {
+            let courseId = courseRes.data
+            /**
+             * 章节创建
+             */
             for (let i = 0; i < this.sectionTree.length; i++) {
               this.showLoading(true, "正在创建" + this.sectionTree[i].sectionName + "章节...")
               this.sectionTree[i].courseId = courseId
@@ -255,10 +260,12 @@ export default {
               .then(sectionRes => {
                 if (sectionRes.status === 400) {
                   this.showLoading(false, "")
-                  this.$msg.showError(res.message)
+                  this.$msg.showError(sectionRes.message)
                 } else {
-                  const sectionId = res.data
-                  console.log("章节创建成功：" + sectionId)
+                  let sectionId = sectionRes.data
+                  /**
+                   * 资源上传
+                   */
                   for (const file of this.sectionTree[i].fileList) {
                     this.showLoading(true, "正在上传" + file.name + "文件...")
                     this.$api.section.uploadSectionResource(courseId, sectionId, file.raw)
@@ -277,6 +284,7 @@ export default {
             }
             this.showLoading(false, "")
             this.$router.push("/course-manage")
+            this.$bus.$emit("courseManageMenuChange", "all")
           })
           return true
         }

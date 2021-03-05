@@ -24,11 +24,6 @@
 <script>
 export default {
   name: "NavMenu",
-  props: {
-    courseList: {
-      type: Array
-    }
-  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
@@ -39,6 +34,11 @@ export default {
     handleSelect(key, keyPath) {
       this.$router.push("/course-manage/" + key)
     }
+  },
+  mounted() {
+    this.$bus.$on("courseManageMenuChange", key => {
+      this.handleOpen(key)
+    })
   }
 }
 </script>

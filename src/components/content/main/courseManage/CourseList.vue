@@ -24,12 +24,12 @@
       </el-table-column>
       <el-table-column prop="categoryList" label="分类">
         <template slot-scope="scope">
-          <el-tag style="margin-right: 5px" v-for="item in scope.row.categoryList">{{item.categoryName}}</el-tag>
+          <el-tag style="margin-right: 5px" v-for="item in scope.row.categoryList" :key="item.categoryId">{{item.categoryName}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="labelList" label="课程标签">
         <template slot-scope="scope">
-          <el-tag type="info" style="margin-right: 5px" v-for="item in scope.row.labelList">{{item.labelName}}</el-tag>
+          <el-tag type="info" style="margin-right: 5px" v-for="item in scope.row.labelList" :key="item.labelId">{{item.labelName}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column width="60" fixed="right" label="操作">
@@ -44,10 +44,9 @@
 <script>
 export default {
   name: "CourseList",
-  props: {
-    courseList: {
-      type: Array,
-      required: true
+  data() {
+    return {
+      courseList: []
     }
   },
   methods: {
@@ -73,7 +72,16 @@ export default {
       } else {
         return "danger"
       }
+    },
+    getCoursesByUserId() {
+      this.$api.course.getByUserId(this.$store.state.accountInfo.userId)
+          .then(res => {
+            this.courseList = res.data
+          })
     }
+  },
+  created() {
+    this.getCoursesByUserId()
   }
 }
 </script>

@@ -2,6 +2,7 @@
   <div id="course">
     <h1>课程详细展示</h1>
     <h2>{{course.courseName}}</h2>
+    <
   </div>
 </template>
 

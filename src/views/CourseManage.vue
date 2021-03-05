@@ -2,10 +2,10 @@
   <div id="course-manage">
     <el-container style="height: 100%">
       <el-aside style="width: 150px; border-radius: 8px">
-        <nav-menu :course-list="courseList"/>
+        <nav-menu/>
       </el-aside>
       <el-main>
-        <router-view :course-list="courseList" name="courseManage"/>
+        <router-view name="courseManage"/>
       </el-main>
     </el-container>
   </div>
@@ -17,27 +17,9 @@ import CourseList from "@/components/content/main/courseManage/CourseList";
 
 export default {
   name: "CourseManage",
-  data() {
-    return {
-      userInfo: {},
-      courseList: []
-    }
-  },
   components: {
     CourseList,
     NavMenu
-  },
-  methods: {
-    getCoursesByUserId() {
-      this.$api.course.getByUserId(this.$store.state.accountInfo.userId)
-      .then(res => {
-        this.courseList = res.data
-      })
-    }
-  },
-  created() {
-    this.userInfo = this.$store.state.accountInfo
-    this.getCoursesByUserId()
   }
 }
 </script>
