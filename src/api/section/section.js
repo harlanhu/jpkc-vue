@@ -2,19 +2,17 @@ import axios from "@/api/http";
 
 const baseUrl = "/section"
 
-function save(courseId, section) {
-  const formData = new FormData();
-  let fileList = []
-  for (const file of section.fileList) {
-    fileList.push(file.raw)
-  }
-  console.log(fileList)
-  formData.append("sectionName", section.sectionName)
-  formData.append("sectionDesc", section.sectionDesc)
-  formData.append("sectionFiles", fileList)
-  return axios.post(baseUrl + "/save/" + courseId, formData)
+function save(section) {
+  return axios.post(baseUrl + "/save/", section)
+}
+
+function uploadSectionResource(courseId, sectionId, resourceFile) {
+  const formData = new FormData()
+  formData.append("resourceFile", resourceFile)
+  return axios.post(baseUrl + "/uploadSectionResource/" + courseId + "/" + sectionId, formData)
 }
 
 export default {
-  save
+  save,
+  uploadSectionResource
 }

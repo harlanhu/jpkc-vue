@@ -43,6 +43,8 @@ export default {
       section: {
         sectionName: "",
         sectionDesc: "",
+        sectionNo: 0,
+        resourceCount: 0,
         fileList: [],
       },
       rules: {
@@ -70,6 +72,7 @@ export default {
   },
   methods: {
     createSection() {
+      const  newSectionNo = this.section.sectionNo + 1
       this.$refs.sectionForm.validate((valid) => {
         if (valid) {
           if (this.section.fileList.length === 0) {
@@ -79,7 +82,11 @@ export default {
           const newSection = {
             sectionName: this.section.sectionName,
             sectionDesc: this.section.sectionDesc,
-            fileList: this.section.fileList
+            fileList: this.section.fileList,
+            sectionNo: this.section.sectionNo,
+            resourceCount: this.section.fileList.length,
+            parentId: 0,
+            nextSectionNo: newSectionNo
           }
           this.$emit("createNewSection", newSection)
           this.$refs.sectionForm.resetFields()
@@ -103,8 +110,9 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on("activeCourseAddDialog", (isActive) => {
+    this.$bus.$on("activeCourseAddDialog", (isActive, sectionNo) => {
       this.courseAddDialog = isActive
+      this.section.sectionNo = sectionNo
     })
   }
 }

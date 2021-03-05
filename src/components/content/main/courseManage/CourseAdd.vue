@@ -172,6 +172,7 @@ export default {
         disabled: false
       },
       sectionTree: [],
+      sectionNo: 1,
       categoryData: {
         categories: [],
         categoryValue: ""
@@ -225,10 +226,11 @@ export default {
       console.log(this.sectionTree)
     },
     showDialog() {
-      this.$bus.$emit("activeCourseAddDialog", true)
+      this.$bus.$emit("activeCourseAddDialog", true, this.sectionNo)
     },
     createSection(newSection) {
       this.sectionTree.push(newSection)
+      this.sectionNo = newSection.nextSectionNo
     },
     showChange() {
       console.log(this.categoryData.categoryValue)
@@ -245,14 +247,36 @@ export default {
           this.$api.course.save(this.course, this.logoFile.file.raw, this.categoryData.categoryValue, this.labelData.labels)
           .then(res => {
             const courseId = res.data
+            console.log("课程创建成功：" + courseId)
             for (let i = 0; i < this.sectionTree.length; i++) {
-              this.showLoading(true, "正在上传第" + (i+1) + "章课件...")
-              this.$api.section.save(courseId, this.sectionTree[i])
-              .then(res => {
-                console.log(res);
+              this.showLoading(true, "正在创建" + this.sectionTree[i].sectionName + "章节...")
+              this.sectionTree[i].courseId = courseId
+              this.$api.section.save(this.sectionTree[i])
+              .then(sectionRes => {
+                if (sectionRes.status === 400) {
+                  this.showLoading(false, "")
+                  this.$msg.showError(res.message)
+                } else {
+                  const sectionId = res.data
+                  console.log("章节创建成功：" + sectionId)
+                  for (const file of this.sectionTree[i].fileList) {
+                    this.showLoading(true, "正在上传" + file.name + "文件...")
+                    this.$api.section.uploadSectionResource(courseId, sectionId, file.raw)
+                    .then(fileRes => {
+                      if (fileRes.status === 400) {
+                        this.showLoading(false, "")
+                        this.$msg.showError(fileRes.message)
+                      } else {
+                        this.showLoading(false, "正在努力处理中...")
+                        console.log(fileRes.message)
+                      }
+                    })
+                  }
+                }
               })
             }
             this.showLoading(false, "")
+            this.$router.push("/course-manage")
           })
           return true
         }
