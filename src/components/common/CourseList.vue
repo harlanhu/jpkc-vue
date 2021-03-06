@@ -95,7 +95,7 @@ export default {
 
 .school-class-item {
   width: 1240px;
-  margin: 20px auto 20px auto;
+  margin: 20px auto 20px -35px;
   text-align: center;
   display: flex;
   flex-direction: row;

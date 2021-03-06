@@ -49,6 +49,13 @@ function getAll(current, size) {
   return axios.get(baseUrl + "/getAllOpen/" + current + "/" + size)
 }
 
+function update(course) {
+  return axios.post(baseUrl + "/update", {
+    courseId: course.courseId,
+    courseStatus: course.courseStatus
+  })
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -59,5 +66,6 @@ export default {
   save,
   uploadLogo,
   getByName,
-  getAll
+  getAll,
+  update
 }
