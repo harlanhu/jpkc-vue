@@ -45,6 +45,10 @@ function getByName(courseName) {
   return axios.post(baseUrl + "/getByName", courseName)
 }
 
+function getAll(current, size) {
+  return axios.get(baseUrl + "/getAllOpen/" + current + "/" + size)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -54,5 +58,6 @@ export default {
   getByUserId,
   save,
   uploadLogo,
-  getByName
+  getByName,
+  getAll
 }

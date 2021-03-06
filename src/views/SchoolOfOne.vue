@@ -22,9 +22,10 @@
       <p>课程</p>
       <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">全部</el-menu-item>
-        <el-menu-item index="2">正在进行</el-menu-item>
-        <el-menu-item index="3">即将开始</el-menu-item>
-        <el-menu-item index="4">已结束</el-menu-item>
+        <el-menu-item index="2">人气</el-menu-item>
+        <el-menu-item index="3">收藏</el-menu-item>
+        <el-menu-item index="4">免费</el-menu-item>
+        <el-menu-item index="5">付费</el-menu-item>
         <div class="search">
           <search-input/>
         </div>
@@ -73,7 +74,7 @@ export default {
       school: {},
       pageInfo: {
         current: 1,
-        size: 2,
+        size: 25,
         total: 0,
         pages: 0
       },

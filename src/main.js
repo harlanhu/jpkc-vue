@@ -20,8 +20,7 @@ Vue.prototype.$msg = MessageUtils
 //创建事件总线
 Vue.prototype.$bus = new Vue();
 
-Vue.use(ElementUI)
-Vue.use(VueVideoPlayer)
+Vue.use(ElementUI, VueVideoPlayer)
 
 new Vue({
   router,

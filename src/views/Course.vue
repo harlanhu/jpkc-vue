@@ -1,69 +1,92 @@
 <template>
   <div id="course">
-    <h1>课程详细展示</h1>
-    <h2>{{course.courseName}}</h2>
-    <video-player class="vjs-custom-skin video-js"
-                  :playsinline="true"
-                  :options="playerOptions"
-                  ref="videoPlayer">
-
-    </video-player>
+    <course-list
+        :page-info="pageInfo"
+        @prevPage="prevPage"
+        @nextPage="nextPage"
+        @currentChange="currentChange">
+      <div slot="category" class="categories">
+        <el-button size="small" round>全部</el-button>
+        <el-button size="small" round v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</el-button>
+      </div>
+      <div slot="course" v-for="course in courseList">
+        <div class="class-card">
+          <course-card-a :course="course"/>
+        </div>
+      </div>
+    </course-list>
   </div>
 </template>
 
 <script>
 import 'video.js/dist/video-js.css'
-import { videoPlayer } from 'vue-video-player'
+import CourseList from "@/components/common/CourseList";
+import CourseCardA from "@/components/content/CourseCardA";
 
 export default {
   name: "Course",
+  components: {CourseCardA, CourseList},
   data() {
     return {
-      course: {},
-      playerOptions: {
-        playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
-        autoplay: false, // 如果为true,浏览器准备好时开始回放。
-        muted: false, // 默认情况下将会消除任何音频。
-        loop: false, // 是否视频一结束就重新开始。
-        preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-        language: 'zh-CN',
-        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-        sources: [{
-          type: "video/mp4", // 类型
-          src: ""
-        }],
-        poster: '', // 封面地址
-        notSupportedMessage: '此视频暂无法播放，请稍后再试', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
-        controlBar: {
-          timeDivider: true, // 当前时间和持续时间的分隔符
-          durationDisplay: true, // 显示持续时间
-          remainingTimeDisplay: false, // 是否显示剩余时间功能
-          fullscreenToggle: true // 是否显示全屏按钮
-        }
-      }
+      categories: {},
+      pageInfo: {
+        current: 1,
+        size: 25,
+        total: 0,
+        pages: 0
+      },
+      courseList: []
     }
   },
-  components: {
-    videoPlayer
-  },
   methods: {
-    getCourseByName(courseName) {
-      this.$api.course.getByName(courseName)
+    getAllCategory() {
+      this.$api.category.getAllCategory()
       .then(res => {
-        this.course = res.data
-        this.playerOptions.sources[0].src = res.data.sectionDtoList[0].resources[0].resourcePath
-        console.log(this.course)
+        this.categories = res.data
+      })
+    },
+    prevPage(val) {
+      this.pageInfo.current = val
+    },
+    nextPage(val) {
+      this.pageInfo.current = val
+    },
+    currentChange(val) {
+      this.pageInfo.current = val
+    },
+    getAllCourse() {
+      this.$api.course.getAll(this.pageInfo.current, this.pageInfo.size)
+      .then(res => {
+        this.courseList = res.data.list
+        this.pageInfo.pages = res.data.pages
+        this.pageInfo.total = res.data.total
       })
     }
   },
   created() {
-    this.course.courseName = this.$route.params.courseName
-    this.getCourseByName(this.course.courseName)
+    this.getAllCategory()
+    this.getAllCourse()
   }
 }
 </script>
 
 <style scoped>
+#course {
+  margin: 0 auto;
+  overflow: hidden;
+  width: 1200px;
+}
+
+.categories {
+  margin: 0 auto;
+  padding: 10px 10px;
+}
+
+.class-card {
+  width: 228px;
+  height: 100%;
+  margin-left: 17px;
+  margin-bottom: 20px;
+}
 
 </style>

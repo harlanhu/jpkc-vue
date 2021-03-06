@@ -92,7 +92,7 @@ const routes = [
     ]
   },
   {
-    path: '/course/:courseName',
+    path: '/course',
     component: Course
   }
 ]
