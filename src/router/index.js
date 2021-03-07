@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from "@/views/Home";
 
 const CourseManage = () => import("@/views/CourseManage");
+const CourseDetail = () => import("@/views/CourseDetail")
 const Register = () => import("@/views/Register");
 const Login = () => import("@/views/Login");
 const School = () => import("@/views/School");
@@ -93,7 +94,12 @@ const routes = [
   },
   {
     path: '/course',
-    component: Course
+    component: Course,
+  },
+  {
+    path: '/courseDetail',
+    name: 'courseDetail',
+    component: CourseDetail
   }
 ]
 

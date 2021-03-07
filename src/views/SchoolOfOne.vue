@@ -33,6 +33,7 @@
     </div>
     <div class="school-class-item">
       <div class="class-card" v-for="course in courseList">
+        <div @click="linkToCourseDetail(course.courseId)">
         <el-card :body-style="{ padding: '0px'}" shadow="hover">
           <img class="class-logo" :src="course.courseLogo" alt="加载失败">
           <div class="class-info">
@@ -44,6 +45,7 @@
             <span class="follow"><i class="el-icon-user"/>{{course.courseViews}}</span>
           </div>
         </el-card>
+        </div>
       </div>
     </div>
     <div class="page-control">
@@ -125,6 +127,14 @@ export default {
         this.pageInfo.current = val
         this.getCourseBySchoolId(this.school.schoolId)
       }
+    },
+    linkToCourseDetail(courseId) {
+      this.$router.push({
+        name: 'courseDetail',
+        params: {
+          courseId: courseId
+        }
+      })
     }
   },
   created() {

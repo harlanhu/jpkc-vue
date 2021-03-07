@@ -8,8 +8,8 @@
       <el-col :span="8" :offset="1">
         <div class="content">
           <drop-down id="drop-down" :title="dropdownTitle" :items="dropdownItems"/>
-          <el-button type="text"  @click="linkToSchoolView">学校</el-button>
-          <el-button type="text">所有课程</el-button>
+          <el-button type="text" @click="linkToSchoolView">学校</el-button>
+          <el-button type="text" @click="linkToCourse">所有课程</el-button>
           <el-button type="text">课程直播</el-button>
           <el-button type="text">名师辅导</el-button>
         </div>
@@ -59,6 +59,9 @@ export default {
     },
     linkToSchoolView() {
       this.$router.push("/school")
+    },
+    linkToCourse() {
+      this.$router.push("/course")
     }
   },
   computed: {

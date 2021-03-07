@@ -10,7 +10,7 @@
         <el-button size="small" round v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</el-button>
       </div>
       <div slot="course" v-for="course in courseList">
-        <div class="class-card">
+        <div class="class-card" @click="linkToCourseDetail(course.courseId)">
           <course-card-a :course="course"/>
         </div>
       </div>
@@ -60,6 +60,15 @@ export default {
         this.courseList = res.data.list
         this.pageInfo.pages = res.data.pages
         this.pageInfo.total = res.data.total
+      })
+    },
+    linkToCourseDetail(courseId) {
+      console.log(courseId)
+      this.$router.push({
+        name: 'courseDetail',
+        params: {
+          courseId: courseId
+        }
       })
     }
   },
