@@ -1,7 +1,13 @@
 <template>
   <div id="course-details">
-    <h1>课程详情</h1>
-    <h2>课程id: {{course.courseId}}</h2>
+    <div class="course-info">
+      <div class="course-logo">
+        <el-image></el-image>
+      </div>
+    </div>
+    <div class="section-info"></div>
+    <div class="school-info"></div>
+    <div class="teacher-info"></div>
   </div>
 </template>
 
@@ -29,5 +35,14 @@ export default {
 </script>
 
 <style scoped>
+#course-details {
+  width: 1200px;
+  margin: 0 auto;
+}
 
+.course-info {
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+}
 </style>
