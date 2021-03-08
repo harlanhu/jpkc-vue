@@ -2,7 +2,17 @@
   <div id="course-details">
     <div class="course-info">
       <div class="course-logo">
-        <el-image></el-image>
+        <el-image style="width: 510px; height: 228px" src=""></el-image>
+      </div>
+      <div class="course-detail">
+        <span class="course-title">CourseTitle</span>
+        <el-tag>类别</el-tag>
+        <div class="course-time">
+          <span>创建时间</span>
+          <span>更新时间</span>
+        </div>
+        <span>参加人数</span>
+        <button>立即收藏</button>
       </div>
     </div>
     <div class="section-info"></div>
@@ -41,8 +51,33 @@ export default {
 }
 
 .course-info {
-  width: 100%;
   height: 500px;
+  margin-top: 10px;
   background-color: #fff;
+  border-radius: 8px;
+}
+
+.course-logo {
+  float: left;
+}
+
+.course-detail {
+  float: left;
+  margin-left: 100px;
+}
+
+.course-title {
+  float: left;
+  font-size: 24px;
+  color: #333;
+  margin-right: 6px;
+}
+
+.el-image {
+  border-radius: 8px;
+}
+
+.el-tag {
+  float: left;
 }
 </style>
