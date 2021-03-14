@@ -67,14 +67,19 @@
       <div class="about">
         <div class="bg-3"></div>
         <span style="font-size: 18px">相关课程</span>
+        <div class="about-item" v-for="courseAbout in courseAbout">
+          <mini-card v-if="course.courseId !== courseAbout.courseId" :course="courseAbout"/>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import MiniCard from "@/components/common/MiniCard";
 export default {
   name: "CourseDetail",
+  components: {MiniCard},
   data() {
     return {
       activeIndex: "1",
@@ -84,7 +89,8 @@ export default {
             categoryName: ""
           }
         ]
-      }
+      },
+      courseAbout: []
     }
   },
   computed: {
@@ -98,14 +104,20 @@ export default {
   },
   methods: {
     getCourse() {
-      console.log(this.$route.params.courseId)
       this.$api.course.getCourseById(this.$route.params.courseId)
       .then(res => {
         this.course = res.data
+        this.getCourseAbout(res.data.categoryList[0].categoryId)
       })
     },
     menuHandleSelect(key, keyPath) {
       this.activeIndex = key
+    },
+    getCourseAbout(categoryId) {
+      this.$api.course.getAboutByCategoryId(categoryId)
+      .then(res => {
+        this.courseAbout = res.data
+      })
     }
   },
   created() {
@@ -261,7 +273,6 @@ export default {
 .course-about {
   float: left;
   width: 300px;
-  height: 200px;
   background-color: #fff;
   margin-left: 30px;
   margin-top: 20px;
@@ -269,6 +280,10 @@ export default {
 
 .about {
   padding: 30px 30px;
+}
+
+.about-item {
+  margin-top: 20px;
 }
 
 .bg-1 {

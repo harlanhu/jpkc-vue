@@ -56,6 +56,10 @@ function update(course) {
   })
 }
 
+function getAboutByCategoryId(categoryId) {
+  return axios.get(baseUrl + "/getAboutByCategoryId/" + categoryId)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -67,5 +71,6 @@ export default {
   uploadLogo,
   getByName,
   getAll,
-  update
+  update,
+  getAboutByCategoryId
 }
