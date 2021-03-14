@@ -10,6 +10,7 @@ const Login = () => import("@/views/Login");
 const School = () => import("@/views/School");
 const SchoolOfOne = () => import("@/views/SchoolOfOne");
 const Course = () => import("@/views/Course");
+const CoursePlay = () => import("@/views/CoursePlay");
 const CourseAdd = () => import("@/components/content/main/courseManage/CourseAdd");
 const CourseList = () => import("@/components/content/main/courseManage/CourseList");
 const CourseEdit = () => import("@/components/content/main/courseManage/CourseEdit");
@@ -95,6 +96,10 @@ const routes = [
   {
     path: '/course',
     component: Course,
+  },
+  {
+    path: '/course/:courseId',
+    component: CoursePlay
   },
   {
     path: '/courseDetail',

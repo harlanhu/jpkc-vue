@@ -20,6 +20,7 @@
         <div class="course-views">
           <span>已有&nbsp;&nbsp; {{course.courseViews}} &nbsp;&nbsp;人观看</span>
           <el-button type="success">立即收藏</el-button>
+          <el-button @click="linkToCoursePlay" type="primary">立即观看</el-button>
         </div>
       </div>
     </div>
@@ -77,6 +78,7 @@
 
 <script>
 import MiniCard from "@/components/common/MiniCard";
+
 export default {
   name: "CourseDetail",
   components: {MiniCard},
@@ -104,7 +106,6 @@ export default {
   },
   methods: {
     getCourse() {
-      console.log(this.$ls.getParams().courseId)
       this.$api.course.getCourseById(this.$ls.getParams().courseId)
       .then(res => {
         this.course = res.data
@@ -119,6 +120,9 @@ export default {
       .then(res => {
         this.courseAbout = res.data
       })
+    },
+    linkToCoursePlay() {
+      this.$router.push("/course/" + this.course.courseId)
     }
   },
   created() {
