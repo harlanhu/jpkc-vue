@@ -106,7 +106,15 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
+
+/**
+ * 路由前将数据保存
+ */
+router.beforeEach(((to, from, next) => {
+  localStorage.setItem("routerParams", JSON.stringify(to.params));
+  next()
+}))
 
 export default router

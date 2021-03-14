@@ -12,10 +12,12 @@ import 'video.js/dist/video-js.css'
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/normalize.css';
+import LSUtils from "@/utils/LSUtils";
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
 Vue.prototype.$msg = MessageUtils
+Vue.prototype.$ls = LSUtils
 
 //创建事件总线
 Vue.prototype.$bus = new Vue();

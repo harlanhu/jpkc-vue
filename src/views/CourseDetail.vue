@@ -104,7 +104,8 @@ export default {
   },
   methods: {
     getCourse() {
-      this.$api.course.getCourseById(this.$route.params.courseId)
+      console.log(this.$ls.getParams().courseId)
+      this.$api.course.getCourseById(this.$ls.getParams().courseId)
       .then(res => {
         this.course = res.data
         this.getCourseAbout(res.data.categoryList[0].categoryId)
