@@ -102,7 +102,7 @@ const routes = [
     component: CoursePlay
   },
   {
-    path: '/courseDetail',
+    path: '/courseDetail/:courseId',
     name: 'courseDetail',
     component: CourseDetail
   }
@@ -118,7 +118,6 @@ const router = new VueRouter({
  * 路由前将数据保存
  */
 router.beforeEach(((to, from, next) => {
-  localStorage.setItem("routerParams", JSON.stringify(to.params));
   next()
 }))
 

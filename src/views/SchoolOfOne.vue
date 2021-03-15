@@ -89,20 +89,20 @@ export default {
     },
     getSchoolInfo() {
       this.$api.school.getByName(this.$route.params.school)
-      .then(res => {
-        this.school = res.data
-        if (res.data.schoolId) {
-          this.getCourseBySchoolId(res.data.schoolId)
-        }
-      })
+          .then(res => {
+            this.school = res.data
+            if (res.data.schoolId) {
+              this.getCourseBySchoolId(res.data.schoolId)
+            }
+          })
     },
     getCourseBySchoolId(schoolId) {
       this.$api.course.getBySchoolId(schoolId, this.pageInfo.current, this.pageInfo.size)
-      .then(res => {
-        this.courseList = res.data.list
-        this.pageInfo.total = res.data.total
-        this.pageInfo.pages = res.data.pages
-      })
+          .then(res => {
+            this.courseList = res.data.list
+            this.pageInfo.total = res.data.total
+            this.pageInfo.pages = res.data.pages
+          })
     },
     prevPage(val) {
       if (this.pageInfo.current <= 1) {
@@ -129,12 +129,7 @@ export default {
       }
     },
     linkToCourseDetail(courseId) {
-      this.$router.push({
-        name: 'courseDetail',
-        params: {
-          courseId: courseId
-        }
-      })
+      this.$router.push('/courseDetail/' + courseId)
     }
   },
   created() {

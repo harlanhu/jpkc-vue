@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     getCourse() {
-      this.$api.course.getCourseById(this.$ls.getParams().courseId)
+      this.$api.course.getCourseById(this.$route.params.courseId)
       .then(res => {
         this.course = res.data
         this.getCourseAbout(res.data.categoryList[0].categoryId)
@@ -122,7 +122,12 @@ export default {
       })
     },
     linkToCoursePlay() {
-      this.$router.push("/course/" + this.course.courseId)
+      this.$router.push({
+        name: 'CourseDetails',
+        params: {
+          courseId: this.course.courseId
+        }
+      })
     }
   },
   created() {
