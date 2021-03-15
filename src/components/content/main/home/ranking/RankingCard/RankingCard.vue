@@ -6,7 +6,7 @@
     <!-- 内容 -->
     <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage" height="425px">
       <el-carousel-item v-for="page in pages">
-        <div class="card-item" v-for="(item, index) in list">
+        <div @click="linkToCourseDetail(item.courseId)" class="card-item" v-for="(item, index) in list">
           <span :class="isNum(getIndexNum(index))">{{getIndexNum(index)}}</span>
           <mini-card :course="item" class="mini-card"/>
         </div>
@@ -69,6 +69,9 @@ export default {
         default:
           return {other: true}
       }
+    },
+    linkToCourseDetail(courseId) {
+      this.$router.push("/courseDetail/" + courseId)
     }
   }
 }

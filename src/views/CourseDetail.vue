@@ -68,7 +68,7 @@
       <div class="about">
         <div class="bg-3"></div>
         <span style="font-size: 18px">相关课程</span>
-        <div class="about-item" v-for="courseAbout in courseAbout">
+        <div class="about-item" @click="linkToCourseDetail(courseAbout.courseId)" v-for="courseAbout in courseAboutList">
           <mini-card v-if="course.courseId !== courseAbout.courseId" :course="courseAbout"/>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default {
           }
         ]
       },
-      courseAbout: []
+      courseAboutList: []
     }
   },
   computed: {
@@ -105,8 +105,8 @@ export default {
     }
   },
   methods: {
-    getCourse() {
-      this.$api.course.getCourseById(this.$route.params.courseId)
+    getCourse(courseId) {
+      this.$api.course.getCourseById(courseId)
       .then(res => {
         this.course = res.data
         this.getCourseAbout(res.data.categoryList[0].categoryId)
@@ -118,7 +118,7 @@ export default {
     getCourseAbout(categoryId) {
       this.$api.course.getAboutByCategoryId(categoryId)
       .then(res => {
-        this.courseAbout = res.data
+        this.courseAboutList = res.data
       })
     },
     linkToCoursePlay() {
@@ -128,10 +128,14 @@ export default {
           courseId: this.course.courseId
         }
       })
+    },
+    linkToCourseDetail(courseId) {
+      this.$router.push('/courseDetail/' + courseId)
+      this.getCourse(courseId)
     }
   },
   created() {
-    this.getCourse()
+    this.getCourse(this.$route.params.courseId)
   }
 }
 </script>
