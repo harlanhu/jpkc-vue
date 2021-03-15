@@ -122,12 +122,7 @@ export default {
       })
     },
     linkToCoursePlay() {
-      this.$router.push({
-        name: 'CourseDetails',
-        params: {
-          courseId: this.course.courseId
-        }
-      })
+      this.$router.push('/course/' + this.course.courseId)
     },
     linkToCourseDetail(courseId) {
       this.$router.push('/courseDetail/' + courseId)
