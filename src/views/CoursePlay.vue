@@ -3,11 +3,11 @@
     <div class="menu">
       <nav-menu :section-list="course.sectionDtoList" @select="menuSelect"/>
     </div>
-    <div class="video-title">
-      标题
+    <div class="video-title" v-if="">
+      {{activeSection.title}}
     </div>
     <div class="video">
-      <v-player video-src="https://web-applications.oss-cn-chengdu.aliyuncs.com/jpck/course/ede921ddfb6e4ad6a6e8b7b211a304a9/section/6076d707040e413d909abf6dd0e81d03.mp4"/>
+      <v-player :video-src="activeSection.videoPath()"/>
     </div>
     <div class="recommend">
       <course-about :course="course"/>
@@ -42,7 +42,11 @@ export default {
   },
   data() {
     return {
-      course: {}
+      course: {},
+      activeSection: {
+        title: String,
+        videoPath: String
+      }
     }
   },
   methods: {
@@ -52,8 +56,16 @@ export default {
         this.course = res.data
       })
     },
-    menuSelect(sectionId) {
-
+    menuSelect(sectionId, index) {
+      let sectionList = this.course.sectionDtoList
+      for (let i = 0; i < sectionList.length; i++) {
+        if (sectionList[i].sectionId === sectionId) {
+          this.activeSection.title = sectionList[i].sectionName
+          this.activeSection.videoPath = sectionList[i].resources[0].resourcePath
+          console.log(this.activeSection.videoPath)
+          return;
+        }
+      }
     }
   },
   created() {

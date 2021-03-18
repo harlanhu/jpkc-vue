@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      this.$emit("select", key)
+      this.$emit("select", key, keyPath)
     }
   }
 }
