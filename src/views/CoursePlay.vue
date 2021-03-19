@@ -7,14 +7,14 @@
       {{activeSection.title}}
     </div>
     <div class="video">
-      <v-player :video-src="activeSection.videoPath()"/>
+      <v-player :video-src="activeSection.videoPath"/>
     </div>
     <div class="recommend">
       <course-about :course="course"/>
     </div>
     <div class="info">
       <div class="label">
-        <el-tag size="medium" type="info">标签</el-tag>
+        <el-tag v-for="label in course.labelList" size="medium" type="info">{{label.labelName}}</el-tag>
       </div>
       <div class="icon">
         <i class="el-icon-star-on"/>
@@ -44,8 +44,8 @@ export default {
     return {
       course: {},
       activeSection: {
-        title: String,
-        videoPath: String
+        title: "",
+        videoPath: "https://web-applications.oss-cn-chengdu.aliyuncs.com/jpck/course/ede921ddfb6e4ad6a6e8b7b211a304a9/section/e1759ee1bd064c1a91f7705b44c32614.mp4"
       }
     }
   },
@@ -136,7 +136,7 @@ export default {
 
 .el-tag {
   border-radius: 10px;
-  margin-right: 30px;
+  margin-right: 15px;
 }
 
 .comment {
