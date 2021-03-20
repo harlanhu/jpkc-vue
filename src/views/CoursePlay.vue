@@ -7,7 +7,7 @@
       {{activeSection.title}}
     </div>
     <div class="video">
-      <v-player :video-src="activeSection.videoPath"/>
+      <v-player :sources="source"/>
     </div>
     <div class="recommend">
       <course-about :course="course"/>
@@ -45,8 +45,9 @@ export default {
       course: {},
       activeSection: {
         title: "",
-        videoPath: "https://web-applications.oss-cn-chengdu.aliyuncs.com/jpck/course/ede921ddfb6e4ad6a6e8b7b211a304a9/section/e1759ee1bd064c1a91f7705b44c32614.mp4"
-      }
+        videoPath: ""
+      },
+      source: []
     }
   },
   methods: {
@@ -54,6 +55,18 @@ export default {
       this.$api.course.getCourseById(this.$route.params.courseId)
       .then(res => {
         this.course = res.data
+        let sectionList = res.data.sectionDtoList
+        for (const section of sectionList) {
+          let resourceList = section.resources;
+          for (const resource of resourceList) {
+            console.log(resource.resourcePath)
+            this.source.push({
+              type: "video/" +  resource.resourcePath.split(".")[resource.resourcePath.split(".").length - 1],
+              src: resource.resourcePath
+            })
+          }
+        }
+        console.log(this.source)
       })
     },
     menuSelect(sectionId, index) {
