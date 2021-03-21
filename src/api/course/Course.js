@@ -60,6 +60,10 @@ function getAboutByCategoryId(categoryId) {
   return axios.get(baseUrl + "/getAboutByCategoryId/" + categoryId)
 }
 
+function addViews(courseId) {
+  return axios.get(baseUrl + "/addViews/" + courseId)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -72,5 +76,6 @@ export default {
   getByName,
   getAll,
   update,
-  getAboutByCategoryId
+  getAboutByCategoryId,
+  addViews
 }

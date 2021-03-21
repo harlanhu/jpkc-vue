@@ -122,6 +122,7 @@ export default {
       })
     },
     linkToCoursePlay() {
+      this.$api.course.addViews(this.course.courseId)
       this.$router.push('/course/' + this.course.courseId)
     },
     linkToCourseDetail(courseId) {
