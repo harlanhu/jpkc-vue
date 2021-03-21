@@ -3,11 +3,11 @@
     <div class="menu">
       <nav-menu :section-list="course.sectionDtoList" @select="menuSelect"/>
     </div>
-    <div class="video-title" v-if="">
-      {{activeSection.title}}
+    <div class="video-title">
+      <span>— {{activeSection.title}}</span>
     </div>
     <div class="video">
-      <v-player :sources="source"/>
+      <v-player :src="activeSection.videoPath" :type="activeSection.type"/>
     </div>
     <div class="recommend">
       <course-about :course="course"/>
@@ -45,9 +45,9 @@ export default {
       course: {},
       activeSection: {
         title: "",
-        videoPath: ""
+        videoPath: "",
+        type: "",
       },
-      source: []
     }
   },
   methods: {
@@ -56,29 +56,25 @@ export default {
       .then(res => {
         this.course = res.data
         let sectionList = res.data.sectionDtoList
-        for (const section of sectionList) {
-          let resourceList = section.resources;
-          for (const resource of resourceList) {
-            console.log(resource.resourcePath)
-            this.source.push({
-              type: "video/" +  resource.resourcePath.split(".")[resource.resourcePath.split(".").length - 1],
-              src: resource.resourcePath
-            })
-          }
-        }
-        console.log(this.source)
+        this.initActiveSection(sectionList[0])
       })
     },
     menuSelect(sectionId, index) {
       let sectionList = this.course.sectionDtoList
-      for (let i = 0; i < sectionList.length; i++) {
-        if (sectionList[i].sectionId === sectionId) {
-          this.activeSection.title = sectionList[i].sectionName
-          this.activeSection.videoPath = sectionList[i].resources[0].resourcePath
-          console.log(this.activeSection.videoPath)
-          return;
+      for (const section of sectionList) {
+        if (section.sectionId === sectionId) {
+          this.initActiveSection(section)
+          break
         }
       }
+    },
+    getResourceType(resourcePath) {
+      return "video/" + resourcePath.split(".")[resourcePath.split(".").length - 1]
+    },
+    initActiveSection(section) {
+      this.activeSection.title = section.sectionName
+      this.activeSection.videoPath = section.resources[0].resourcePath
+      this.activeSection.type = this.getResourceType(section.resources[0].resourcePath)
     }
   },
   created() {
@@ -106,7 +102,14 @@ export default {
   height: 50px;
   border-radius: 8px 8px 0 0;
   background-color: #fff;
+}
+
+.video-title span {
+  margin-left: 30px;
   font-size: 25px;
+  display: block;
+  padding-top: 10px;
+  color: #8bb721;
 }
 
 .video {

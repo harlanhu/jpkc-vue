@@ -1,21 +1,23 @@
 <template>
   <div class="video">
-    <video-player class="video-player vjs-custom-skin"
-                  ref="videoPlayer"
-                  :playsinline="true"
-                  :options="playerOptions"
-                  @play="onPlayerPlay($event)"
-                  @pause="onPlayerPause($event)"
-                  @ended="onPlayerEnded($event)"
-                  @waiting="onPlayerWaiting($event)"
-                  @playing="onPlayerPlaying($event)"
-                  @loadeddata="onPlayerLoadeddata($event)"
-                  @timeupdate="onPlayerTimeupdate($event)"
-                  @canplay="onPlayerCanplay($event)"
-                  @canplaythrough="onPlayerCanplaythrough($event)"
-                  @statechanged="playerStateChanged($event)"
-                  @ready="playerReadied">
-    </video-player>
+    <div>
+      <video-player class="video-player vjs-custom-skin"
+                    ref="videoPlayer"
+                    :playsinline="true"
+                    :options="playerOptions"
+                    @play="onPlayerPlay($event)"
+                    @pause="onPlayerPause($event)"
+                    @ended="onPlayerEnded($event)"
+                    @waiting="onPlayerWaiting($event)"
+                    @playing="onPlayerPlaying($event)"
+                    @loadeddata="onPlayerLoadeddata($event)"
+                    @timeupdate="onPlayerTimeupdate($event)"
+                    @canplay="onPlayerCanplay($event)"
+                    @canplaythrough="onPlayerCanplaythrough($event)"
+                    @statechanged="playerStateChanged($event)"
+                    @ready="playerReadied">
+      </video-player>
+    </div>
   </div>
 </template>
 
@@ -29,7 +31,26 @@ export default {
     videoPlayer
   },
   props: {
-    sources: Array
+    src: {
+      type: String,
+      default: ""
+    },
+    type: {
+      type: String,
+      default: "video/mp4"
+    }
+  },
+  watch: {
+    src: {
+      handler(newVal) {
+        this.playerOptions.sources[0].src = newVal
+      }
+    },
+    type: {
+      handler(newVal) {
+        this.playerOptions.sources[0].type = newVal
+      }
+    }
   },
   data() {
     return {
@@ -44,7 +65,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [{
           type: "video/mp4", // 类型
-          src: this.source // url地址
+          src: this.src // url地址
         }],
         poster: '', // 封面地址
         notSupportedMessage: '此视频暂无法播放，请稍后再试', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
@@ -60,43 +81,43 @@ export default {
   methods: {
     // 播放回调
     onPlayerPlay(player) {
-      console.log('player play!', player)
+      //console.log('player play!', player)
       this.$emit("onPlay", player)
     },
 
     // 暂停回调
     onPlayerPause(player) {
-      console.log('player pause!', player)
+      //console.log('player pause!', player)
       this.$emit("onPause", player)
     },
 
     // 视频播完回调
     onPlayerEnded(player) {
-      console.log(player)
+      //console.log(player)
       this.$emit("onEnded", player)
     },
 
     // DOM元素上的readyState更改导致播放停止
     onPlayerWaiting(player) {
-      console.log(player)
+      //console.log(player)
       this.$emit("onWaiting", player)
     },
 
     // 已开始播放回调
     onPlayerPlaying(player) {
-      console.log(player)
+      //console.log(player)
       this.$emit("onPlaying", player)
     },
 
     // 当播放器在当前播放位置下载数据时触发
     onPlayerLoadeddata(player) {
-      console.log(player)
+      //console.log(player)
       this.$emit("onLoaded", player)
     },
 
     // 当前播放位置发生变化时触发。
     onPlayerTimeupdate(player) {
-      console.log(player)
+      //console.log(player)
       this.$emit("onTimeupdate", player)
     },
 
@@ -112,15 +133,14 @@ export default {
 
     //播放状态改变回调
     playerStateChanged(playerCurrentState) {
-      console.log('player current update state', playerCurrentState)
+      //console.log('player current update state', playerCurrentState)
       this.$emit("onStateChanged", playerCurrentState)
     },
 
     //将侦听器绑定到组件的就绪状态。与事件监听器的不同之处在于，如果ready事件已经发生，它将立即触发该函数。。
     playerReadied(player) {
-      console.log('example player 1 readied', player);
+      //console.log('example player 1 readied', player);
     }
-
   }
 }
 </script>
