@@ -23,7 +23,24 @@
       </div>
     </div>
     <div class="comment">
-      <h1>评论</h1>
+      <div class="comment-input">
+        <el-input type="textarea" :autosize="{minRows: 5, maxRows: 5}" placeholder="留下你的评论"></el-input>
+        <div class="comment-button">
+          <el-button type="primary">发表</el-button>
+        </div>
+      </div>
+      <div class="gl-1"></div>
+      <div class="comment-content">
+        <h1>评论内容</h1>
+        <el-tabs v-model="commentInfo.activeTagName" @tab-click="tabHandleClick">
+          <el-tab-pane label="热评" name="1"></el-tab-pane>
+          <el-tab-pane label="最新" name="2"></el-tab-pane>
+          <el-tab-pane label="倒叙" name="0"></el-tab-pane>
+        </el-tabs>
+        <div v-if="commentInfo.commentList.length === 0">
+          暂无评论
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +71,8 @@ export default {
         size: 10,
         total: 0,
         rankType: 0,
-        commentList: []
+        commentList: [],
+        activeTagName: "1"
       },
     }
   },
@@ -101,6 +119,9 @@ export default {
         this.commentInfo.total = res.data.total
         console.log(this.commentInfo)
       })
+    },
+    tabHandleClick(tab, event) {
+      console.log(tab, event)
     }
   },
   created() {
@@ -184,8 +205,25 @@ export default {
 .comment {
   margin: 20px auto;
   border-radius: 8px;
-  width: 1000px;
+  width: 984px;
   height: 1000px;
   background-color: #fff;
+  padding: 8px 8px;
+}
+
+.comment-button {
+  margin-top: 10px;
+  float: right;
+}
+
+.comment-content {
+  margin-top: 30px;
+}
+
+.gl-1 {
+  width: 100%;
+  margin-top: 80px;
+  height: 1px;
+  background-color: #999;
 }
 </style>
