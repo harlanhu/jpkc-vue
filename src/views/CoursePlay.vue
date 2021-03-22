@@ -40,6 +40,18 @@
         <div v-if="commentInfo.commentList.length === 0">
           暂无评论
         </div>
+        <div v-else>
+          <div class="comment-detail" v-for="comment in commentInfo.commentList">
+            <div class="content-avatar">
+              <avatar :image="comment.userAvatar" :size="50"/>
+            </div>
+            <div class="content-detail">
+              <h1 style="margin-top: 23px">{{comment.userName}}</h1>
+              <span style="font-size: 14px">{{comment.commentContent}}</span>
+              <span style="float: right">点赞{{comment.commentStar}}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -49,10 +61,12 @@
 import VPlayer from "@/components/common/VPlayer";
 import NavMenu from "@/components/common/NavMenu";
 import CourseAbout from "@/components/content/main/course/courseAbout";
+import Avatar from "@/components/common/Avatar";
 
 export default {
   name: "CoursePlay",
   components: {
+    Avatar,
     CourseAbout,
     NavMenu,
     VPlayer
@@ -71,6 +85,7 @@ export default {
         size: 10,
         total: 0,
         rankType: 0,
+        pages: 0,
         commentList: [],
         activeTagName: "1"
       },
@@ -102,7 +117,9 @@ export default {
       this.commentInfo.size = 10
       this.commentInfo.rankType = 0
       this.commentInfo.total = 0
+      this.commentInfo.pages = 0
       this.commentInfo.commentList = []
+      this.commentInfo.activeTagName = "1"
     },
     initActiveSection(section) {
       this.initPageInfo()
@@ -117,6 +134,7 @@ export default {
       .then(res => {
         this.commentInfo.commentList = res.data.list
         this.commentInfo.total = res.data.total
+        this.commentInfo.pages = res.data.pages
         console.log(this.commentInfo)
       })
     },
@@ -206,7 +224,6 @@ export default {
   margin: 20px auto;
   border-radius: 8px;
   width: 984px;
-  height: 1000px;
   background-color: #fff;
   padding: 8px 8px;
 }
@@ -220,10 +237,27 @@ export default {
   margin-top: 30px;
 }
 
+.comment-detail {
+  margin-top: 10px;
+  height: 100px;
+}
+
 .gl-1 {
   width: 100%;
   margin-top: 80px;
   height: 1px;
   background-color: #999;
+}
+
+.content-avatar {
+  float: left;
+  margin-top: 25px;
+  margin-left: 10px;
+}
+
+.content-detail {
+  float: left;
+  margin-left: 20px;
+  width: 800px;
 }
 </style>
