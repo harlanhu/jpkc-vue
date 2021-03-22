@@ -9,6 +9,7 @@ import liveCourse from "@/api/liveCourse/liveCourse";
 import teacher from "@/api/teacher/teacher";
 import school from "@/api/school/school";
 import section from "@/api/section/section";
+import sectionComment from "@/api/sectionComment/sectionComment";
 
 /**
  * 数据请求唯一入口
@@ -24,5 +25,6 @@ export default {
   liveCourse,
   teacher,
   school,
-  section
+  section,
+  sectionComment
 }

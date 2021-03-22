@@ -45,13 +45,21 @@ export default {
       course: {},
       activeSection: {
         title: "",
+        sectionId: "",
         videoPath: "",
         type: "",
+      },
+      commentInfo: {
+        current: 1,
+        size: 10,
+        total: 0,
+        rankType: 0,
+        commentList: []
       },
     }
   },
   methods: {
-    getCourse() {
+    initData() {
       this.$api.course.getCourseById(this.$route.params.courseId)
       .then(res => {
         this.course = res.data
@@ -71,14 +79,32 @@ export default {
     getResourceType(resourcePath) {
       return "video/" + resourcePath.split(".")[resourcePath.split(".").length - 1]
     },
+    initPageInfo() {
+      this.commentInfo.current = 1
+      this.commentInfo.size = 10
+      this.commentInfo.rankType = 0
+      this.commentInfo.total = 0
+      this.commentInfo.commentList = []
+    },
     initActiveSection(section) {
+      this.initPageInfo()
+      this.getComment(section.sectionId, 1, 10, 0)
+      this.activeSection.sectionId = section.sectionId
       this.activeSection.title = section.sectionName
       this.activeSection.videoPath = section.resources[0].resourcePath
       this.activeSection.type = this.getResourceType(section.resources[0].resourcePath)
+    },
+    getComment(sectionId, current, size, rankType) {
+      this.$api.sectionComment.getBySectionId(sectionId, current, size, rankType)
+      .then(res => {
+        this.commentInfo.commentList = res.data.list
+        this.commentInfo.total = res.data.total
+        console.log(this.commentInfo)
+      })
     }
   },
   created() {
-    this.getCourse()
+    this.initData()
   }
 }
 </script>
