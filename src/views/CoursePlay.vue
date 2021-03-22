@@ -34,8 +34,8 @@
         <h1>评论内容</h1>
         <el-tabs v-model="commentInfo.activeTagName" @tab-click="tabHandleClick">
           <el-tab-pane label="热评" name="1"></el-tab-pane>
-          <el-tab-pane label="最新" name="2"></el-tab-pane>
-          <el-tab-pane label="倒叙" name="0"></el-tab-pane>
+          <el-tab-pane label="倒叙" name="2"></el-tab-pane>
+          <el-tab-pane label="最新" name="0"></el-tab-pane>
         </el-tabs>
         <div v-if="commentInfo.commentList.length === 0">
           暂无评论
@@ -135,11 +135,10 @@ export default {
         this.commentInfo.commentList = res.data.list
         this.commentInfo.total = res.data.total
         this.commentInfo.pages = res.data.pages
-        console.log(this.commentInfo)
       })
     },
     tabHandleClick(tab, event) {
-      console.log(tab, event)
+      this.getComment(this.activeSection.sectionId, 1, 10, tab.name)
     }
   },
   created() {
