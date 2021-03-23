@@ -72,6 +72,10 @@ function getCollect(current, size) {
   return axios.get(baseUrl + "/getCollectByUser/" + current + "/" + size)
 }
 
+function getOpenByType(current, size, type) {
+  return axios.get(baseUrl + "/getOpenByType/" + current + "/" + size  + "/" + type)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -87,5 +91,6 @@ export default {
   getAboutByCategoryId,
   addViews,
   collect,
-  getCollect
+  getCollect,
+  getOpenByType
 }

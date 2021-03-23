@@ -2,11 +2,11 @@
   <div id="course-list">
     <div class="school-class">
       <el-menu :default-active="activeIndex" mode="horizontal" @select="menuSelect">
-        <el-menu-item index="1">全部</el-menu-item>
-        <el-menu-item index="2">人气</el-menu-item>
-        <el-menu-item index="3">收藏</el-menu-item>
-        <el-menu-item index="4">免费</el-menu-item>
-        <el-menu-item index="5">付费</el-menu-item>
+        <el-menu-item index="0">全部</el-menu-item>
+        <el-menu-item index="1">人气</el-menu-item>
+        <el-menu-item index="2">收藏</el-menu-item>
+        <el-menu-item index="3">免费</el-menu-item>
+        <el-menu-item index="4">付费</el-menu-item>
         <div class="search">
           <search-input/>
         </div>

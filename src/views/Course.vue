@@ -4,7 +4,8 @@
         :page-info="pageInfo"
         @prevPage="prevPage"
         @nextPage="nextPage"
-        @currentChange="currentChange">
+        @currentChange="currentChange"
+        @menuSelect="menuSelectHandler">
       <div slot="category" class="categories">
         <el-button size="small" round>全部</el-button>
         <el-button size="small" round v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</el-button>
@@ -61,6 +62,18 @@ export default {
         this.pageInfo.pages = res.data.pages
         this.pageInfo.total = res.data.total
       })
+    },
+    getOpenCourseByType(current, size, type) {
+      this.$api.course.getOpenByType(current, size, type)
+      .then(res => {
+        this.courseList = res.data.list
+        this.pageInfo.pages = res.data.pages
+        this.pageInfo.total = res.data.total
+        this.pageInfo.current = res.data.current
+      })
+    },
+    menuSelectHandler(key) {
+      this.getOpenCourseByType(1, this.pageInfo.size, key)
     },
     linkToCourseDetail(courseId) {
       console.log(courseId)
