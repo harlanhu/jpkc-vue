@@ -7,6 +7,11 @@
       <el-table-column prop="finished" label="结束时间"></el-table-column>
       <el-table-column prop="star" label="预约人数"></el-table-column>
       <el-table-column prop="liveCourseDesc" label="直播描述"></el-table-column>
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button type="text" size="small" @click="removeLiveCourse(scope.row)">删除预约</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="直播标题">
@@ -44,6 +49,7 @@ export default {
       this.$api.liveCourse.save(this.form)
       .then(res => {
         if (res.status === 200) {
+          this.getLCourse()
           this.$message.success("创建成功");
         } else {
           this.$message.error("创建失败");
@@ -51,6 +57,7 @@ export default {
       })
     },
     getLCourse() {
+      this.lCourseList = []
       this.$api.liveCourse.getByUser()
       .then(res => {
         for (let item of res.data) {
@@ -60,6 +67,12 @@ export default {
           console.log(item)
           this.lCourseList.push(item)
         }
+      })
+    },
+    removeLiveCourse(liveCourse) {
+      this.$api.liveCourse.remove(liveCourse.liveCourseId)
+      .then(res => {
+        this.getLCourse()
       })
     }
   },
