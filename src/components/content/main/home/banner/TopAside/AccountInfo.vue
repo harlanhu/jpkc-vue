@@ -6,8 +6,8 @@
           <avatar :image="account.userAvatar"/>
         </div>
         <div class="username">{{account.username}}</div>
-        <div v-for="course in cCourseList">
-          <el-button type="text">{{course.courseName}}</el-button>
+        <div style="margin-top: 10px;" v-for="course in cCourseList">
+          <el-button style="margin-top: 10px; margin-left: 25px" type="text" @click="linkToCourseDetail(course.courseId)">{{course.courseName}}</el-button>
         </div>
         <div class="course-btn">
           <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>我的课程</el-button>
@@ -45,10 +45,14 @@ export default {
       this.$bus.$emit("activeLoginDialog", true)
     },
     getCollect() {
-      this.$api.course.getCollect()
+      this.$api.course.getCollect(1, 3)
       .then(res => {
-        this.cCourseList = res.data
+        this.cCourseList = res.data.list
+        console.log(res.data.list)
       })
+    },
+    linkToCourseDetail(courseId) {
+      this.$router.push("/courseDetail/" + courseId)
     }
   },
   computed: {

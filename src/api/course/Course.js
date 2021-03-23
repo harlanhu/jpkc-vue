@@ -68,8 +68,8 @@ function collect(courseId) {
   return axios.get(baseUrl + "/collect/" + courseId)
 }
 
-function getCollect() {
-  return axios.get(baseUrl + "/getCollectByUser")
+function getCollect(current, size) {
+  return axios.get(baseUrl + "/getCollectByUser/" + current + "/" + size)
 }
 
 export default {
