@@ -1,8 +1,7 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import VueRouter from 'vue-router'
 
 import Home from "@/views/Home";
-
 const CourseManage = () => import("@/views/CourseManage");
 const CourseDetail = () => import("@/views/CourseDetail")
 const Register = () => import("@/views/Register");
@@ -17,6 +16,7 @@ const CourseEdit = () => import("@/components/content/main/courseManage/CourseEd
 const CourseData = () => import("@/components/content/main/courseManage/CourseData");
 const CourseDetails = () => import("@/components/content/main/courseManage/CourseDetails");
 const LiveOrder = () => import("@/components/content/main/courseManage/CourseLiveOrder");
+const Profile = () => import("@/views/Profile");
 
 Vue.use(VueRouter)
 
@@ -105,6 +105,10 @@ const routes = [
     path: '/courseDetail/:courseId',
     name: 'courseDetail',
     component: CourseDetail
+  },
+  {
+    path: '/profile',
+    component: Profile
   }
 ]
 

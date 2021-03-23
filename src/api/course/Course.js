@@ -64,6 +64,10 @@ function addViews(courseId) {
   return axios.get(baseUrl + "/addViews/" + courseId)
 }
 
+function collect(courseId) {
+  return axios.get(baseUrl + "/collect/" + courseId)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -77,5 +81,6 @@ export default {
   getAll,
   update,
   getAboutByCategoryId,
-  addViews
+  addViews,
+  collect
 }

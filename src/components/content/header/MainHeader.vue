@@ -20,7 +20,7 @@
       <el-col :span="2" :offset="1">
         <el-button v-if="$store.state.token === null" @click="activeLoginDialog" type="text">注册<el-divider direction="vertical"/>登录</el-button>
         <div v-else>
-          <el-button @click="activeLoginDialog" type="text">个人中心</el-button>
+          <el-button @click="linkeToProfile" type="text">个人中心</el-button>
         </div>
       </el-col>
     </el-row>
@@ -62,6 +62,9 @@ export default {
     },
     linkToCourse() {
       this.$router.push("/course")
+    },
+    linkeToProfile() {
+      this.$router.push("/profile")
     }
   },
   computed: {

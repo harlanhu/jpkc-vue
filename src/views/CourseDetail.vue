@@ -19,7 +19,7 @@
         </div>
         <div class="course-views">
           <span>已有&nbsp;&nbsp; {{course.courseViews}} &nbsp;&nbsp;人观看</span>
-          <el-button type="success">立即收藏</el-button>
+          <el-button @click="collectCourse" type="success">立即收藏</el-button>
           <el-button @click="linkToCoursePlay" type="primary">立即观看</el-button>
         </div>
       </div>
@@ -128,6 +128,16 @@ export default {
     linkToCourseDetail(courseId) {
       this.$router.push('/courseDetail/' + courseId)
       this.getCourse(courseId)
+    },
+    collectCourse() {
+      this.$api.course.collect(this.course.courseId)
+      .then(res => {
+        if (res.status === 200) {
+          this.$message.success("收藏成功")
+        } else {
+          this.$message.error("收藏失败,请稍后再试...")
+        }
+      })
     }
   },
   created() {
