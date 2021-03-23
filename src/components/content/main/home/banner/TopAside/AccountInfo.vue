@@ -6,8 +6,8 @@
           <avatar :image="account.userAvatar"/>
         </div>
         <div class="username">{{account.username}}</div>
-        <div>
-          课程相关
+        <div v-for="course in cCourseList">
+          <el-button type="text">{{course.courseName}}</el-button>
         </div>
         <div class="course-btn">
           <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>我的课程</el-button>
@@ -35,9 +35,20 @@ export default {
   components: {
     Avatar
   },
+  data() {
+    return {
+      cCourseList: []
+    }
+  },
   methods: {
     activeLoginDialog() {
       this.$bus.$emit("activeLoginDialog", true)
+    },
+    getCollect() {
+      this.$api.course.getCollect()
+      .then(res => {
+        this.cCourseList = res.data
+      })
     }
   },
   computed: {
@@ -46,6 +57,12 @@ export default {
     },
     account() {
       return this.$store.state.accountInfo
+    }
+  },
+  created() {
+    console.log(localStorage.getItem("accessToken"))
+    if (localStorage.getItem("accessToken")) {
+      this.getCollect()
     }
   }
 }
