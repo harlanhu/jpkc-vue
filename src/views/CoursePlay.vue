@@ -24,9 +24,9 @@
     </div>
     <div class="comment">
       <div class="comment-input">
-        <el-input type="textarea" :autosize="{minRows: 5, maxRows: 5}" placeholder="留下你的评论"></el-input>
+        <el-input v-model="comment" type="textarea" :autosize="{minRows: 5, maxRows: 5}" placeholder="留下你的评论"></el-input>
         <div class="comment-button">
-          <el-button type="primary">发表</el-button>
+          <el-button @click="publishComment" type="primary">发表</el-button>
         </div>
       </div>
       <div class="gl-1"></div>
@@ -38,17 +38,17 @@
           <el-tab-pane label="最新" name="0"></el-tab-pane>
         </el-tabs>
         <div v-if="commentInfo.commentList.length === 0">
-          暂无评论
+          <span style="font-size: 18px; color: #666; text-align: center;">暂无评论</span>
         </div>
         <div v-else>
-          <div class="comment-detail" v-for="comment in commentInfo.commentList">
+          <div class="comment-detail" v-for="(comment, index) in commentInfo.commentList">
             <div class="content-avatar">
               <avatar :image="comment.userAvatar" :size="50"/>
             </div>
             <div class="content-detail">
               <h1 style="margin-top: 23px">{{comment.userName}}</h1>
               <span style="font-size: 14px">{{comment.commentContent}}</span>
-              <span style="float: right">点赞{{comment.commentStar}}</span>
+              <a @click="likeSComment(comment.commentId, index)" style="float: right"><i class="el-icon-thumb"></i>点赞{{comment.commentStar}}</a>
             </div>
           </div>
         </div>
@@ -89,6 +89,7 @@ export default {
         commentList: [],
         activeTagName: "1"
       },
+      comment: ""
     }
   },
   methods: {
@@ -139,6 +140,19 @@ export default {
     },
     tabHandleClick(tab, event) {
       this.getComment(this.activeSection.sectionId, 1, 10, tab.name)
+    },
+    likeSComment(commentId, index) {
+      this.$api.sectionComment.like(commentId)
+      .then(res => {
+        this.commentInfo.commentList[index].commentStar ++
+      })
+    },
+    publishComment() {
+      this.$api.sectionComment.save(this.activeSection.sectionId, this.comment, 0)
+      .then(res => {
+        this.comment = ''
+        this.getComment(this.activeSection.sectionId, 1, 10, 0)
+      })
     }
   },
   created() {
