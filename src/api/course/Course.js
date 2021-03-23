@@ -76,6 +76,10 @@ function getOpenByType(current, size, type) {
   return axios.get(baseUrl + "/getOpenByType/" + current + "/" + size  + "/" + type)
 }
 
+function getOpenByTypeAndCategory(current, size, type, categoryId) {
+  return axios.get(baseUrl + "/getOpenByTypeAndCategory/" + current + "/" + size + "/" + type + "/" + categoryId)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -92,5 +96,6 @@ export default {
   addViews,
   collect,
   getCollect,
-  getOpenByType
+  getOpenByType,
+  getOpenByTypeAndCategory
 }

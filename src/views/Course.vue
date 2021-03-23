@@ -7,8 +7,8 @@
         @currentChange="currentChange"
         @menuSelect="menuSelectHandler">
       <div slot="category" class="categories">
-        <el-button size="small" round>全部</el-button>
-        <el-button size="small" round v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</el-button>
+        <el-button @click="categorySelectHandler('0')" size="small" round>全部</el-button>
+        <el-button @click="categorySelectHandler(category.categoryId)" size="small" round v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</el-button>
       </div>
       <div slot="course" v-for="course in courseList">
         <div class="class-card" @click="linkToCourseDetail(course.courseId)">
@@ -36,7 +36,11 @@ export default {
         total: 0,
         pages: 0
       },
-      courseList: []
+      courseList: [],
+      activeType: {
+        categoryId: "0",
+        type: 0,
+      }
     }
   },
   methods: {
@@ -63,8 +67,8 @@ export default {
         this.pageInfo.total = res.data.total
       })
     },
-    getOpenCourseByType(current, size, type) {
-      this.$api.course.getOpenByType(current, size, type)
+    getOpenByTypeAndCategory(current, size, type, categoryId) {
+      this.$api.course.getOpenByTypeAndCategory(current, size, type, categoryId)
       .then(res => {
         this.courseList = res.data.list
         this.pageInfo.pages = res.data.pages
@@ -73,7 +77,13 @@ export default {
       })
     },
     menuSelectHandler(key) {
-      this.getOpenCourseByType(1, this.pageInfo.size, key)
+      this.activeType.type = key
+      this.pageInfo.current = 1
+      this.getOpenByTypeAndCategory(this.pageInfo.current, this.pageInfo.size, this.activeType.type, this.activeType.categoryId)
+    },
+    categorySelectHandler(categoryId) {
+      this.activeType.categoryId = categoryId
+      this.getOpenByTypeAndCategory(this.pageInfo.current, this.pageInfo.size, this.activeType.type, this.activeType.categoryId)
     },
     linkToCourseDetail(courseId) {
       console.log(courseId)
