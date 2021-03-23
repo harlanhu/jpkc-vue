@@ -21,11 +21,11 @@
     <div class="school-class">
       <p>课程</p>
       <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">全部</el-menu-item>
-        <el-menu-item index="2">人气</el-menu-item>
-        <el-menu-item index="3">收藏</el-menu-item>
-        <el-menu-item index="4">免费</el-menu-item>
-        <el-menu-item index="5">付费</el-menu-item>
+        <el-menu-item index="0">全部</el-menu-item>
+        <el-menu-item index="1">人气</el-menu-item>
+        <el-menu-item index="2">收藏</el-menu-item>
+        <el-menu-item index="3">免费</el-menu-item>
+        <el-menu-item index="4">付费</el-menu-item>
         <div class="search">
           <search-input/>
         </div>
@@ -72,7 +72,7 @@ export default {
   components: {SearchInput},
   data() {
     return {
-      activeIndex: '1',
+      activeIndex: '0',
       school: {},
       pageInfo: {
         current: 1,
@@ -80,36 +80,39 @@ export default {
         total: 0,
         pages: 0
       },
-      courseList: []
+      courseList: [],
+      activeType: "0"
     }
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      this.activeType = key
+      this.pageInfo.current = 1
+      this.getCourseBySchool(this.pageInfo.current, this.pageInfo.size, this.activeType, this.school.schoolId)
     },
     getSchoolInfo() {
       this.$api.school.getByName(this.$route.params.school)
           .then(res => {
             this.school = res.data
             if (res.data.schoolId) {
-              this.getCourseBySchoolId(res.data.schoolId)
+              this.getCourseBySchool(1, 25, 0, res.data.schoolId)
             }
           })
     },
-    getCourseBySchoolId(schoolId) {
-      this.$api.course.getBySchoolId(schoolId, this.pageInfo.current, this.pageInfo.size)
-          .then(res => {
-            this.courseList = res.data.list
-            this.pageInfo.total = res.data.total
-            this.pageInfo.pages = res.data.pages
-          })
+    getCourseBySchool(current, size, type, schoolId) {
+      this.$api.course.getOpenByTypeAndSchool(current, size, type, schoolId)
+      .then(res => {
+        this.courseList = res.data.list
+        this.pageInfo.total = res.data.total
+        this.pageInfo.pages = res.data.pages
+      })
     },
     prevPage(val) {
       if (this.pageInfo.current <= 1) {
         console.log("不能往前翻页了!")
       } else {
         this.pageInfo.current = val
-        this.getCourseBySchoolId(this.school.schoolId)
+        this.getCourseBySchool(this.pageInfo.current, this.pageInfo.size, this.activeType, this.school.schoolId)
       }
     },
     nextPage(val) {
@@ -117,7 +120,7 @@ export default {
         console.log("不能往后翻页了！")
       } else {
         this.pageInfo.current = val
-        this.getCourseBySchoolId(this.school.schoolId)
+        this.getCourseBySchool(this.pageInfo.current, this.pageInfo.size, this.activeType, this.school.schoolId)
       }
     },
     currentChange(val) {
@@ -125,12 +128,13 @@ export default {
         console.log("页面错乱了！")
       } else {
         this.pageInfo.current = val
-        this.getCourseBySchoolId(this.school.schoolId)
+        this.getCourseBySchool(this.pageInfo.current, this.pageInfo.size, this.activeType, this.school.schoolId)
       }
     },
     linkToCourseDetail(courseId) {
       this.$router.push('/courseDetail/' + courseId)
-    }
+    },
+
   },
   created() {
     this.getSchoolInfo()
