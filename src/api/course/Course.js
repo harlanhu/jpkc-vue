@@ -84,6 +84,10 @@ function getOpenByTypeAndSchool(current, size, type, schoolId) {
   return axios.get(baseUrl + "/getOpenByTypeAndSchool/" + current + "/" + size + "/" + type + "/" + schoolId)
 }
 
+function getRecommend(current, size) {
+  return axios.get(baseUrl + "/getRecommend/" + current + "/" + size)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -102,5 +106,6 @@ export default {
   getCollect,
   getOpenByType,
   getOpenByTypeAndCategory,
-  getOpenByTypeAndSchool
+  getOpenByTypeAndSchool,
+  getRecommend
 }

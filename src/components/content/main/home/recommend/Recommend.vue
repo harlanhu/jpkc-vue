@@ -4,7 +4,7 @@
     <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage">
       <el-carousel-item v-for="page in pages">
         <div v-if="sonRefresh" class="recommend-content">
-        <div :class="{active: isSizeActive, recommendItem: !isSizeActive}" v-for="item in list">
+        <div :class="{active: isSizeActive, recommendItem: !isSizeActive}" @click="linkToCourseDetail(item.courseId)" v-for="item in list">
           <large-card :data="item"/>
         </div>
         </div>
@@ -31,8 +31,8 @@ export default {
     LargeCard
   },
   methods: {
-    getHomeRecommend() {
-      this.$api.webResource.getHomeRecommendResource(this.current, this.size)
+    getRecommend() {
+      this.$api.course.getRecommend(this.current, this.size)
       .then(res => {
         this.list = res.data.list
         this.total = res.data.total
@@ -45,20 +45,23 @@ export default {
       }else {
         this.current --
       }
-      this.sonRefresh= false;
+      this.sonRefresh= false
       this.$nextTick(() => {
-        this.sonRefresh= true;
+        this.sonRefresh= true
       });
-      this.getHomeRecommend()
+      this.getRecommend()
+    },
+    linkToCourseDetail(courseId) {
+      this.$router.push("courseDetail/" + courseId)
     }
   },
   computed: {
     isSizeActive() {
-      if (this.list.length < this.size) return true;
+      if (this.list.length < this.size) return true
     }
   },
   created() {
-    this.getHomeRecommend()
+    this.getRecommend()
   }
 }
 </script>

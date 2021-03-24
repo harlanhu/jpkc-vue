@@ -1,15 +1,15 @@
 <template>
   <div id="large-card">
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
-      <img :src="data.resourcePath" class="image" alt="加载失败">
+      <img :src="data.courseLogo" class="image" alt="加载失败">
       <div id="info">
-        <h3>{{ course.courseName }}</h3>
+        <h3>{{ data.courseName }}</h3>
         <p>{{ school.schoolName }}</p>
       </div>
       <div id="detail">
-        <span>{{ course.courseViews }}人参加</span>
+        <span>{{ data.courseViews }}人参加</span>
         <el-divider></el-divider>
-        <span>{{ course.courseDesc }}</span>
+        <span>{{ data.courseDesc }}</span>
       </div>
     </el-card>
   </div>
@@ -25,27 +25,19 @@ export default {
   },
   data() {
     return {
-      course: {},
       school: {}
     }
   },
   methods: {
-    getCourseById() {
-      this.$api.course.getCourseById(this.data.associateDataId)
-          .then(res => {
-            this.course = res.data
-            this.getSchoolByTeacherId(res.data.teacherId)
-          })
-    },
-    getSchoolByTeacherId(teacherId) {
-      this.$api.school.getByTeacherId(teacherId)
+    getSchool(schoolId) {
+      this.$api.school.getById(schoolId)
       .then(res => {
         this.school = res.data
       })
     }
   },
   created() {
-    this.getCourseById()
+    this.getSchool(this.data.schoolId)
   }
 }
 </script>

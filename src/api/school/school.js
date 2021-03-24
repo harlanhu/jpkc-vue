@@ -26,6 +26,10 @@ function getByName(schoolName) {
   })
 }
 
+function getById(schoolId) {
+  return axios.get(baseURL + "/getSchoolById/" + schoolId)
+}
+
 function getNameByResourceId(resourceId) {
   return axios.get(baseURL + "/getNameByResourceId/" + resourceId)
 }
@@ -36,5 +40,6 @@ export default {
   getByCourseId,
   getCount,
   getByName,
-  getNameByResourceId
+  getNameByResourceId,
+  getById
 }
