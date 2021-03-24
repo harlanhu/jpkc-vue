@@ -17,6 +17,7 @@ const CourseData = () => import("@/components/content/main/courseManage/CourseDa
 const CourseDetails = () => import("@/components/content/main/courseManage/CourseDetails");
 const LiveOrder = () => import("@/components/content/main/courseManage/CourseLiveOrder");
 const Profile = () => import("@/views/Profile");
+const LayoutManage = () => import("@/views/LayoutManage");
 
 Vue.use(VueRouter)
 
@@ -109,6 +110,10 @@ const routes = [
   {
     path: '/profile',
     component: Profile
+  },
+  {
+    path: '/layout-manage',
+    component: LayoutManage
   }
 ]
 
