@@ -88,6 +88,12 @@ function getRecommend(current, size) {
   return axios.get(baseUrl + "/getRecommend/" + current + "/" + size)
 }
 
+function getSearchData(keyWords, current, size) {
+  return axios.post(baseUrl + "/search/" + current + "/" + size, {
+    keyWords: keyWords
+  })
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -107,5 +113,6 @@ export default {
   getOpenByType,
   getOpenByTypeAndCategory,
   getOpenByTypeAndSchool,
-  getRecommend
+  getRecommend,
+  getSearchData
 }
