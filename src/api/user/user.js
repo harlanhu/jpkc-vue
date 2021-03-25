@@ -1,7 +1,9 @@
 import axios from "@/api/http";
 
+const baseUrl = "/user"
+
 function isExistUser(userInfo) {
-  return axios.get("user/isExistUser/" + userInfo)
+  return axios.get("/user/isExistUser/" + userInfo)
 }
 
 function register(email, phone, password, smsVerifyCode) {
@@ -13,7 +15,12 @@ function register(email, phone, password, smsVerifyCode) {
   })
 }
 
+function getByUser() {
+  return axios.get(baseUrl + "/getByUser")
+}
+
 export default {
   isExistUser,
-  register
+  register,
+  getByUser
 }
