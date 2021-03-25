@@ -30,6 +30,14 @@ function getAdvertising(current, size) {
   return axios.get(baseUrl + "/getAdvertising/" + current + "/" + size)
 }
 
+function unbindCourse(layoutId, courseId) {
+  return axios.get(baseUrl + "/unbindCourse/" + layoutId + "/" + courseId)
+}
+
+function unbindSchool(layoutId, schoolId) {
+  return axios.get(baseUrl + "/unbindSchool/" + layoutId + "/" + schoolId)
+}
+
 export default {
   getAll,
   getSchool,
@@ -37,5 +45,7 @@ export default {
   bindSchool,
   bindCourse,
   getCarousel,
-  getAdvertising
+  getAdvertising,
+  unbindCourse,
+  unbindSchool
 }

@@ -6,7 +6,7 @@
         <span>{{school.schoolName}}</span>
         <div class="bottom">
           <time class="time">{{school.created}}</time>
-          <el-button type="text" class="button">删除</el-button>
+          <el-button @click="unbindSchool(school.schoolId)" type="text" class="button">删除</el-button>
         </div>
       </div>
     </el-card>
@@ -18,6 +18,11 @@ export default {
   name: "layoutSchoolCard",
   props: {
     school: Object
+  },
+  methods: {
+    unbindSchool(schoolId) {
+      this.$emit("unbindSchool", schoolId)
+    }
   }
 }
 </script>

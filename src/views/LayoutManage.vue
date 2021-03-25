@@ -8,10 +8,10 @@
       <el-main>
         <div class="dataList">
           <div v-show="switchCard" v-for="item in resourceList">
-            <layout-school-card :school="item"/>
+            <layout-school-card @unbindSchool="unbindSchool" :school="item"/>
           </div>
           <div v-show="!switchCard" v-for="item in resourceList">
-            <layout-course-card :course="item"/>
+            <layout-course-card @unbindCourse="unbindCourse" :course="item"/>
           </div>
           <div  @click="showDialog">
             <el-card style="text-align: center" :body-style="{ padding: '0px'}" class="add-card">
@@ -95,6 +95,21 @@ export default {
       } else {
         this.bindCourse(this.activeMenu, resourceId)
       }
+    },
+    unbindCourse(courseId) {
+      console.log(courseId)
+      this.$api.layout.unbindCourse(this.activeMenu, courseId)
+      .then(res => {
+        this.$message.info(res.message)
+      })
+      this.getCourse(this.activeMenu)
+    },
+    unbindSchool(schoolId) {
+      this.$api.layout.unbindSchool(this.activeMenu, schoolId)
+      .then(res => {
+        this.$message.info(res.message)
+      })
+      this.getSchool()
     }
   },
   computed: {
