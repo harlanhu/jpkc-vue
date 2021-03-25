@@ -35,14 +35,15 @@
           <el-tag style="margin-right: 5px" v-for="item in scope.row.categoryList" :key="item.categoryId">{{item.categoryName}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="labelList" label="课程标签">
+      <el-table-column width="250" prop="labelList" label="课程标签">
         <template slot-scope="scope">
           <el-tag type="info" style="margin-right: 5px" v-for="item in scope.row.labelList" :key="item.labelId">{{item.labelName}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column width="60" fixed="right" label="操作">
+      <el-table-column width="150" fixed="right" label="操作">
         <div slot-scope="scope">
-          <el-button @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button style="float: left" @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button style="float: left" @click="handleDeleteClick(scope.row.courseId)" type="text" size="small">删除</el-button>
         </div>
       </el-table-column>
     </el-table>
@@ -76,6 +77,13 @@ export default {
     statusChange(course) {
       console.log(course)
       this.$api.course.update(course)
+    },
+    handleDeleteClick(courseId) {
+      this.$api.course.deleteById(courseId)
+      .then(res => {
+        this.$message.success(res.message)
+        this.getCoursesByUserId()
+      })
     }
   },
   created() {

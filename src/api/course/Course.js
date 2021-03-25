@@ -94,6 +94,10 @@ function getSearchData(keyWords, current, size) {
   })
 }
 
+function deleteById(courseId) {
+  return axios.get(baseUrl + "/delete/" + courseId)
+}
+
 function getWithoutLayout(layoutId, current, size) {
   return axios.get(baseUrl + "/getWithoutLayout/" + layoutId + "/" + current + "/" + size)
 }
@@ -119,5 +123,6 @@ export default {
   getOpenByTypeAndSchool,
   getRecommend,
   getSearchData,
-  getWithoutLayout
+  getWithoutLayout,
+  deleteById
 }

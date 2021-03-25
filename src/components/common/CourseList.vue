@@ -41,7 +41,7 @@ export default {
   props: {
     activeIndex: {
       type: String,
-      default: '1'
+      default: '0'
     },
     pageInfo: {
       type: Object,
