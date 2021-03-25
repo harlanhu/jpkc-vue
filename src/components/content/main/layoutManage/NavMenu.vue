@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      this.$emit("menuSelect", key, keyPath)
     }
   }
 }
