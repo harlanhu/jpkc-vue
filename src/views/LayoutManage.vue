@@ -1,6 +1,6 @@
 <template>
   <div class="layout-manage">
-    <layout-dialog @layoutBind="layoutBind" :is-school="switchCard"/>
+    <layout-dialog @layoutBind="layoutBind" :is-school="switchCard" :active-layout="activeMenu"/>
     <el-container style="height: 100%">
       <el-aside style="width: 300px; border-radius: 8px">
         <nav-menu @menuSelect="menuSelectHandler" :layout-list="layoutList"/>
@@ -75,7 +75,6 @@ export default {
     bindSchool(layoutId, schoolId) {
       this.$api.layout.bindSchool(layoutId, schoolId)
       .then(res => {
-        console.log(res)
         this.getSchool()
       })
     },

@@ -38,6 +38,10 @@ function getByPage(current, size) {
   return axios.get(baseURL + "/getAllByPage/" + current + "/" + size)
 }
 
+function getAllWithoutLayout(layoutId,current, size) {
+  return axios.get(baseURL + "/getAllWithoutLayout/" + layoutId + "/" + current + "/" + size)
+}
+
 export default {
   getByTeacherId,
   getAll,
@@ -46,5 +50,6 @@ export default {
   getByName,
   getNameByResourceId,
   getById,
-  getByPage
+  getByPage,
+  getAllWithoutLayout
 }

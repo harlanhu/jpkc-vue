@@ -28,6 +28,7 @@ export default {
   name: "layoutDialog",
   props: {
     isSchool: Boolean,
+    activeLayout: ""
   },
   data() {
     return {
@@ -37,13 +38,13 @@ export default {
   },
   methods: {
     getSchool(current, size) {
-      this.$api.school.getByPage(current, size)
+      this.$api.school.getAllWithoutLayout('35ea0cd7f84a530a8306f39c0888f4ee',current, size)
       .then(res => {
         this.resourceList = res.data.list
       })
     },
-    getCourse(current, size) {
-      this.$api.course.getAll(current, size)
+    getCourse(layoutId, current, size) {
+      this.$api.course.getWithoutLayout(layoutId, current, size)
       .then(res => {
         this.resourceList = res.data.list
       })
@@ -62,7 +63,7 @@ export default {
       if (this.isSchool) {
         this.getSchool(1,100)
       } else {
-        this.getCourse(1, 100)
+        this.getCourse(this.activeLayout, 1, 100)
       }
     })
   }

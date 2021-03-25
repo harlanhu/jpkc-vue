@@ -94,6 +94,10 @@ function getSearchData(keyWords, current, size) {
   })
 }
 
+function getWithoutLayout(layoutId, current, size) {
+  return axios.get(baseUrl + "/getWithoutLayout/" + layoutId + "/" + current + "/" + size)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -114,5 +118,6 @@ export default {
   getOpenByTypeAndCategory,
   getOpenByTypeAndSchool,
   getRecommend,
-  getSearchData
+  getSearchData,
+  getWithoutLayout
 }
