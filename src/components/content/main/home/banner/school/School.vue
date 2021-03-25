@@ -5,7 +5,7 @@
         <el-button type="text" @click="allSchoolClick">{{"全部" + schoolCount + "所高校"}}<i class="el-icon-school"/></el-button>
       </el-col>
       <el-col :span="4" v-for="(school, index) in schoolItems" :key="index">
-        <a @click="linkToSchoolOfOne(school.resourceId)"><img style="border-radius: 8px" :src="school.resourcePath" alt="加载失败"></a>
+        <a @click="linkToSchoolOfOne(school.schoolName)"><img style="border-radius: 8px" :src="school.schoolLogo" alt="加载失败"></a>
       </el-col>
     </el-row>
   </div>
@@ -37,11 +37,8 @@ export default {
         this.schoolCount = res.data
       })
     },
-    linkToSchoolOfOne(resourceId) {
-      this.$api.school.getNameByResourceId(resourceId)
-      .then(res => {
-        this.$router.push("/school/" + res.data)
-      })
+    linkToSchoolOfOne(schoolName) {
+      this.$router.push("/school/" + schoolName)
     }
   },
   created() {

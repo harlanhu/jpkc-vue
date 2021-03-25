@@ -34,6 +34,10 @@ function getNameByResourceId(resourceId) {
   return axios.get(baseURL + "/getNameByResourceId/" + resourceId)
 }
 
+function getByPage(current, size) {
+  return axios.get(baseURL + "/getAllByPage/" + current + "/" + size)
+}
+
 export default {
   getByTeacherId,
   getAll,
@@ -41,5 +45,6 @@ export default {
   getCount,
   getByName,
   getNameByResourceId,
-  getById
+  getById,
+  getByPage
 }

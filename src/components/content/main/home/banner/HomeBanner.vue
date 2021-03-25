@@ -49,19 +49,22 @@ export default {
   },
   methods: {
     getCarouselItems() {
-      this.$api.webResource.getWebResourceByLayoutName( "home-banner-carousel").then(res => {
-        this.carouselItems = res.data
+      this.$api.layout.getCarousel(1, 100)
+      .then(res => {
+        this.carouselItems = res.data.list
+        console.log(res.data.list)
       })
     },
-    getSchoolItems() {
-      this.$api.webResource.getWebResourceByLayoutName("home-banner-school").then(res => {
+    getSchool() {
+      this.$api.layout.getSchool()
+      .then(res => {
         this.schoolItems = res.data
       })
     }
   },
   created() {
     this.getCarouselItems()
-    this.getSchoolItems()
+    this.getSchool()
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="strip-card">
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
-      <img :src="data.resourcePath" class="image" alt="加载失败">
+      <img :src="data.courseLogo" class="image" alt="加载失败">
     </el-card>
   </div>
 </template>

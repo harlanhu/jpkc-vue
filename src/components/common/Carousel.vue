@@ -2,7 +2,7 @@
     <div class="block">
       <el-carousel :height="height" style="border-radius: 4px">
         <el-carousel-item v-for="item in items">
-          <img :src="item.resourcePath" alt="加载失败">
+          <img :src="item.courseLogo" alt="加载失败">
         </el-carousel-item>
       </el-carousel>
     </div>

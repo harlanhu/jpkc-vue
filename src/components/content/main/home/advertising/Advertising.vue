@@ -1,6 +1,6 @@
 <template>
  <div id="advertising">
-   <div class="content" v-for="data in dataList">
+   <div @click="linkToCourseDetail(data.courseId)" class="content" v-for="data in dataList">
      <strip-card :data="data"/>
    </div>
  </div>
@@ -20,10 +20,14 @@ export default {
   },
   methods: {
     getAdvertising() {
-      this.$api.webResource.getWebResourceByLayoutName("home-advertising")
+      this.$api.layout.getAdvertising(1, -1)
       .then(res => {
-        this.dataList = res.data
+        console.log(res.data.list)
+        this.dataList = res.data.list
       })
+    },
+    linkToCourseDetail(courseId) {
+      this.$router.push("/courseDetail/" + courseId)
     }
   },
   created() {

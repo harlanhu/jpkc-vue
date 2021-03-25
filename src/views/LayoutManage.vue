@@ -1,5 +1,6 @@
 <template>
   <div class="layout-manage">
+    <layout-dialog @layoutBind="layoutBind" :is-school="switchCard"/>
     <el-container style="height: 100%">
       <el-aside style="width: 300px; border-radius: 8px">
         <nav-menu @menuSelect="menuSelectHandler" :layout-list="layoutList"/>
@@ -12,9 +13,11 @@
           <div v-show="!switchCard" v-for="item in resourceList">
             <layout-course-card :course="item"/>
           </div>
-          <el-card style="text-align: center" :body-style="{ padding: '0px'}" class="add-card">
-            <i style="font-size: 150px; margin-top: 35px" class="el-icon-circle-plus"/>
-          </el-card>
+          <div  @click="showDialog">
+            <el-card style="text-align: center" :body-style="{ padding: '0px'}" class="add-card">
+              <i style="font-size: 150px; margin-top: 35px" class="el-icon-circle-plus"/>
+            </el-card>
+          </div>
           <div class="empty" style="visibility: hidden"></div>
           <div class="empty" style="visibility: hidden"></div>
           <div class="empty" style="visibility: hidden"></div>
@@ -29,15 +32,17 @@
 import NavMenu from "@/components/content/main/layoutManage/NavMenu";
 import LayoutCourseCard from "@/components/content/main/layoutManage/layoutCourseCard";
 import LayoutSchoolCard from "@/components/content/main/layoutManage/layoutSchoolCard";
+import LayoutDialog from "@/components/content/main/layoutManage/layoutDialog";
 
 export default {
   name: "LayoutManage",
-  components: {LayoutSchoolCard, LayoutCourseCard, NavMenu},
+  components: {LayoutDialog, LayoutSchoolCard, LayoutCourseCard, NavMenu},
   data() {
     return {
       layoutList: [],
       resourceList: [],
-      activeMenu: '35ea0cd7f84a530a8306f39c0888f4ee'
+      activeMenu: '35ea0cd7f84a530a8306f39c0888f4ee',
+      activeResource: ''
     }
   },
   methods: {
@@ -65,6 +70,31 @@ export default {
         this.getSchool()
       } else {
         this.getCourse(key)
+      }
+    },
+    bindSchool(layoutId, schoolId) {
+      this.$api.layout.bindSchool(layoutId, schoolId)
+      .then(res => {
+        console.log(res)
+        this.getSchool()
+      })
+    },
+    bindCourse(layoutId, courseId) {
+      this.$api.layout.bindCourse(layoutId, courseId)
+      .then(res => {
+        console.log(res)
+        this.getCourse(layoutId)
+      })
+    },
+    showDialog() {
+      this.$bus.$emit("layoutDialog", true)
+    },
+    layoutBind(resourceId) {
+      console.log(this.activeMenu, resourceId)
+      if (this.switchCard) {
+        this.bindSchool(this.activeMenu, resourceId)
+      } else {
+        this.bindCourse(this.activeMenu, resourceId)
       }
     }
   },

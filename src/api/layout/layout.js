@@ -14,8 +14,28 @@ function getById(layoutId, current, size) {
   return axios.get(baseUrl + "/getById/" + layoutId + "/" + current + "/" + size)
 }
 
+function bindCourse(layoutId, courseId) {
+  return axios.get(baseUrl + "/bindCourse/" + layoutId + "/" + courseId)
+}
+
+function bindSchool(layoutId, schoolId) {
+  return axios.get(baseUrl + "/bindSchool/" + layoutId + "/" + schoolId)
+}
+
+function getCarousel(current, size) {
+  return axios.get(baseUrl + "/getCarousel/" + current + "/" + size)
+}
+
+function getAdvertising(current, size) {
+  return axios.get(baseUrl + "/getAdvertising/" + current + "/" + size)
+}
+
 export default {
   getAll,
   getSchool,
-  getById
+  getById,
+  bindSchool,
+  bindCourse,
+  getCarousel,
+  getAdvertising
 }
