@@ -10,7 +10,12 @@ function getOneById(teacherId) {
   return axios.get(baseUrl + "/getOneById/" + teacherId)
 }
 
+function getAll(current, size) {
+  return axios.get(baseUrl + "/getAll/" + current + "/" + size)
+}
+
 export default {
   getOneByCourseId,
-  getOneById
+  getOneById,
+  getAll,
 }

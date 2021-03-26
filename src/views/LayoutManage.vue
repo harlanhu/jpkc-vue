@@ -155,4 +155,8 @@ export default {
   height: 225px;
   margin: 15px 0;
 }
+
+.info {
+  height: 100%;
+}
 </style>

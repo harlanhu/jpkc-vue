@@ -11,7 +11,7 @@
           <el-button type="text" @click="linkToSchoolView">学校</el-button>
           <el-button type="text" @click="linkToCourse">所有课程</el-button>
           <el-button type="text">课程直播</el-button>
-          <el-button type="text">名师辅导</el-button>
+          <el-button type="text" @click="linkToTeacher">名师辅导</el-button>
         </div>
       </el-col>
       <el-col :span="6" :offset="2">
@@ -20,7 +20,7 @@
       <el-col :span="2" :offset="1">
         <el-button v-if="$store.state.token === null" @click="activeLoginDialog" type="text">注册<el-divider direction="vertical"/>登录</el-button>
         <div v-else>
-          <el-button @click="linkeToProfile" type="text">个人中心</el-button>
+          <el-button @click="linkToProfile" type="text">个人中心</el-button>
         </div>
       </el-col>
     </el-row>
@@ -63,8 +63,11 @@ export default {
     linkToCourse() {
       this.$router.push("/course")
     },
-    linkeToProfile() {
+    linkToProfile() {
       this.$router.push("/profile")
+    },
+    linkToTeacher() {
+      this.$router.push("/teacher")
     }
   },
   computed: {

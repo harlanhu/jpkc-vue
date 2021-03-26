@@ -21,6 +21,7 @@ const LayoutManage = () => import("@/views/LayoutManage");
 const UserInfo = () => import("@/components/content/main/profile/UserInfo");
 const Favorites = () => import("@/components/content/main/profile/Favorite");
 const Qualification = () => import("@/components/content/main/profile/Qualification");
+const Teacher = () => import("@/views/Teacher");
 
 Vue.use(VueRouter)
 
@@ -143,6 +144,10 @@ const routes = [
   {
     path: '/layout-manage',
     component: LayoutManage
+  },
+  {
+    path: '/teacher',
+    component: Teacher
   }
 ]
 
