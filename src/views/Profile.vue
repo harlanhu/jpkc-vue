@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     menuSelect(key, keyPath) {
-      console.log(key)
+      this.$router.push('/profile/' + key)
     }
   }
 }

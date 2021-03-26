@@ -18,7 +18,9 @@ const CourseDetails = () => import("@/components/content/main/courseManage/Cours
 const LiveOrder = () => import("@/components/content/main/courseManage/CourseLiveOrder");
 const Profile = () => import("@/views/Profile");
 const LayoutManage = () => import("@/views/LayoutManage");
-const UserInfo = () => import("@/components/content/main/profile/UserInfo")
+const UserInfo = () => import("@/components/content/main/profile/UserInfo");
+const Favorites = () => import("@/components/content/main/profile/Favorite");
+const Qualification = () => import("@/components/content/main/profile/Qualification");
 
 Vue.use(VueRouter)
 
@@ -122,6 +124,18 @@ const routes = [
         path: 'info',
         components: {
           profileContent: UserInfo
+        }
+      },
+      {
+        path: 'favorite',
+        components: {
+          profileContent: Favorites
+        }
+      },
+      {
+        path: 'qualification',
+        components: {
+          profileContent:  Qualification
         }
       }
     ]
