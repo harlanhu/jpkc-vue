@@ -5,7 +5,7 @@
     </div>
     <div class="teacher-list">
       <div class="card" v-for="teacher in teacherList">
-        <teacher-card :teacher="teacher"/>
+        <teacher-card :teacher="teacher" @cardClick="cardClick"/>
       </div>
       <div class="empty" style="visibility: hidden"></div>
       <div class="empty" style="visibility: hidden"></div>
@@ -41,6 +41,9 @@ export default {
         this.pageInfo.total = res.data.total
         this.pageInfo.pages = res.data.pages
       })
+    },
+    cardClick(teacherId) {
+      this.$router.push("/teacher/" + teacherId)
     }
   },
   created() {

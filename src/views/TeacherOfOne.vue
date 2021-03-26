@@ -50,7 +50,7 @@ export default {
   created() {
     let teacherId = this.$route.params.teacherId
     this.getTeacher(teacherId)
-    this.getCourse(teacherId, this.current, this.size)
+    this.getCourse(teacherId, 1, 25)
     this.getSchool(teacherId)
   }
 }

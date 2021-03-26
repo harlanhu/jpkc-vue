@@ -1,5 +1,5 @@
 <template>
-  <div id="teacher-card">
+  <div @click="cardClick" class id="teacher-card">
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
       <el-avatar :size="70" :src="teacher.teacherAvatar"></el-avatar>
       <div class="info">
@@ -16,6 +16,11 @@ export default {
   name: "TeacherCard",
   props: {
     teacher: Object
+  },
+  methods: {
+    cardClick() {
+      this.$emit("cardClick", this.teacher.teacherId)
+    }
   }
 }
 </script>
