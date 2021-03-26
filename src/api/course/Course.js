@@ -102,6 +102,10 @@ function getWithoutLayout(layoutId, current, size) {
   return axios.get(baseUrl + "/getWithoutLayout/" + layoutId + "/" + current + "/" + size)
 }
 
+function getByTeacherId(teacherId, current, size) {
+  return axios.get(baseUrl + "/getByTeacherId/" + teacherId + "/" + current + "/" +size)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -124,5 +128,6 @@ export default {
   getRecommend,
   getSearchData,
   getWithoutLayout,
-  deleteById
+  deleteById,
+  getByTeacherId
 }

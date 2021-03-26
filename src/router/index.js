@@ -22,6 +22,7 @@ const UserInfo = () => import("@/components/content/main/profile/UserInfo");
 const Favorites = () => import("@/components/content/main/profile/Favorite");
 const Qualification = () => import("@/components/content/main/profile/Qualification");
 const Teacher = () => import("@/views/Teacher");
+const TeacherOfOne = () => import("@/views/TeacherOfOne");
 
 Vue.use(VueRouter)
 
@@ -148,6 +149,10 @@ const routes = [
   {
     path: '/teacher',
     component: Teacher
+  },
+  {
+    path: '/teacher/:teacherId',
+    component: TeacherOfOne
   }
 ]
 
