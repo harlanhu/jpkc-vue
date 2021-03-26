@@ -3,9 +3,9 @@
     <el-card :body-style="{ padding: '0px' }" shadow="hover">
       <el-avatar :size="70" :src="teacher.teacherAvatar"></el-avatar>
       <div class="info">
-        <p style="margin-top: 2px; font-size: 16px">{{teacher.teacherName}}</p>
+        <p style="margin-top: 15px; font-size: 16px">{{teacher.teacherName}}</p>
         <p style="margin-top: 2px; font-size: 12px; color: #999">{{teacher.teacherPost}}</p>
-        <p style="margin-top: 2px">{{teacher.school.schoolName}}</p>
+        <p style="margin-top: 2px; font-size: 12px; color: #666">{{teacher.school.schoolName}}</p>
       </div>
     </el-card>
   </div>
@@ -32,4 +32,9 @@ export default {
   margin: 12px 12px;
 }
 
+.info {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
 </style>

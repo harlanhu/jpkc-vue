@@ -11,15 +11,17 @@
       <div class="empty" style="visibility: hidden"></div>
       <div class="empty" style="visibility: hidden"></div>
     </div>
+    <page-control :page-info="pageInfo"/>
   </div>
 </template>
 
 <script>
 import TeacherCard from "@/components/common/TeacherCard";
+import PageControl from "@/components/common/PageControl";
 
 export default {
   name: "Teacher",
-  components: {TeacherCard},
+  components: {PageControl, TeacherCard},
   data() {
     return {
       pageInfo: {
@@ -35,7 +37,6 @@ export default {
     getTeacher(current, size) {
       this.$api.teacher.getAll(current, size)
       .then(res => {
-        console.log(res.data)
         this.teacherList = res.data.list
         this.pageInfo.total = res.data.total
         this.pageInfo.pages = res.data.pages
