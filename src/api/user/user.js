@@ -19,8 +19,18 @@ function getByUser() {
   return axios.get(baseUrl + "/getByUser")
 }
 
+function sendPhoneCodeByUser() {
+  return axios.get(baseUrl + "/sendPhoneCodeByUser")
+}
+
+function verifyCode(code) {
+  return axios.get(baseUrl + "/verifyCode/" + code)
+}
+
 export default {
   isExistUser,
   register,
-  getByUser
+  getByUser,
+  sendPhoneCodeByUser,
+  verifyCode
 }

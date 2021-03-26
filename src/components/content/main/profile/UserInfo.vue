@@ -1,18 +1,29 @@
 <template>
   <div id="user-info">
+    <el-dialog title="信息验证" :visible.sync="dialogShow" width="30%" center>
+      <div style="text-align: center">
+        验证码  <el-input v-model="verifyCode" style="width: 100px"></el-input>
+        <el-button style="margin-left: 30px" @click="verifyPhone" type="info" plain>发送验证码</el-button>
+      </div>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button @click="verifyPhoneCode" style="width: 200px" type="primary">验证</el-button>
+      </div>
+    </el-dialog>
     <el-form ref="form" :model="userInfo" label-width="80px">
       <el-form-item label="用户名">
-        <el-input v-model="userInfo.username"></el-input>
-        <el-tag :type="userStatus.type">{{userStatus.message}}</el-tag>
+        <el-input style="width: 300px" v-model="userInfo.username"></el-input>
+        <el-tag style="float: right; margin-right: 30px" :type="userStatus.type">{{userStatus.message}}</el-tag>
       </el-form-item>
       <el-form-item label="头像">
         <el-avatar shape="square" :size="100" fit="fit" :src="userInfo.userAvatar"/>
       </el-form-item>
       <el-form-item label="邮箱">
-        <el-input v-model="userInfo.userEmail"></el-input>
+        <el-input style="width: 300px" :disabled="inputStatus.email" v-model="userInfo.userEmail"></el-input>
+        <el-button style="margin-left: 30px" type="info" plain>{{inputStatus.email === true ? "修改" : "立即验证"}}</el-button>
       </el-form-item>
       <el-form-item label="电话">
-        <el-input v-model="userInfo.userPhone"></el-input>
+        <el-input style="width: 300px" :disabled="inputStatus.phone" v-model="userInfo.userPhone"></el-input>
+        <el-button style="margin-left: 30px" type="info" @click="phoneEdit" plain>{{inputStatus.phone === true ? "修改" : "发送验证码"}}</el-button>
       </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="userInfo.userSex">
@@ -30,9 +41,12 @@
       <el-form-item label="个人简介">
         <el-input type="textarea" v-model="userInfo.userDesc"></el-input>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary">保存信息</el-button>
+      </el-form-item>
     </el-form>
-    <span style="color: #666; margin-right: 20px">上次登录时间:{{userInfo.userLogin}}</span>
-    <span style="color: #999">信息更新时间:{{userInfo.userUpdate}}</span>
+    <span style="color: #999; float: right">信息更新时间:{{userInfo.userUpdate}}</span>
+    <span style="color: #666; float: right; margin-right: 30px">上次登录时间:{{userInfo.userLogin}}</span>
   </div>
 </template>
 
@@ -41,7 +55,13 @@ export default {
   name: "UserInfo",
   data() {
     return {
-      userInfo: {}
+      userInfo: {},
+      inputStatus: {
+        phone: true,
+        email: true,
+      },
+      dialogShow: false,
+      verifyCode: ""
     }
   },
   methods: {
@@ -51,6 +71,36 @@ export default {
         this.userInfo = res.data
         console.log(res.data)
       })
+    },
+    phoneEdit() {
+      this.dialogShow = true
+    },
+    verifyPhone() {
+      this.sendPhoneCode()
+    },
+    sendPhoneCode(phone) {
+      this.$api.user.sendPhoneCodeByUser(phone)
+      .then(res => {
+        this.$message.info(res.data)
+      })
+    },
+    verifyPhoneCode() {
+      if (this.verifyCode === "") {
+        this.$message.error("请输入验证码")
+      } else {
+        this.$api.user.verifyCode(this.verifyCode)
+            .then(res => {
+              if (res.status === 200) {
+                this.$message.success(res.data)
+                this.inputStatus.phone = false
+                this.verifyCode = ""
+                this.dialogShow = false
+              } else {
+                this.verifyCode = ""
+                this.$message.error(res.data)
+              }
+            })
+      }
     }
   },
   computed: {

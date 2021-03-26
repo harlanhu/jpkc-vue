@@ -2,7 +2,7 @@
   <div id="profile">
     <el-container style="height: 100%">
       <el-aside style="width: 200px; border-radius: 8px">
-        <nav-menu @menuSelect=""/>
+        <nav-menu @menuSelect="menuSelect"/>
       </el-aside>
       <el-main>
         <router-view name="profileContent"/>
