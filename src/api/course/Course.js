@@ -106,6 +106,10 @@ function getByTeacherId(teacherId, current, size) {
   return axios.get(baseUrl + "/getByTeacherId/" + teacherId + "/" + current + "/" +size)
 }
 
+function unCollect(courseId) {
+  return axios.get(baseUrl + "/unCollect/" + courseId)
+}
+
 export default {
   getCourseById,
   getRanking,
@@ -129,5 +133,6 @@ export default {
   getSearchData,
   getWithoutLayout,
   deleteById,
-  getByTeacherId
+  getByTeacherId,
+  unCollect
 }

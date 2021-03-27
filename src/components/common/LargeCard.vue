@@ -45,7 +45,7 @@ export default {
 <style scoped>
 #large-card {
   width: 224px;
-  height: 293px;
+  height: 265px;
 }
 
 .el-card {
@@ -54,7 +54,7 @@ export default {
 
 #info {
   width: 200px;
-  height: 70px;
+  height: 40px;
   margin: 10px auto;
   padding: 0;
   outline: none;

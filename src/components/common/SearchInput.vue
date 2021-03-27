@@ -40,13 +40,16 @@ export default {
       let result = []
       for (const item of this.data) {
         result.push({
-          value: item.courseName
+          value: item.courseName,
+          courseId: item.courseId
         })
       }
       cb(result)
     },
     handleSelect(item) {
-      console.log(item);
+      this.$router.push("/courseDetail/" + item.courseId)
+      this.state = ""
+      this.data = []
     }
   }
 }
