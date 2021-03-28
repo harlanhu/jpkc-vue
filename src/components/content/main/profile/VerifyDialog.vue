@@ -1,6 +1,5 @@
 <template>
   <div id="verify-dialog">
-    <el-dialog tit
   </div>
 </template>
 

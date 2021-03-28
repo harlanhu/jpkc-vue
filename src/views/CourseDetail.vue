@@ -52,7 +52,7 @@
         <el-image style="width: 200px; height: 200px" :src="course.school.schoolLogo"></el-image>
       </div>
       <div class="bg-2"></div>
-      <div class="teacher-info">
+      <div class="teacher-info" @click="linkToTeacher(course.teacher.teacherId)">
         <div class="bg-3"></div>
         <div class="teacher-from">{{course.school.schoolName}}&nbsp;&nbsp;老师授课</div>
         <div class="teacher-avatar">
@@ -138,6 +138,9 @@ export default {
           this.$message.error("收藏失败,请稍后再试...")
         }
       })
+    },
+    linkToTeacher(teacherId) {
+      this.$router.push("/teacher/" + teacherId)
     }
   },
   created() {

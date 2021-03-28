@@ -100,7 +100,7 @@ export default {
 }
 
 .school-info {
-  margin-top: 30px;
+  margin-top: 25px;
   margin-bottom: 10px;
 }
 
@@ -109,6 +109,7 @@ export default {
   width: 124px;
   font-family: 微软雅黑, "Microsoft YaHei",serif;
   font-size: 12px;
+  margin-left: 10px;
   color: #999;
   text-align: left;
   vertical-align: middle;
