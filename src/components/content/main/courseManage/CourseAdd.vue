@@ -56,13 +56,13 @@
               <div slot="file" slot-scope="{file}">
                 <img class="el-upload-list__item-thumbnail" :src="file.url" alt="找不到图片">
                 <span class="el-upload-list__item-actions">
-              <span class="el-upload-list__item-preview" @click="logoPreview(file)">
-                <i class="el-icon-zoom-in"/>
-              </span>
-              <span v-if="!logoFile.disabled" class="el-upload-list__item-delete" @click="logoDelete(file)">
-                <i class="el-icon-delete"/>
-              </span>
-            </span>
+                  <span class="el-upload-list__item-preview" @click="logoPreview(file)">
+                    <i class="el-icon-zoom-in"/>
+                  </span>
+                  <span v-if="!logoFile.disabled" class="el-upload-list__item-delete" @click="logoDelete(file)">
+                    <i class="el-icon-delete"/>
+                  </span>
+                </span>
               </div>
             </el-upload>
             <el-dialog :visible.sync="logoFile.dialogVisible">
