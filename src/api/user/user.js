@@ -37,6 +37,22 @@ function updatePhone(phone, code) {
   return axios.get(baseUrl + "/updatePhone/" + phone + '/' + code)
 }
 
+function sendMailVerifyCode() {
+  return axios.get(baseUrl + "/sendMailVerifyCode")
+}
+
+function verifyMailCode(code) {
+  return axios.get(baseUrl + "/verifyMailCode/" + code)
+}
+
+function getMailVerify(mail) {
+  return axios.get(baseUrl + "/getMailVerify/" + mail)
+}
+
+function updateMail(mail, code) {
+  return axios.get(baseUrl + "/updateMail/" + mail + "/" + code)
+}
+
 export default {
   isExistUser,
   register,
@@ -44,5 +60,9 @@ export default {
   sendPhoneCodeByUser,
   verifyCode,
   uploadAvatar,
-  updatePhone
+  updatePhone,
+  sendMailVerifyCode,
+  verifyMailCode,
+  getMailVerify,
+  updateMail
 }

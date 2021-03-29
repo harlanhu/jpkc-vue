@@ -1,12 +1,21 @@
 <template>
   <div id="user-info">
-    <el-dialog title="信息验证" :visible.sync="dialogShow" width="30%" center>
+    <el-dialog title="短信验证" :visible.sync="dialogShow" width="30%" center>
       <div style="text-align: center">
         验证码  <el-input v-model="verifyCode" style="width: 100px"></el-input>
         <el-button style="margin-left: 30px" @click="verifyPhone" type="info" plain>发送验证码</el-button>
       </div>
       <div style="text-align: center; margin-top: 20px">
         <el-button @click="verifyPhoneCode" style="width: 200px" type="primary">验证</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="邮箱验证" :visible.sync="mailDialShow" width="30%" center>
+      <div style="text-align: center">
+        验证码  <el-input v-model="verifyCode" style="width: 100px"></el-input>
+        <el-button style="margin-left: 30px" @click="verifyMail" type="info" plain>发送验证码</el-button>
+      </div>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button @click="verifyEmailCode" style="width: 200px" type="primary">验证</el-button>
       </div>
     </el-dialog>
     <el-form ref="form" :model="userInfo" label-width="80px">
@@ -20,7 +29,7 @@
       </el-form-item>
       <el-form-item label="邮箱">
         <el-input style="width: 300px" :disabled="inputStatus.email" v-model="userInfo.userEmail"></el-input>
-        <el-button style="margin-left: 30px" type="info" plain>{{inputStatus.email === true ? "修改" : "立即验证"}}</el-button>
+        <el-button style="margin-left: 30px" @click="mailEdit" type="info" plain>{{inputStatus.email === true ? "修改" : "立即验证"}}</el-button>
       </el-form-item>
       <el-form-item label="电话">
         <el-input style="width: 300px" :disabled="inputStatus.phone" v-model="userInfo.userPhone"></el-input>
@@ -34,10 +43,10 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="userInfo.password"></el-input>
+        <el-input style="width: 300px" v-model="userInfo.password"></el-input>
       </el-form-item>
       <el-form-item label="生日">
-        <el-date-picker type="date" placeholder="选择日期" v-model="userInfo.userBirthday" style="width: 100%;"></el-date-picker>
+        <el-date-picker style="width: 300px" type="date" placeholder="选择日期" v-model="userInfo.userBirthday"></el-date-picker>
       </el-form-item>
       <el-form-item label="个人简介">
         <el-input type="textarea" v-model="userInfo.userDesc"></el-input>
@@ -66,6 +75,7 @@ export default {
         updateEmail: false
       },
       dialogShow: false,
+      mailDialShow: false,
       verifyCode: ""
     }
   },
@@ -80,8 +90,27 @@ export default {
     phoneEdit() {
       this.dialogShow = true
     },
+    mailEdit() {
+      this.mailDialShow = true
+    },
     verifyPhone() {
       this.sendPhoneCode(this.userInfo.userPhone)
+    },
+    verifyMail() {
+      this.sendMailCode(this.userInfo.userEmail)
+    },
+    sendMailCode(mail) {
+      if (this.inputStatus.updateEmail) {
+        this.$api.user.getMailVerify(mail)
+        .then(res => {
+          this.$message.info(res.message)
+        })
+      } else {
+        this.$api.user.sendMailVerifyCode()
+        .then(res => {
+          this.$message.info(res.message)
+        })
+      }
     },
     sendPhoneCode(phone) {
       if (this.inputStatus.updatePhone) {
@@ -124,6 +153,39 @@ export default {
                 } else {
                   this.verifyCode = ""
                   this.$message.error(res.data)
+                }
+              })
+        }
+      }
+    },
+    verifyEmailCode() {
+      if (this.verifyCode === "") {
+        this.$message.error("请输入验证码")
+      } else {
+        if (this.inputStatus.updateEmail) {
+          this.$api.user.updateMail(this.userInfo.userEmail, this.verifyCode)
+              .then(res => {
+                if (res.status === 200) {
+                  this.$message.success(res.message)
+                  this.inputStatus.email = !this.inputStatus.email
+                  this.verifyCode = ""
+                  this.mailDialShow = false
+                  this.inputStatus.updateEmail = false
+                  this.getUser()
+                }
+              })
+        } else {
+          this.$api.user.verifyMailCode(this.verifyCode)
+              .then(res => {
+                if (res.status === 200) {
+                  this.$message.success(res.message)
+                  this.inputStatus.email = !this.inputStatus.email
+                  this.verifyCode = ""
+                  this.mailDialShow = false
+                  this.inputStatus.updateEmail = true;
+                } else {
+                  this.verifyCode = ""
+                  this.$message.error(res.message)
                 }
               })
         }
