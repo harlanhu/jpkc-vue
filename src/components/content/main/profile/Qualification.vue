@@ -30,10 +30,10 @@
               <span class="el-upload-list__item-preview" @click="avatarPreview(file)">
                 <i class="el-icon-zoom-in"/>
               </span>
-              <span v-if="!avatarFile.disabled" class="el-upload-list__item-delete" @click="avatarDelete(file)">
-                <i class="el-icon-delete"/>
+                <span v-if="!avatarFile.disabled" class="el-upload-list__item-delete" @click="avatarDelete(file)">
+                  <i class="el-icon-delete"/>
+                </span>
               </span>
-            </span>
             </div>
           </el-upload>
           <el-dialog :visible.sync="avatarFile.dialogVisible">

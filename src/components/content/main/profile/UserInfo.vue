@@ -15,7 +15,8 @@
         <el-tag style="float: right; margin-right: 30px" :type="userStatus.type">{{userStatus.message}}</el-tag>
       </el-form-item>
       <el-form-item label="头像">
-        <el-avatar shape="square" :size="100" fit="fit" :src="userInfo.userAvatar"/>
+        <el-avatar style="float: left" shape="square" :size="100" fit="fit" :src="userInfo.userAvatar"/>
+        <image-upload style="float: left; margin-left: 20px" :src="userInfo.userAvatar" @imageUpload="uploadAvatar"/>
       </el-form-item>
       <el-form-item label="邮箱">
         <el-input style="width: 300px" :disabled="inputStatus.email" v-model="userInfo.userEmail"></el-input>
@@ -51,8 +52,10 @@
 </template>
 
 <script>
+import ImageUpload from "@/components/common/ImageUpload";
 export default {
   name: "UserInfo",
+  components: {ImageUpload},
   data() {
     return {
       userInfo: {},
@@ -101,6 +104,16 @@ export default {
               }
             })
       }
+    },
+    uploadAvatar(raw) {
+      this.$api.user.uploadAvatar(raw)
+      .then(res => {
+        if (res.status === 200) {
+          this.getUser();
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     }
   },
   computed: {

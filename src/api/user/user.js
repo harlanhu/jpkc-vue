@@ -27,10 +27,17 @@ function verifyCode(code) {
   return axios.get(baseUrl + "/verifyCode/" + code)
 }
 
+function uploadAvatar(raw) {
+  const formData = new FormData()
+  formData.append('file', raw)
+  return axios.post(baseUrl + "/uploadAvatar", formData)
+}
+
 export default {
   isExistUser,
   register,
   getByUser,
   sendPhoneCodeByUser,
-  verifyCode
+  verifyCode,
+  uploadAvatar
 }
