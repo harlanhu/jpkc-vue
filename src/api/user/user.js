@@ -33,11 +33,16 @@ function uploadAvatar(raw) {
   return axios.post(baseUrl + "/uploadAvatar", formData)
 }
 
+function updatePhone(phone, code) {
+  return axios.get(baseUrl + "/updatePhone/" + phone + '/' + code)
+}
+
 export default {
   isExistUser,
   register,
   getByUser,
   sendPhoneCodeByUser,
   verifyCode,
-  uploadAvatar
+  uploadAvatar,
+  updatePhone
 }

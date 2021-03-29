@@ -24,7 +24,7 @@
       </el-form-item>
       <el-form-item label="电话">
         <el-input style="width: 300px" :disabled="inputStatus.phone" v-model="userInfo.userPhone"></el-input>
-        <el-button style="margin-left: 30px" type="info" @click="phoneEdit" plain>{{inputStatus.phone === true ? "修改" : "发送验证码"}}</el-button>
+        <el-button style="margin-left: 30px" type="info" @click="phoneEdit" plain>{{inputStatus.phone === true ? "修改" : "立即验证"}}</el-button>
       </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="userInfo.userSex">
@@ -43,7 +43,7 @@
         <el-input type="textarea" v-model="userInfo.userDesc"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">保存信息</el-button>
+        <el-button @click="updateUser" type="primary">保存信息</el-button>
       </el-form-item>
     </el-form>
     <span style="color: #999; float: right">信息更新时间:{{userInfo.userUpdate}}</span>
@@ -61,7 +61,9 @@ export default {
       userInfo: {},
       inputStatus: {
         phone: true,
+        updatePhone: false,
         email: true,
+        updateEmail: false
       },
       dialogShow: false,
       verifyCode: ""
@@ -79,30 +81,52 @@ export default {
       this.dialogShow = true
     },
     verifyPhone() {
-      this.sendPhoneCode()
+      this.sendPhoneCode(this.userInfo.userPhone)
     },
     sendPhoneCode(phone) {
-      this.$api.user.sendPhoneCodeByUser(phone)
-      .then(res => {
-        this.$message.info(res.data)
-      })
+      if (this.inputStatus.updatePhone) {
+        this.$api.smsVerifyCode.getSmsVerifyCode(phone)
+        .then(res => {
+          this.$message.info(res.message)
+        })
+      } else {
+        this.$api.user.sendPhoneCodeByUser()
+            .then(res => {
+              this.$message.info(res.data)
+            })
+      }
     },
     verifyPhoneCode() {
       if (this.verifyCode === "") {
         this.$message.error("请输入验证码")
       } else {
-        this.$api.user.verifyCode(this.verifyCode)
-            .then(res => {
-              if (res.status === 200) {
-                this.$message.success(res.data)
-                this.inputStatus.phone = false
-                this.verifyCode = ""
-                this.dialogShow = false
-              } else {
-                this.verifyCode = ""
-                this.$message.error(res.data)
-              }
-            })
+        if (this.inputStatus.updatePhone) {
+          this.$api.user.updatePhone(this.userInfo.userPhone, this.verifyCode)
+              .then(res => {
+                if (res.status === 200) {
+                  this.$message.success(res.message)
+                  this.inputStatus.phone = !this.inputStatus.phone
+                  this.verifyCode = ""
+                  this.dialogShow = false
+                  this.inputStatus.updatePhone = false
+                  this.getUser()
+                }
+              })
+        } else {
+          this.$api.user.verifyCode(this.verifyCode)
+              .then(res => {
+                if (res.status === 200) {
+                  this.$message.success(res.data)
+                  this.inputStatus.phone = !this.inputStatus.phone
+                  this.verifyCode = ""
+                  this.dialogShow = false
+                  this.inputStatus.updatePhone = true;
+                } else {
+                  this.verifyCode = ""
+                  this.$message.error(res.data)
+                }
+              })
+        }
       }
     },
     uploadAvatar(raw) {
@@ -114,6 +138,9 @@ export default {
           this.$message.error(res.message)
         }
       })
+    },
+    updateUser() {
+      this.$api.user.updateUser()
     }
   },
   computed: {
