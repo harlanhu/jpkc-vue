@@ -6,9 +6,11 @@
           <avatar :image="account.userAvatar"/>
         </div>
         <div class="username">{{account.username}}</div>
-        <div style="margin-top: 10px;" v-for="course in cCourseList">
-          <el-button style="margin-top: 10px; margin-left: 25px" type="text" @click="linkToCourseDetail(course.courseId)">{{course.courseName}}</el-button>
-        </div>
+       <div class="my-class">
+         <div v-for="course in cCourseList">
+           <el-button style="height: 10px; margin-left: 25px" type="text" @click="linkToCourseDetail(course.courseId)">{{course.courseName}}</el-button>
+         </div>
+       </div>
         <div class="course-btn">
           <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>我的课程</el-button>
         </div>
@@ -145,5 +147,9 @@ export default {
   position: relative;
   left: 8px;
   top: 30px;
+}
+
+.my-class {
+  margin-top: 30px;
 }
 </style>
