@@ -12,7 +12,7 @@
          </div>
        </div>
         <div class="course-btn">
-          <el-button @click="activeLoginDialog" class="login-btn" size="small" type="success" round>我的课程</el-button>
+          <el-button @click="linkToFavorite" class="login-btn" size="small" type="success" round>我的课程</el-button>
         </div>
       </div>
     </div>
@@ -55,6 +55,9 @@ export default {
     },
     linkToCourseDetail(courseId) {
       this.$router.push("/courseDetail/" + courseId)
+    },
+    linkToFavorite() {
+      this.$router.push("/profile/favorite")
     }
   },
   computed: {
