@@ -5,7 +5,7 @@
         {{title}}<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item v-for="item in items">{{item.categoryName}}</el-dropdown-item>
+        <el-dropdown-item @click.native="clickCategory(item)" v-for="item in items">{{item.categoryName}}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -26,6 +26,11 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    clickCategory(item) {
+      this.$emit("clickCategory", item)
     }
   }
 }

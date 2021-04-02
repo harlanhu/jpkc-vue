@@ -100,8 +100,12 @@ const routes = [
     ]
   },
   {
-    path: '/course',
+    path: '/courseList',
     component: Course,
+  },
+  {
+    path: '/courseList/:categoryId',
+    component: Course
   },
   {
     path: '/course/:courseId',

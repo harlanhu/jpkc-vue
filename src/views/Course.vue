@@ -60,12 +60,22 @@ export default {
       this.pageInfo.current = val
     },
     getAllCourse() {
-      this.$api.course.getAll(this.pageInfo.current, this.pageInfo.size)
-      .then(res => {
-        this.courseList = res.data.list
-        this.pageInfo.pages = res.data.pages
-        this.pageInfo.total = res.data.total
-      })
+      if (this.$route.params.categoryId === "" || typeof(this.$route.params.categoryId) === 'undefined') {
+        this.$api.course.getAll(this.pageInfo.current, this.pageInfo.size)
+            .then(res => {
+              this.courseList = res.data.list
+              this.pageInfo.pages = res.data.pages
+              this.pageInfo.total = res.data.total
+            })
+      }else {
+        this.getOpenByTypeAndCategory(1, 25, this.activeType.type, this.$route.params.categoryId)
+        .then(res => {
+          this.activeType.categoryId = this.$route.params.categoryId
+          this.courseList = res.data.list
+          this.pageInfo.pages = res.data.pages
+          this.pageInfo.total = res.data.total
+        })
+      }
     },
     getOpenByTypeAndCategory(current, size, type, categoryId) {
       this.$api.course.getOpenByTypeAndCategory(current, size, type, categoryId)

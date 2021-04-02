@@ -7,7 +7,7 @@
       </el-col>
       <el-col :span="8" :offset="1">
         <div class="content">
-          <drop-down id="drop-down" :title="dropdownTitle" :items="dropdownItems"/>
+          <drop-down id="drop-down" :title="dropdownTitle" @clickCategory="clickCategory" :items="dropdownItems"/>
           <el-button type="text" @click="linkToSchoolView">学校</el-button>
           <el-button type="text" @click="linkToCourse">所有课程</el-button>
           <el-button type="text">课程直播</el-button>
@@ -56,6 +56,9 @@ export default {
     }
   },
   methods: {
+    clickCategory(item) {
+      this.$router.push('/courseList/' + item.categoryId)
+    },
     activeLoginDialog() {
       this.$bus.$emit("activeLoginDialog", true)
     },
@@ -69,7 +72,7 @@ export default {
       this.$router.push("/school")
     },
     linkToCourse() {
-      this.$router.push("/course")
+      this.$router.push("/courseList")
     },
     linkToProfile() {
       this.$router.push("/profile")
@@ -88,7 +91,6 @@ export default {
       this.$router.push("/home")
     },
     changeAccount() {
-      console.log("123123")
       this.logout()
       this.$router.push("/login")
     }

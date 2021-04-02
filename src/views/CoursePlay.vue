@@ -2,6 +2,12 @@
   <div id="course-play">
     <div class="menu">
       <nav-menu :section-list="course.sectionDtoList" @select="menuSelect"/>
+      <div class="section-info">
+        <p style="text-align: center; font-size: 16px; color: #00c758">章节描述</p>
+        <div style="font-size: 14px; color: #999; margin-top: 5px">
+          {{activeSection.sectionDesc}}
+        </div>
+      </div>
     </div>
     <div class="video-title">
       <span>— {{activeSection.title}}</span>
@@ -79,6 +85,7 @@ export default {
         sectionId: "",
         videoPath: "",
         type: "",
+        sectionDesc: ""
       },
       commentInfo: {
         current: 1,
@@ -129,6 +136,7 @@ export default {
       this.activeSection.title = section.sectionName
       this.activeSection.videoPath = section.resources[0].resourcePath
       this.activeSection.type = this.getResourceType(section.resources[0].resourcePath)
+      this.activeSection.sectionDesc = section.sectionDesc
     },
     getComment(sectionId, current, size, rankType) {
       this.$api.sectionComment.getBySectionId(sectionId, current, size, rankType)
@@ -272,5 +280,14 @@ export default {
   float: left;
   margin-left: 20px;
   width: 800px;
+}
+
+.section-info {
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 8px;
+  width: 95%;
+  float: left;
+  margin-top: 20px;
 }
 </style>
