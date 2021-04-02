@@ -47,7 +47,7 @@ export default {
         } else {
           this.userInfo.verifyCode = ""
           this.getVerifyCode()
-          this.$message.error(res.data.message)
+          this.$message.error(res.message)
         }
       })
     },

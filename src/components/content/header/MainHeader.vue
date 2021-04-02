@@ -20,7 +20,15 @@
       <el-col :span="2" :offset="1">
         <el-button v-if="$store.state.token === null" @click="activeLoginDialog" type="text">注册<el-divider direction="vertical"/>登录</el-button>
         <div v-else>
-          <el-button @click="linkToProfile" type="text">个人中心</el-button>
+          <el-dropdown>
+            <el-button @click="linkToProfile" type="text">个人中心</el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click.native="changeAccount">切换账号</el-dropdown-item>
+                <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </el-col>
     </el-row>
@@ -68,6 +76,21 @@ export default {
     },
     linkToTeacher() {
       this.$router.push("/teacher")
+    },
+    logout() {
+      this.$api.account.logout()
+      .then(res => {
+        localStorage.removeItem("accessToken")
+        this.$store.commit("setToken", null)
+        this.$store.commit("setAccount", null)
+        this.$message.success(res.message)
+      })
+      this.$router.push("/home")
+    },
+    changeAccount() {
+      console.log("123123")
+      this.logout()
+      this.$router.push("/login")
     }
   },
   computed: {

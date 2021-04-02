@@ -9,6 +9,11 @@ function login(data) {
       })
 }
 
+function logout() {
+  return axios.get("/logout")
+}
+
 export default {
-  login
+  login,
+  logout
 }
