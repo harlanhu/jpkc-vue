@@ -13,6 +13,7 @@ import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/normalize.css';
 import LSUtils from "@/utils/LSUtils";
+import hls from "videojs-contrib-hls"
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
@@ -22,7 +23,7 @@ Vue.prototype.$ls = LSUtils
 //创建事件总线
 Vue.prototype.$bus = new Vue();
 
-Vue.use(ElementUI, VueVideoPlayer)
+Vue.use(ElementUI, VueVideoPlayer, hls)
 
 new Vue({
   router,
