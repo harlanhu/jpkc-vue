@@ -1,14 +1,14 @@
 module.exports = {
   configureWebpack: {
     resolve: {
+      //modules: [path.resolve('node_modules'), 'node_modules'],
       alias: {
         'assets': '@/assets',
         'common': '@/common',
         'components': '@/components',
         'api': '@/api',
         'views' : '@/views'
-      },
-      //modules: [path.resolve('node_modules'), 'node_modules']
+      }
     }
   },
   // chainWebpack: config => {
