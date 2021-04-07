@@ -8,12 +8,12 @@ import MessageUtils from "@/utils/MessageUtils";
 import VueVideoPlayer from "vue-video-player/dist/ssr";
 import 'vue-video-player/src/custom-theme.css'
 import 'video.js/dist/video-js.css'
-
+import 'videojs-contrib-hls'
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/normalize.css';
 import LSUtils from "@/utils/LSUtils";
-import hls from "videojs-contrib-hls"
+import 'videojs-flash'
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
@@ -23,7 +23,7 @@ Vue.prototype.$ls = LSUtils
 //创建事件总线
 Vue.prototype.$bus = new Vue();
 
-Vue.use(ElementUI, VueVideoPlayer, hls)
+Vue.use(ElementUI, VueVideoPlayer)
 
 new Vue({
   router,

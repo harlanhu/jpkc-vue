@@ -7,7 +7,8 @@ module.exports = {
         'components': '@/components',
         'api': '@/api',
         'views' : '@/views'
-      }
+      },
+      //modules: [path.resolve('node_modules'), 'node_modules']
     }
   },
   // chainWebpack: config => {
