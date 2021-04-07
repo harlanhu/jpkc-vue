@@ -9,6 +9,7 @@ import VueVideoPlayer from "vue-video-player/dist/ssr";
 import 'vue-video-player/src/custom-theme.css'
 import 'video.js/dist/video-js.css'
 import 'videojs-contrib-hls'
+import 'videojs-contrib-hls.js/src/videojs.hlsjs'
 import 'videojs-flash'
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
