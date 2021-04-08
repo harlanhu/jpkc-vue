@@ -1,7 +1,6 @@
 module.exports = {
   configureWebpack: {
     resolve: {
-      //modules: [path.resolve('node_modules'), 'node_modules'],
       alias: {
         'assets': '@/assets',
         'common': '@/common',

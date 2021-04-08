@@ -3,9 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
+import VueVideoPlayer from "vue-video-player/dist/ssr";
+import VideoPlayer from 'vue-video-player'
 import api from "@/api/api";
 import MessageUtils from "@/utils/MessageUtils";
-import VueVideoPlayer from "vue-video-player/dist/ssr";
+import LSUtils from "@/utils/LSUtils";
 import 'vue-video-player/src/custom-theme.css'
 import 'video.js/dist/video-js.css'
 import 'videojs-contrib-hls'
@@ -14,7 +16,7 @@ import 'videojs-flash'
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/normalize.css';
-import LSUtils from "@/utils/LSUtils";
+const hls =require("videojs-contrib-hls")
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
@@ -24,7 +26,12 @@ Vue.prototype.$ls = LSUtils
 //创建事件总线
 Vue.prototype.$bus = new Vue();
 
-Vue.use(ElementUI, VueVideoPlayer)
+Vue.use(
+    ElementUI,
+    VueVideoPlayer,
+    VideoPlayer,
+    hls
+)
 
 new Vue({
   router,
