@@ -1,5 +1,6 @@
 <template>
   <div id="live-play">
+    <web-socket ref="webSocket" live-id="1111" user-id="1234" @onMessage="receiveMessage"></web-socket>
     <div class="live-title">
       直播标题
     </div>
@@ -18,16 +19,18 @@
     </div>
     <div class="video-content">
       <div class="video">
-        <live-video live-src="http://47.108.151.199:8080/hls/tttt.m3u8"/>
+        <live-video live-src="http://47.108.151.199:8080/hls/test.m3u8"/>
       </div>
       <div class="bab">
-        <baberrage></baberrage>
+        <baberrage ref="baberrage"></baberrage>
       </div>
     </div>
     <div class="chat">
+      <div class="chat-content">
+      </div>
       <div class="message-input">
-        <el-input style="width: 280px" v-model="message" placeholder="发送弹幕"></el-input>
-        <el-button style="width: 70px" type="primary">发送</el-button>
+        <el-input style="width: 270px" v-model="message" placeholder="发送弹幕"></el-input>
+        <el-button style="width: 70px; margin-left: 10px" type="primary" @click="sendMessage">发送</el-button>
       </div>
     </div>
   </div>
@@ -36,16 +39,42 @@
 <script>
 import LiveVideo from "../components/common/LiveVideo";
 import Baberrage from "../components/common/Baberrage";
+import WebSocket from "../components/common/WebSocket";
+import {MESSAGE_TYPE} from "vue-baberrage";
 
 export default {
   name: "LivePlay",
   components: {
+    WebSocket,
     LiveVideo,
     Baberrage
   },
   data() {
     return {
-      message: ""
+      chatLoop: {
+        isDisabled: false
+      },
+      message: "",
+      messageList: []
+    }
+  },
+  methods: {
+    receiveMessage(message) {
+      console.log(message)
+    },
+    sendMessage() {
+      this.$refs.webSocket.sendMessage(this.message)
+      this.messageList.push({
+        avatar: "",
+        msg: this.message,
+        time: new Date().getDate(),
+      })
+      this.$refs.baberrage.addToList({
+        avatar: "",
+        msg: this.message,
+        time: new Date().getDate(),
+      })
+      this.message = ""
     }
   }
 }
@@ -65,7 +94,6 @@ export default {
   border-radius: 8px;
   margin-left: 15px;
   float: left;
-  background-color: #404040;
   width: 350px;
   height: 580px;
 }
@@ -91,7 +119,7 @@ export default {
 }
 
 .message-input {
-  margin-top: 540px;
+  margin-top: 10px;
 }
 
 .gl-1 {
@@ -109,5 +137,11 @@ export default {
 
 .desc-title {
   margin: 15px 0 20px 30px;
+}
+
+.chat-content {
+  height: 530px;
+  border-radius: 8px 8px 0 0;
+  background-color: #e2e2e2;
 }
 </style>
