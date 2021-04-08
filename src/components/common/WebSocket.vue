@@ -40,8 +40,7 @@ export default {
       console.log("弹幕获取成功")
     },
     onMessage(message) {
-      console.log(message)
-      this.$emit("onMessage", message);
+      this.$emit("onMessage", JSON.parse(message));
     },
     onError() {
       console.log("弹幕连接失败，重连...")

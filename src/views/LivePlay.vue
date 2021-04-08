@@ -1,6 +1,6 @@
 <template>
   <div id="live-play">
-    <web-socket ref="webSocket" live-id="1111" user-id="1234" @onMessage="receiveMessage"></web-socket>
+    <web-socket ref="webSocket" live-id="1111" user-id="0" @onMessage="receiveMessage"></web-socket>
     <div class="live-title">
       直播标题
     </div>
@@ -27,6 +27,11 @@
     </div>
     <div class="chat">
       <div class="chat-content">
+        <div class="infinite-list" ref="scroll" v-infinite-scroll="loadMore" style="overflow:auto; height: 100%">
+            <div style="padding: 8px" v-for="msg in messageList" class="infinite-list-item">
+              <barrage-item :msg="msg"></barrage-item>
+            </div>
+        </div>
       </div>
       <div class="message-input">
         <el-input style="width: 270px" v-model="message" placeholder="发送弹幕"></el-input>
@@ -40,14 +45,17 @@
 import LiveVideo from "../components/common/LiveVideo";
 import Baberrage from "../components/common/Baberrage";
 import WebSocket from "../components/common/WebSocket";
-import {MESSAGE_TYPE} from "vue-baberrage";
+import Avatar from "@/components/common/Avatar";
+import BarrageItem from "@/components/common/BarrageItem";
 
 export default {
   name: "LivePlay",
   components: {
+    BarrageItem,
+    Avatar,
     WebSocket,
     LiveVideo,
-    Baberrage
+    Baberrage,
   },
   data() {
     return {
@@ -55,27 +63,45 @@ export default {
         isDisabled: false
       },
       message: "",
-      messageList: []
+      messageList: [],
+      userInfo: {}
     }
   },
   methods: {
     receiveMessage(message) {
-      console.log(message)
+      let data = JSON.parse(message)
+      this.$refs.baberrage.addToList({
+        avatar: data.user.userAvatar,
+        msg: data.message,
+        time: data.sendTime,
+      })
     },
     sendMessage() {
       this.$refs.webSocket.sendMessage(this.message)
       this.messageList.push({
-        avatar: "",
+        user: this.userInfo,
         msg: this.message,
         time: new Date().getDate(),
       })
       this.$refs.baberrage.addToList({
-        avatar: "",
+        avatar: this.userInfo.userAvatar,
         msg: this.message,
         time: new Date().getDate(),
       })
       this.message = ""
-    }
+    },
+    loadMore() {
+
+    },
+    getUser() {
+      this.$api.user.getByUser()
+          .then(res => {
+            this.userInfo = res.data
+          })
+    },
+  },
+  created() {
+    this.getUser()
   }
 }
 </script>
@@ -141,6 +167,7 @@ export default {
 
 .chat-content {
   height: 530px;
+  overflow: hidden;
   border-radius: 8px 8px 0 0;
   background-color: #e2e2e2;
 }

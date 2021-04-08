@@ -42,8 +42,6 @@ export default {
         type: MESSAGE_TYPE.NORMAL,
       })
      this.currentId ++
-      console.log(message.msg)
-      console.log(this.barrageList)
     }
   }
 }
