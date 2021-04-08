@@ -5,6 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui';
 import VueVideoPlayer from "vue-video-player/dist/ssr";
 import VideoPlayer from 'vue-video-player'
+import { vueBaberrage } from 'vue-baberrage'
 import api from "@/api/api";
 import MessageUtils from "@/utils/MessageUtils";
 import LSUtils from "@/utils/LSUtils";
@@ -16,7 +17,6 @@ import 'videojs-flash'
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/normalize.css';
-const hls =require("videojs-contrib-hls")
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
@@ -30,7 +30,7 @@ Vue.use(
     ElementUI,
     VueVideoPlayer,
     VideoPlayer,
-    hls
+    vueBaberrage
 )
 
 new Vue({
