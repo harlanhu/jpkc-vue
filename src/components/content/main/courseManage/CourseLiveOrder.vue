@@ -45,7 +45,6 @@ export default {
       })
     },
     showDialog() {
-      console.log("------------------")
       this.$bus.$emit("activeLCourseAddDialog", true)
     },
     removeLiveCourse(liveCourse) {
