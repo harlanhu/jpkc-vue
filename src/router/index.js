@@ -24,6 +24,7 @@ const Qualification = () => import("@/components/content/main/profile/Qualificat
 const Teacher = () => import("@/views/Teacher");
 const TeacherOfOne = () => import("@/views/TeacherOfOne");
 const LivePlay = () => import("@/views/LivePlay");
+const LiveCourse = () => import("@/views/LiveCourse");
 
 Vue.use(VueRouter)
 
@@ -162,6 +163,10 @@ const routes = [
   {
     path: '/live-play',
     component: LivePlay
+  },
+  {
+    path: '/liveCourse',
+    component: LiveCourse
   }
 ]
 

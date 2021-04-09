@@ -1,25 +1,16 @@
 <template>
   <div id="live-play">
-    <web-socket ref="webSocket" live-id="1111" user-id="0" @onMessage="receiveMessage"></web-socket>
-    <div class="live-title">
-      直播标题
-    </div>
+    <div class="live-title">{{lCourse.title}}</div>
     <div class="live-desc">
       <div class="desc-title">
         <div class="gl-1"></div>
         <span style="font-size: 24px; color: #666666">直播简介</span>
       </div>
-      <div style="font-size: 14px; color: #999; padding: 10px">
-        简介详细内容测试，简介详细内容测试，
-        简介详细内容测试，简介详细内容测试，
-        简介详细内容测试，简介详细内容测试，
-        简介详细内容测试，简介详细内容测试，
-        简介详细内容测试，简介详细内容测试，
-      </div>
+      <div style="font-size: 14px; color: #999; padding: 0 20px 10px 20px">{{lCourse.liveCourseDesc}}</div>
     </div>
     <div class="video-content">
       <div class="video">
-        <live-video live-src="http://47.108.151.199:8080/hls/test.m3u8"/>
+        <live-video :live-src="lCourse.url"></live-video>
       </div>
       <div class="bab">
         <baberrage ref="baberrage"></baberrage>
@@ -38,6 +29,7 @@
         <el-button style="width: 70px; margin-left: 10px" type="primary" @click="sendMessage">发送</el-button>
       </div>
     </div>
+    <web-socket v-if="typeof(lCourse.liveCourseId) !== 'undefined' && typeof(userInfo.userId) !== 'undefined'" ref="webSocket" :live-id="lCourse.liveCourseId" :user-id="userInfo.userId" @onMessage="receiveMessage"></web-socket>
   </div>
 </template>
 
@@ -64,7 +56,8 @@ export default {
       },
       message: "",
       messageList: [],
-      userInfo: {}
+      userInfo: {},
+      lCourse: {}
     }
   },
   methods: {
@@ -75,19 +68,24 @@ export default {
         msg: data.message,
         time: data.sendTime,
       })
+      this.messageList.push(data)
     },
     sendMessage() {
-      this.$refs.webSocket.sendMessage(this.message)
-      this.messageList.push({
-        user: this.userInfo,
-        msg: this.message,
-        time: new Date().getDate(),
-      })
-      this.$refs.baberrage.addToList({
-        avatar: this.userInfo.userAvatar,
-        msg: this.message,
-        time: new Date().getDate(),
-      })
+      if (this.message === "") {
+        this.$message.error("发送内容不能为空")
+      } else {
+        this.$refs.webSocket.sendMessage(this.message)
+        this.messageList.push({
+          user: this.userInfo,
+          msg: this.message,
+          time: new Date().getDate(),
+        })
+        this.$refs.baberrage.addToList({
+          avatar: this.userInfo.userAvatar,
+          msg: this.message,
+          time: new Date().getDate(),
+        })
+      }
       this.message = ""
     },
     loadMore() {
@@ -99,9 +97,16 @@ export default {
             this.userInfo = res.data
           })
     },
+    getLCourse(lCourseId) {
+      this.$api.liveCourse.getById(lCourseId)
+      .then(res => {
+        this.lCourse = res.data
+      })
+    }
   },
   created() {
     this.getUser()
+    this.getLCourse("2113b49aef39468cbc637b5af38f9e59")
   }
 }
 </script>
@@ -151,7 +156,7 @@ export default {
 .gl-1 {
   width: 3px;
   height: 35px;
-  margin-right: 3px;
+  margin-right: 10px;
   float: left;
   background-color: #00c558;
 }
@@ -162,7 +167,7 @@ export default {
 }
 
 .desc-title {
-  margin: 15px 0 20px 30px;
+  margin: 20px 0 20px 10px;
 }
 
 .chat-content {

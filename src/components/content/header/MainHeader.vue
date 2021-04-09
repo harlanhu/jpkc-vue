@@ -10,7 +10,7 @@
           <drop-down id="drop-down" :title="dropdownTitle" @clickCategory="clickCategory" :items="dropdownItems"/>
           <el-button type="text" @click="linkToSchoolView">学校</el-button>
           <el-button type="text" @click="linkToCourse">所有课程</el-button>
-          <el-button type="text">课程直播</el-button>
+          <el-button type="text" @click="linkToLCourse">课程直播</el-button>
           <el-button type="text" @click="linkToTeacher">名师辅导</el-button>
         </div>
       </el-col>
@@ -79,6 +79,9 @@ export default {
     },
     linkToTeacher() {
       this.$router.push("/teacher")
+    },
+    linkToLCourse() {
+      this.$router.push("/liveCourse")
     },
     logout() {
       this.$api.account.logout()

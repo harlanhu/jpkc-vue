@@ -18,9 +18,14 @@ function remove(courseId) {
   return axios.get(baseUrl + "/remove/" + courseId)
 }
 
+function getById(lCourseId) {
+  return axios.get(baseUrl + "/getById/" + lCourseId)
+}
+
 export default {
   getAll,
   save,
   getByUser,
-  remove
+  remove,
+  getById
 }
