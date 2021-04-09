@@ -13,61 +13,24 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="直播标题">
-        <el-input v-model="form.title"/>
-      </el-form-item>
-      <el-form-item label="直播时间">
-        <el-date-picker
-            v-model="inputTime"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="直播描述">
-        <el-input type="textarea" v-model="form.liveCourseDesc"></el-input>
-      </el-form-item>
-      <el-button type="primary" @click="saveLCourse">立即预约</el-button>
-    </el-form>
+    <div style="margin-top: 20px">
+      <el-button @click="showDialog" type="primary">直播预约</el-button>
+    </div>
+    <l-course-add-dialog/>
   </div>
 </template>
 
 <script>
+import LCourseAddDialog from "../../dialog/course/LCourseAddDialog";
 export default {
   name: "CourseLiveOrder",
+  components: {LCourseAddDialog},
   data() {
     return {
-      inputTime: [],
-      form: {
-        title: "",
-        finished: "",
-        liveCourseDesc: "",
-        reserveTime: "",
-      },
       lCourseList: []
     }
   },
   methods: {
-    saveLCourse() {
-      this.form.reserveTime = this.inputTime[0]
-      this.form.finished = this.inputTime[1]
-      this.$api.liveCourse.save(this.form)
-      .then(res => {
-        if (res.status === 200) {
-          this.getLCourse()
-          this.form.title = ""
-          this.form.finished = ""
-          this.liveCourseDesc = ""
-          this.reserveTime = ""
-          this.inputTime = []
-          this.$message.success("创建成功");
-        } else {
-          this.$message.error("创建失败");
-        }
-      })
-    },
     getLCourse() {
       this.lCourseList = []
       this.$api.liveCourse.getByUser()
@@ -80,6 +43,10 @@ export default {
           this.lCourseList.push(item)
         }
       })
+    },
+    showDialog() {
+      console.log("------------------")
+      this.$bus.$emit("activeLCourseAddDialog", true)
     },
     removeLiveCourse(liveCourse) {
       this.$api.liveCourse.remove(liveCourse.liveCourseId)

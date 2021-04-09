@@ -6,8 +6,11 @@ function getAll(current, size) {
   return axios.get(baseUrl + "/getAll/" + current + "/" + size)
 }
 
-function save(lCourse) {
-  return axios.post(baseUrl + "/create", JSON.stringify(lCourse))
+function save(lCourse, logoFile) {
+  const formData = new FormData()
+  formData.append("lCourseStr", JSON.stringify(lCourse))
+  formData.append("logoFile", logoFile)
+  return axios.post(baseUrl + "/create", formData)
 }
 
 function getByUser() {

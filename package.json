@@ -18,6 +18,7 @@
     "chimee-plugin-controlbar": "^0.4.11",
     "core-js": "^3.6.5",
     "css.gg": "^2.0.0",
+    "dayjs": "^1.10.4",
     "echarts": "^5.0.2",
     "element-ui": "^2.14.1",
     "hls.js": "^1.0.0",
