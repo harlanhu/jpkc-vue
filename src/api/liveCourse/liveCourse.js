@@ -22,10 +22,15 @@ function getById(lCourseId) {
   return axios.get(baseUrl + "/getById/" + lCourseId)
 }
 
+function getByLiving(current, size) {
+  return axios.get(baseUrl + "/getByLiving/" + current + "/" + size)
+}
+
 export default {
   getAll,
   save,
   getByUser,
   remove,
-  getById
+  getById,
+  getByLiving
 }

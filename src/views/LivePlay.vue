@@ -106,7 +106,7 @@ export default {
   },
   created() {
     this.getUser()
-    this.getLCourse("2113b49aef39468cbc637b5af38f9e59")
+    this.getLCourse(this.$route.params.lCourseId)
   }
 }
 </script>

@@ -161,7 +161,7 @@ const routes = [
     component: TeacherOfOne
   },
   {
-    path: '/live-play',
+    path: '/live-play/:lCourseId',
     component: LivePlay
   },
   {
