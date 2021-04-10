@@ -88,8 +88,8 @@ export default {
             if (res.status === 200) {
               this.getLCourse()
               this.clearForm()
-              this.lCourseAddDialog = false
               this.$message.success("创建成功");
+              this.lCourseAddDialog = false
             } else {
               this.$message.error("创建失败");
             }

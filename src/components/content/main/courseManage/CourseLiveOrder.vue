@@ -9,7 +9,9 @@
       <el-table-column prop="liveCourseDesc" label="直播描述"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button type="text" size="small" @click="removeLiveCourse(scope.row)">删除预约</el-button>
+          <el-button v-if="scope.row.status === 0" type="text" size="small" @click="removeLiveCourse(scope.row)">删除预约</el-button>
+          <el-button v-if="scope.row.status === 0" type="text" size="small" @click="livePlay(scope.row)">立即直播</el-button>
+          <el-button v-else type="text" size="small" @click="stopLive(scope.row)">结束直播</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -17,14 +19,16 @@
       <el-button @click="showDialog" type="primary">直播预约</el-button>
     </div>
     <l-course-add-dialog/>
+    <live-info-dialog/>
   </div>
 </template>
 
 <script>
 import LCourseAddDialog from "../../dialog/course/LCourseAddDialog";
+import LiveInfoDialog from "@/components/content/dialog/course/LiveInfoDialog";
 export default {
   name: "CourseLiveOrder",
-  components: {LCourseAddDialog},
+  components: {LiveInfoDialog, LCourseAddDialog},
   data() {
     return {
       lCourseList: []
@@ -45,12 +49,20 @@ export default {
     },
     showDialog() {
       this.$bus.$emit("activeLCourseAddDialog", true)
+      this.getLCourse()
     },
     removeLiveCourse(liveCourse) {
       this.$api.liveCourse.remove(liveCourse.liveCourseId)
       .then(res => {
         this.getLCourse()
       })
+    },
+    livePlay(lCourse) {
+      this.$bus.$emit("activeLiveInfoDialog", true, lCourse.liveCourseId)
+      this.getLCourse()
+    },
+    stopLive(lCourse) {
+      this.removeLiveCourse(lCourse)
     }
   },
   created() {

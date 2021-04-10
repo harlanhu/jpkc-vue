@@ -1,12 +1,14 @@
 <template>
   <div id="live-play">
-    <div class="live-title">{{lCourse.title}}</div>
+    <div class="live-title">
+      <h1>{{lCourse.title}} <small style="font-size: 12px; color: #999999">当前热度: {{lCourse.views}}</small></h1>
+    </div>
     <div class="live-desc">
       <div class="desc-title">
         <div class="gl-1"></div>
         <span style="font-size: 24px; color: #666666">直播简介</span>
       </div>
-      <div style="font-size: 14px; color: #999; padding: 0 20px 10px 20px">{{lCourse.liveCourseDesc}}</div>
+      <div style="font-size: 14px; color: #999; padding: 0 20px 10px 20px; white-space:normal; word-break:break-all; word-wrap:break-word; ">{{lCourse.liveCourseDesc}}</div>
     </div>
     <div class="video-content">
       <div v-if="lCourse.url" class="video">
@@ -57,7 +59,7 @@ export default {
       message: "",
       messageList: [],
       userInfo: {},
-      lCourse: {}
+      lCourse: {},
     }
   },
   methods: {
@@ -142,7 +144,7 @@ export default {
 
 .bab {
   position: absolute;
-  top: 100px;
+  top: 150px;
   width: 1000px;
   height: 500px;
   z-index: 9;
@@ -175,4 +177,27 @@ export default {
   border-radius: 8px 8px 0 0;
   background-color: #e2e2e2;
 }
+
+.info {
+  margin: 0 auto;
+  width: 1200px;
+  height: 100px;
+  padding: 30px;
+}
+
+.d-avatar {
+  border: white solid 3px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  float: left;
+}
+
+.content {
+  height: 100px;
+  float: left;
+  width: 500px;
+  margin-left: 50px;
+}
+
 </style>

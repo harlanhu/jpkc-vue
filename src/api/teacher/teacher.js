@@ -29,11 +29,16 @@ function getByUser() {
   return axios.get(baseUrl + "/getByUser")
 }
 
+function getByLCourseId(lCourseId) {
+  return axios.get(baseUrl + "/getByLCourseId/" + lCourseId)
+}
+
 export default {
   getOneByCourseId,
   getOneById,
   getAll,
   save,
   isTeacher,
-  getByUser
+  getByUser,
+  getByLCourseId
 }

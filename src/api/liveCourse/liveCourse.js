@@ -29,11 +29,16 @@ function getByLiving(current, size) {
   return axios.get(baseUrl + "/getByLiving/" + current + "/" + size)
 }
 
+function startLive(lCourseId) {
+  return axios.get(baseUrl + "/startLive/" + lCourseId)
+}
+
 export default {
   getAll,
   save,
   getByUser,
   remove,
   getById,
-  getByLiving
+  getByLiving,
+  startLive
 }
