@@ -23,7 +23,6 @@ export default {
   },
   mounted() {
     Chimee.install(Controlbar)
-
     this.chimeePlayer = new ChimeePlayer({
       wrapper: '#wrapper',
       src: this.liveSrc,

@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     initWebSocket() {
-      const wsUrl = "ws://127.0.0.1:8080/message/" + this.liveId + "/" + this.userId
+      const wsUrl = "ws://192.168.31.51:8080/message/" + this.liveId + "/" + this.userId
       this.websocket = new WebSocket(wsUrl)
       this.websocket.onopen = this.onOpen
       this.websocket.onmessage = this.onMessage
@@ -40,7 +40,7 @@ export default {
       console.log("弹幕获取成功")
     },
     onMessage(message) {
-      this.$emit("onMessage", JSON.parse(message));
+      this.$emit("onMessage", JSON.parse(message.data));
     },
     onError() {
       console.log("弹幕连接失败，重连...")

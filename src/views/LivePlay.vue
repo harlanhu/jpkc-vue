@@ -9,7 +9,7 @@
       <div style="font-size: 14px; color: #999; padding: 0 20px 10px 20px">{{lCourse.liveCourseDesc}}</div>
     </div>
     <div class="video-content">
-      <div class="video">
+      <div v-if="lCourse.url" class="video">
         <live-video :live-src="lCourse.url"></live-video>
       </div>
       <div class="bab">
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import LiveVideo from "../components/common/LiveVideo";
-import Baberrage from "../components/common/Baberrage";
-import WebSocket from "../components/common/WebSocket";
+import LiveVideo from "@/components/common/LiveVideo";
+import Baberrage from "@/components/common/Baberrage";
+import WebSocket from "@/components/common/WebSocket";
 import Avatar from "@/components/common/Avatar";
 import BarrageItem from "@/components/common/BarrageItem";
 
@@ -62,13 +62,12 @@ export default {
   },
   methods: {
     receiveMessage(message) {
-      let data = JSON.parse(message)
       this.$refs.baberrage.addToList({
-        avatar: data.user.userAvatar,
-        msg: data.message,
-        time: data.sendTime,
+        avatar: message.user.userAvatar,
+        msg: message.msg,
+        time: new Date().getDate(),
       })
-      this.messageList.push(data)
+      this.messageList.push(message)
     },
     sendMessage() {
       if (this.message === "") {

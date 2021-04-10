@@ -36,7 +36,7 @@ export default {
     addToList(message) {
       this.barrageList.push({
         id: this.currentId,
-        avatar: message.userAvatar,
+        avatar: message.avatar,
         msg: message.msg,
         time: message.time,
         type: MESSAGE_TYPE.NORMAL,
