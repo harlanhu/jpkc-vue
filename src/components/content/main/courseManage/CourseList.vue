@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     handleEditClick(row) {
-      console.log(row)
       this.$router.replace({
         path: "/course-manage/edit/" + row.courseName,
         params: {
@@ -75,7 +74,6 @@ export default {
         })
     },
     statusChange(course) {
-      console.log(course)
       this.$api.course.update(course)
     },
     handleDeleteClick(courseId) {

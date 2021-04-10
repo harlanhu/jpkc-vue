@@ -52,7 +52,6 @@ export default {
       this.$api.layout.getCarousel(1, 100)
       .then(res => {
         this.carouselItems = res.data.list
-        console.log(res.data.list)
       })
     },
     getSchool() {

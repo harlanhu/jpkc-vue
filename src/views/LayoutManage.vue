@@ -81,7 +81,6 @@ export default {
     bindCourse(layoutId, courseId) {
       this.$api.layout.bindCourse(layoutId, courseId)
       .then(res => {
-        console.log(res)
         this.getCourse(layoutId)
       })
     },
@@ -89,7 +88,6 @@ export default {
       this.$bus.$emit("layoutDialog", true)
     },
     layoutBind(resourceId) {
-      console.log(this.activeMenu, resourceId)
       if (this.switchCard) {
         this.bindSchool(this.activeMenu, resourceId)
       } else {
@@ -97,7 +95,6 @@ export default {
       }
     },
     unbindCourse(courseId) {
-      console.log(courseId)
       this.$api.layout.unbindCourse(this.activeMenu, courseId)
       .then(res => {
         this.$message.info(res.message)

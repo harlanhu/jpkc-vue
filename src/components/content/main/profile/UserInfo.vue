@@ -84,7 +84,6 @@ export default {
       this.$api.user.getByUser()
       .then(res => {
         this.userInfo = res.data
-        console.log(res.data)
       })
     },
     phoneEdit() {

@@ -187,7 +187,6 @@ export default {
       this.isFirstGetCode = false
       this.$api.smsVerifyCode.getSmsVerifyCode(this.registerForm.phone)
           .then(res => {
-            console.log(res.message)
             this.sendSmsVerifyTimeOn()
           })
     },

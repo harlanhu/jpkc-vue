@@ -4,7 +4,7 @@
     <el-carousel trigger="click" :loop="false" :autoplay="false" indicator-position="none" @change="changePage">
       <el-carousel-item v-for="page in pages">
         <div v-if="sonRefresh" class="content">
-          <div class="content-item" v-for="item in dataList">
+          <div @click="linkToLivePLay(item.liveCourseId)" class="content-item" v-for="item in dataList">
             <live-card :data="item"/>
           </div>
         </div>
@@ -51,6 +51,9 @@ export default {
         this.sonRefresh = true
       })
       this.getLiveCourse(this.current, this.size)
+    },
+    linkToLivePLay(lCourseId) {
+      this.$router.push("/live-play/" + lCourseId)
     }
   },
   created() {

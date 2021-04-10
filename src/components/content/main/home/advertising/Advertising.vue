@@ -22,7 +22,6 @@ export default {
     getAdvertising() {
       this.$api.layout.getAdvertising(1, -1)
       .then(res => {
-        console.log(res.data.list)
         this.dataList = res.data.list
       })
     },

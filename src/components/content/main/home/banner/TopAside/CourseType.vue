@@ -18,7 +18,6 @@ export default {
     getAllCategory() {
       this.$api.category.getAllCategory()
       .then(res => {
-        console.log(res.data)
         this.categoryList = res.data
       })
     }

@@ -59,7 +59,6 @@ export default {
         this.pageInfo.pages = res.data.pages
         this.pageInfo.current = res.data.current
         this.pageInfo.size = res.data.size
-        console.log(res.data.list)
       })
     },
     getLCourseLiving(current, size) {
@@ -70,7 +69,7 @@ export default {
           this.pageInfo.pages = res.data.pages
           this.pageInfo.current = res.data.current
           this.pageInfo.size = res.data.size
-          console.log(res.data.list)
+
         })
     },
     prevPage(val) {

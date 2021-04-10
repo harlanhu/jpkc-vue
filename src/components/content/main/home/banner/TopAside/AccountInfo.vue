@@ -50,7 +50,6 @@ export default {
       this.$api.course.getCollect(1, 3)
       .then(res => {
         this.cCourseList = res.data.list
-        console.log(res.data.list)
       })
     },
     linkToCourseDetail(courseId) {
@@ -69,7 +68,6 @@ export default {
     }
   },
   created() {
-    console.log(localStorage.getItem("accessToken"))
     if (localStorage.getItem("accessToken")) {
       this.getCollect()
     }

@@ -39,7 +39,6 @@ export default {
           item.created = item.created.replace("T", " ")
           item.finished = item.finished.replace("T", " ")
           item.reserveTime = item.reserveTime.replace("T", " ")
-          console.log(item)
           this.lCourseList.push(item)
         }
       })

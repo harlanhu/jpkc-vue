@@ -82,7 +82,6 @@ export default {
     saveLCourse() {
       this.form.reserveTime = dayjs(this.inputTime[0]).format("YYYY-MM-DDTHH:MM")
       this.form.finished = dayjs(this.inputTime[1]).format("YYYY-MM-DDTHH:MM")
-      console.log(this.form)
       this.$api.liveCourse.save(this.form, this.logoFile.raw)
           .then(res => {
             console.log(res)

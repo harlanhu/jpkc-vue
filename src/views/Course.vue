@@ -96,7 +96,6 @@ export default {
       this.getOpenByTypeAndCategory(this.pageInfo.current, this.pageInfo.size, this.activeType.type, this.activeType.categoryId)
     },
     linkToCourseDetail(courseId) {
-      console.log(courseId)
       this.$router.push({
         name: 'courseDetail',
         params: {
