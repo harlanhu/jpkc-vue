@@ -25,6 +25,7 @@ const Teacher = () => import("@/views/Teacher");
 const TeacherOfOne = () => import("@/views/TeacherOfOne");
 const LivePlay = () => import("@/views/LivePlay");
 const LiveCourse = () => import("@/views/LiveCourse");
+const NotFount = () => import("@/views/NotFount");
 
 Vue.use(VueRouter)
 
@@ -167,6 +168,10 @@ const routes = [
   {
     path: '/liveCourse',
     component: LiveCourse
+  },
+  {
+    path: "*",
+    component: NotFount
   }
 ]
 
