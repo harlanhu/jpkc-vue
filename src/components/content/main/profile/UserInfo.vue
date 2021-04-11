@@ -9,6 +9,20 @@
         <el-button @click="verifyPhoneCode" style="width: 200px" type="primary">验证</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="修改密码" :visible.sync="passwordDialogShow" width="30%" center>
+      <div style="text-align: center">
+        <div v-if="isTruePassword">
+          新密码:  <el-input v-model="newPassword" style="width: 300px"></el-input>
+        </div>
+        <div v-else>
+          原密码:  <el-input v-model="newPassword" style="width: 300px"></el-input>
+          <el-button style="margin-left: 30px" @click="verifyPassword" type="info" plain>验证</el-button>
+        </div>
+      </div>
+      <div v-if="isTruePassword" style="text-align: center; margin-top: 20px">
+        <el-button @click="updatePassword" style="width: 200px" type="primary">修改</el-button>
+      </div>
+    </el-dialog>
     <el-dialog title="邮箱验证" :visible.sync="mailDialShow" width="30%" center>
       <div style="text-align: center">
         验证码  <el-input v-model="verifyCode" style="width: 100px"></el-input>
@@ -42,9 +56,6 @@
           <el-radio :label="2">女</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="密码">
-        <el-input style="width: 300px" v-model="userInfo.password"></el-input>
-      </el-form-item>
       <el-form-item label="生日">
         <el-date-picker style="width: 300px" type="date" placeholder="选择日期" v-model="userInfo.userBirthday"></el-date-picker>
       </el-form-item>
@@ -52,6 +63,7 @@
         <el-input type="textarea" v-model="userInfo.userDesc"></el-input>
       </el-form-item>
       <el-form-item>
+        <el-button @click="showPassword" type="primary">修改密码</el-button>
         <el-button @click="updateUser" type="primary">保存信息</el-button>
       </el-form-item>
     </el-form>
@@ -76,7 +88,10 @@ export default {
       },
       dialogShow: false,
       mailDialShow: false,
-      verifyCode: ""
+      passwordDialogShow: false,
+      verifyCode: "",
+      newPassword: "",
+      isTruePassword: false
     }
   },
   methods: {
@@ -201,7 +216,50 @@ export default {
       })
     },
     updateUser() {
-      this.$api.user.updateUser()
+      this.$api.user.update({
+        userDesc: this.userInfo.userDesc,
+        userSex: this.userInfo.userSex,
+        username: this.userInfo.username,
+        userBirthday: this.userInfo.userBirthday
+      })
+      .then(res => {
+        this.$message.info(res.message)
+        this.getUser()
+      })
+    },
+    updatePassword() {
+      if (this.newPassword === "") {
+        this.$message.warning("输入内容不能为空！")
+      } else {
+        this.$api.user.updatePassword(this.newPassword)
+        .then(res => {
+          if (res.status === 200) {
+            this.$message.success("修改成功")
+            this.newPassword = ""
+            this.passwordDialogShow = false
+          } else {
+            this.$message.error("修改失败，请稍后重试")
+          }
+        })
+      }
+    },
+    verifyPassword() {
+      if (this.newPassword === "") {
+        this.$message.warning("输入内容不能为空！")
+      } else {
+        this.$api.user.verifyPassword(this.newPassword)
+        .then(res => {
+          if (res.status === 200) {
+            this.isTruePassword = true
+            this.newPassword = ""
+          } else {
+            this.$message.warning("密码错误！请重新输入！")
+          }
+        })
+      }
+    },
+    showPassword() {
+      this.passwordDialogShow = true
     }
   },
   computed: {

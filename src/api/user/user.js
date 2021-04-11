@@ -53,6 +53,18 @@ function updateMail(mail, code) {
   return axios.get(baseUrl + "/updateMail/" + mail + "/" + code)
 }
 
+function verifyPassword(password) {
+  return axios.get(baseUrl + "/verifyPassword/" + password)
+}
+
+function updatePassword(newPassword) {
+  return axios.get(baseUrl + "/updatePassword/" + newPassword)
+}
+
+function update(user) {
+  return axios.post(baseUrl + "/update", JSON.stringify(user))
+}
+
 export default {
   isExistUser,
   register,
@@ -64,5 +76,8 @@ export default {
   sendMailVerifyCode,
   verifyMailCode,
   getMailVerify,
-  updateMail
+  updateMail,
+  verifyPassword,
+  updatePassword,
+  update
 }
