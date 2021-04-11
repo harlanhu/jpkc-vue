@@ -10,7 +10,10 @@
         <el-button @click="categorySelectHandler('0')" size="small" round>全部</el-button>
         <el-button @click="categorySelectHandler(category.categoryId)" size="small" round v-for="category in categories" :key="category.categoryId">{{category.categoryName}}</el-button>
       </div>
-      <div slot="course" v-for="course in courseList">
+      <div v-if="courseList.length === 0" slot="course">
+        <h1 style="width: 1200px; text-align: center; font-size: 24px; color: #999; margin-top: 200px">抱歉，暂无内容</h1>
+      </div>
+      <div v-else slot="course" v-for="course in courseList">
         <div class="class-card" @click="linkToCourseDetail(course.courseId)">
           <course-card-a :course="course"/>
         </div>

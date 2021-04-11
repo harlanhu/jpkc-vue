@@ -151,8 +151,8 @@ export default {
             trigger: 'blur'
           },
           {
-            pattern: "[\u4e00-\u9fa5A-Za-z0-9]{4,16}",
-            message: "请输入4-16个字符不包括特殊符号",
+            pattern: "[\u4e00-\u9fa5A-Za-z0-9]{2,16}",
+            message: "请输入2-16个字符不包括特殊符号",
             trigger: 'blur'
           }
         ],
