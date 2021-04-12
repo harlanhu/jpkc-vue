@@ -23,7 +23,7 @@ module.exports = {
   //       })
   // },
   devServer: {
-    port: 8086
+    port: 80
   },
   lintOnSave: false
 }

@@ -14,7 +14,7 @@ switch (process.env.NODE_ENV) {
     axios.defaults.baseURL = 'http://192.168.31.51:8080'
     break
   case "production":
-    axios.defaults.baseURL = 'http://47.108.151.199:8080'
+    axios.defaults.baseURL = 'http://47.108.151.199:8088'
     break
   default:
     axios.defaults.baseURL = 'http://47.108.151.199:8088'
