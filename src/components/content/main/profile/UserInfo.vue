@@ -292,4 +292,11 @@ export default {
 </script>
 
 <style scoped>
+.el-form {
+  margin-top: 20px;
+}
+
+span {
+  margin-bottom: 5px;
+}
 </style>

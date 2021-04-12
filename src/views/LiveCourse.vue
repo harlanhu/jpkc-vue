@@ -110,7 +110,7 @@ export default {
 }
 
 .live-card-div {
-  width: 1240px;
+  width: 1200px;
   margin: 20px auto 20px -35px;
   text-align: center;
   display: flex;

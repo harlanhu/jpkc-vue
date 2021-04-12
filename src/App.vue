@@ -40,7 +40,7 @@ export default {
 
 .el-main {
   min-height: calc(100vh - 209px);
-  margin: 0;
+  margin: 20px auto;
   padding: 0;
 }
 

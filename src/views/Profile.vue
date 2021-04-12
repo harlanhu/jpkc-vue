@@ -39,6 +39,7 @@ export default {
   background-color: #fff;
   border-radius: 8px;
   margin-left: 10px;
+  margin-top: 0;
 }
 
 .el-aside {

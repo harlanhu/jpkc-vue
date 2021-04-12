@@ -1,6 +1,6 @@
 <template>
   <div id="qualification">
-    <div v-if="!isTeacher">
+    <div class="form" v-if="!isTeacher">
       <el-form ref="form" :model="teacher" label-width="80px">
         <el-form-item label="姓名">
           <el-input style="width: 300px" v-model="teacher.teacherName"></el-input>
@@ -52,7 +52,7 @@
         <el-button @click="createTeacher" style="margin-left: 40%" type="primary">立即申请</el-button>
       </el-form>
     </div>
-    <div v-else>
+    <div class="form" v-else>
       <el-form :model="teacher" label-width="80px">
         <el-form-item label="姓名">
           <el-input style="width: 300px" disabled v-model="teacher.teacherName"/>
@@ -170,5 +170,7 @@ export default {
 </script>
 
 <style scoped>
-
+.form {
+  margin-top: 20px;
+}
 </style>
