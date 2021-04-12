@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     initWebSocket() {
-      const wsUrl = "ws://47.108.151.199/:8088/message/" + this.liveId + "/" + this.userId
+      const wsUrl = "ws://47.108.151.199:8088/message/" + this.liveId + "/" + this.userId
       this.websocket = new WebSocket(wsUrl)
       this.websocket.onopen = this.onOpen
       this.websocket.onmessage = this.onMessage
