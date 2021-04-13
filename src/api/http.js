@@ -78,6 +78,7 @@ axios.interceptors.response.use(response => {
   return response.data
 }, error => {
   let {response} = error
+  console.log(error)
   let message = response.data.message
   if (response) {
     if (response.status === 401) {
