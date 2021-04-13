@@ -273,6 +273,7 @@ export default {
                       if (fileRes.status === 400) {
                         this.showLoading(false, "")
                         this.$msg.showError(fileRes.message)
+                        console.log(fileRes.message)
                       } else {
                         this.showLoading(false, "正在努力处理中...")
                         console.log(fileRes.message)
