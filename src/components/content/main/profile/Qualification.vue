@@ -170,6 +170,10 @@ export default {
 </script>
 
 <style scoped>
+#qualification {
+  height: 605px;
+}
+
 .form {
   margin-top: 20px;
 }

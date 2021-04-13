@@ -2,7 +2,7 @@
   <div id="course-add"
        :element-loading-text="loading.loadingText"
        v-loading.fullscreen.lock="loading.isLoading">
-    <el-form ref="courseForm" :model="course" :rules="rules">
+    <el-form style="margin-top: 20px" ref="courseForm" :model="course" :rules="rules">
       <el-form-item prop="courseName" label-width="100px" label="课程名称">
         <el-input  style="width: 200px" prefix-icon="el-icon-collection" show-word-limit v-model="course.courseName" placeholder="请输入课程名称"/>
       </el-form-item>
@@ -331,10 +331,11 @@ export default {
 </script>
 
 <style scoped>
+#course-add {
+  width: 1620px;
+}
 
 .bg-1 {
-  margin-left: -20px;
-  margin-right: -20px;
   margin-bottom: 10px;
   height: 10px;
   background-color: #f8f8f8;
@@ -344,9 +345,10 @@ export default {
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 4px;
+  margin-left: -20px;
   height: 2px;
   background-color: #999;
-  width: 80%;
+  width: 1660px;
 }
 
 .section-desc {
@@ -358,7 +360,7 @@ export default {
   margin-left: 47%;
 }
 
-.el-tag + .el-tag {
+.el-tag {
   margin-left: 10px;
 }
 
@@ -374,5 +376,9 @@ export default {
   width: 90px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+
+.section-option {
+  margin-left: 20px;
 }
 </style>

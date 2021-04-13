@@ -115,7 +115,7 @@ export default {
 <style scoped>
 #live-play {
   margin: 0 auto;
-  width: 1600px
+  width: 1600px;
 }
 
 .video-content {
@@ -133,6 +133,7 @@ export default {
 .video {
   width: 1000px;
 }
+
 .live-desc {
   float: left;
   width: 200px;
@@ -151,7 +152,7 @@ export default {
 }
 
 .message-input {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .gl-1 {

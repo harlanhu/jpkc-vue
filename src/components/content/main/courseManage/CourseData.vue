@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style scoped>
-
+#course-data {
+  width: 1620px;
+}
 </style>

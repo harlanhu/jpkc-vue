@@ -160,6 +160,7 @@ export default {
   margin-top: 10px;
   background-color: #fff;
   border-radius: 8px;
+  width: 1200px;
 }
 
 .course-logo {

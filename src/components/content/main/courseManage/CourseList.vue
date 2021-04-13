@@ -1,7 +1,7 @@
 <template>
   <div id="course-list">
     <el-table :data="courseList">
-      <el-table-column fixed width="200" prop="courseName" label="名称"/>
+      <el-table-column fixed width="150" prop="courseName" label="名称"/>
       <el-table-column width="60" prop="courseLogo" label="Logo">
         <el-popover placement="top-start"
                     title="Logo预览"
@@ -91,5 +91,7 @@ export default {
 </script>
 
 <style scoped>
-
+#course-list {
+  width: 1620px;
+}
 </style>

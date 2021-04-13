@@ -26,6 +26,7 @@ export default {
 
 <style scoped>
 .el-main {
+  margin-top: 0;
   margin-left: 20px;
   background-color: #fff;
   border-radius: 8px;

@@ -40,7 +40,7 @@ export default {
 
 <style scoped>
 #mini-card {
-  width: 322px;
+  width: 270px;
   height: 63px;
 }
 
@@ -73,7 +73,7 @@ export default {
   margin-bottom: 3px;
   overflow: hidden;
   display: -webkit-box;
-  width: 210px;
+  width: 150px;
 }
 
 .producer {

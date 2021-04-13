@@ -72,5 +72,7 @@ export default {
 </script>
 
 <style scoped>
-
+#course-live {
+  width: 1620px;
+}
 </style>
