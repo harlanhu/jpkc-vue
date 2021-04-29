@@ -26,6 +26,7 @@ const TeacherOfOne = () => import("@/views/TeacherOfOne");
 const LivePlay = () => import("@/views/LivePlay");
 const LiveCourse = () => import("@/views/LiveCourse");
 const NotFount = () => import("@/views/NotFount");
+const Exam = () => import("@/views/Exam");
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,10 @@ const routes = [
   {
     path: '',
     redirect: '/home'
+  },
+  {
+    path: "/exam",
+    component: Exam
   },
   {
     path: '/home',

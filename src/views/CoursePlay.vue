@@ -7,6 +7,7 @@
         <div style="font-size: 14px; color: #999; margin-top: 5px">
           {{activeSection.sectionDesc}}
         </div>
+        <el-button style="margin: 30px 30px 10px 10px; float: right" type="primary" size="small" @click="examOnline">在线检测</el-button>
       </div>
     </div>
     <div class="video-title">
@@ -161,6 +162,9 @@ export default {
         this.comment = ''
         this.getComment(this.activeSection.sectionId, 1, 10, 0)
       })
+    },
+    examOnline() {
+      this.$router.push("/exam")
     }
   },
   created() {

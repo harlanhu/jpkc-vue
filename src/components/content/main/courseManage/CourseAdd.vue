@@ -2,6 +2,7 @@
   <div id="course-add"
        :element-loading-text="loading.loadingText"
        v-loading.fullscreen.lock="loading.isLoading">
+    <exam-add-dialog :exams="exams"/>
     <el-form style="margin-top: 20px" ref="courseForm" :model="course" :rules="rules">
       <el-form-item prop="courseName" label-width="100px" label="课程名称">
         <el-input  style="width: 200px" prefix-icon="el-icon-collection" show-word-limit v-model="course.courseName" placeholder="请输入课程名称"/>
@@ -17,6 +18,7 @@
                      :key="category.categoryId">
           </el-option>
         </el-select>
+        <el-button style="margin-left: 30px" type="primary" size="small" @click="showAddExam">添加试题</el-button>
       </el-form-item>
       <el-form-item label-width="100px" label="课程标签">
         <el-tag :key="label"
@@ -42,6 +44,7 @@
             <el-input style="width: 500px" type="textarea" prefix-icon="el-icon-document" v-model="course.courseDesc" placeholder="请输入关于课程的描述"/>
           </el-form-item>
           <el-upload
+              style="margin-left: 30px"
               ref="pptUpload"
               :limit="1"
               action="#"
@@ -134,16 +137,18 @@
       </el-collapse>
     </div>
     <el-button @click="addCourse" class="submit-btn" type="primary">提交</el-button>
+    <el-button @click="test">dasd</el-button>
   </div>
 </template>
 
 <script>
 import CourseAddDialog from "@/components/content/dialog/course/CourseAddDialog";
 import MessageUtils from "@/utils/MessageUtils";
+import ExamAddDialog from "@/components/content/dialog/course/ExamAddDialog";
 
 export default {
   name: "CourseAdd",
-  components: {CourseAddDialog},
+  components: {ExamAddDialog, CourseAddDialog},
   data() {
     return {
       course: {
@@ -204,7 +209,15 @@ export default {
       loading: {
         isLoading: false,
         loadingText: ""
-      }
+      },
+      exams: [
+        {
+          topic: "",
+          options: ["", ""],
+          answer: "1",
+          value: ""
+        }
+      ]
     }
   },
   methods: {
@@ -269,10 +282,11 @@ export default {
           this.$api.course.save(this.course, this.logoFile.file.raw, this.categoryData.categoryValue, this.labelData.labels)
           .then(courseRes => {
             let courseId = courseRes.data
-            this.$api.course.uploadPpt(courseId, this.pptFile.file.raw)
             /**
              * 章节创建
              */
+            this.$api.exam.addExam(courseId, this.exams)
+            this.$api.course.uploadPpt(courseId, this.pptFile.file.raw)
             for (let i = 0; i < this.sectionTree.length; i++) {
               this.showLoading(true, "正在创建" + this.sectionTree[i].sectionName + "章节...")
               this.sectionTree[i].courseId = courseId
@@ -374,8 +388,11 @@ export default {
       console.log(this.pptFile)
       return isLt2M && isJPG
     },
-    pptUpload() {
-
+    showAddExam() {
+      this.$bus.$emit("activeExamAddDialog", true)
+    },
+    test() {
+      console.log(this.exams)
     }
   },
   created() {

@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column width="150" fixed="right" label="操作">
         <div slot-scope="scope">
-          <el-button style="float: left" @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button style="float: left" @click="handleEditClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button style="float: left" @click="handleDeleteClick(scope.row.courseId)" type="text" size="small">删除</el-button>
         </div>
       </el-table-column>
@@ -61,7 +61,7 @@ export default {
   methods: {
     handleEditClick(row) {
       this.$router.replace({
-        path: "/course-manage/edit/" + row.courseName,
+        path: "/courseDetail/" + row.courseId,
         params: {
           course: row
         }

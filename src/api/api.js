@@ -11,6 +11,7 @@ import school from "@/api/school/school";
 import section from "@/api/section/section";
 import sectionComment from "@/api/sectionComment/sectionComment";
 import layout from "@/api/layout/layout";
+import exam from "@/api/exam/exam"
 
 /**
  * 数据请求唯一入口
@@ -28,5 +29,6 @@ export default {
   school,
   section,
   sectionComment,
-  layout
+  layout,
+  exam
 }
