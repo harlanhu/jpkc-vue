@@ -27,7 +27,7 @@
     <div class="section-info" v-if="course.teacher">
       <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" @select="menuHandleSelect">
         <el-menu-item index="1">课程详情</el-menu-item>
-        <el-menu-item index="2">课程评价</el-menu-item>
+        <el-menu-item index="2">课程课件</el-menu-item>
       </el-menu>
       <div class="section-1" v-if="activeIndex === '1'">
         <div class="course-desc">
@@ -44,6 +44,19 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="section-2" v-else>
+        <iframe id="iframe1"
+                width="800"
+                height="600"
+                frameborder='no'
+                border='0'
+                marginwidth='0'
+                marginheight='0'
+                scrolling='no'
+                allowtransparency='yes'
+        :src="'http://view.officeapps.live.com/op/view.aspx?src='+ course.coursePpt">
+        </iframe>
       </div>
       <router-view/>
     </div>

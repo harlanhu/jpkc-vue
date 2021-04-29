@@ -41,6 +41,12 @@ function uploadLogo(courseId, logoFile) {
   return axios.post(baseUrl + "/uploadLogo/" + courseId, formData)
 }
 
+function uploadPpt(courseId, pptFile) {
+  const formData = new FormData()
+  formData.append("pptFile", pptFile)
+  return axios.post(baseUrl + "/uploadPpt/" + courseId, formData)
+}
+
 function getByName(courseName) {
   return axios.post(baseUrl + "/getByName", courseName)
 }
@@ -127,6 +133,7 @@ export default {
   collect,
   getCollect,
   getOpenByType,
+  uploadPpt,
   getOpenByTypeAndCategory,
   getOpenByTypeAndSchool,
   getRecommend,

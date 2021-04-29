@@ -41,6 +41,18 @@
           <el-form-item label-width="100px" prop="courseDesc" label="课程描述">
             <el-input style="width: 500px" type="textarea" prefix-icon="el-icon-document" v-model="course.courseDesc" placeholder="请输入关于课程的描述"/>
           </el-form-item>
+          <el-upload
+              ref="pptUpload"
+              :limit="1"
+              action="#"
+              :multiple="false"
+              accept=".ppt, .pptx"
+              :on-remove="pptRemove"
+              :on-change="pptChange"
+              :auto-upload="false">
+            <div><i class="el-icon-upload" />添加PPT课件</div>
+            <div slot="tip" class="el-upload__tip">PPT课件不超过50M</div>
+          </el-upload>
         </el-col>
         <el-col :span="12">
           <el-form-item label-width="100px" label="课程Logo">
@@ -171,6 +183,13 @@ export default {
         dialogVisible: false,
         disabled: false
       },
+      pptFile: {
+        url: "",
+        raw: {},
+        file: {},
+        dialogVisible: false,
+        disabled: false
+      },
       sectionTree: [],
       sectionNo: 1,
       categoryData: {
@@ -196,10 +215,10 @@ export default {
       this.logoFile.dialogVisible = true
     },
     logoDelete(file) {
-      this.logoFile.url = ''
-      this.logoFile.file = {}
-      this.logoFile.raw = {}
-      this.$refs.logoUpload.clearFiles()
+      this.pptFile.url = ''
+      this.pptFile.file = {}
+      this.pptFile.raw = {}
+      this.$refs.pptUpload.clearFiles()
     },
     changeUploadLogo(file, fileList) {
       if (fileList.length > 1) {
@@ -250,6 +269,7 @@ export default {
           this.$api.course.save(this.course, this.logoFile.file.raw, this.categoryData.categoryValue, this.labelData.labels)
           .then(courseRes => {
             let courseId = courseRes.data
+            this.$api.course.uploadPpt(courseId, this.pptFile.file.raw)
             /**
              * 章节创建
              */
@@ -323,6 +343,39 @@ export default {
     showLoading(isLoading, loadingText) {
       this.loading.isLoading = isLoading
       this.loading.loadingText = loadingText
+    },
+    upload() {
+      this.$refs.upload.submit()
+    },
+    pptRemove() {
+      this.logoFile.url = ''
+      this.logoFile.file = {}
+      this.logoFile.raw = {}
+      this.$refs.logoUpload.clearFiles()
+    },
+    pptChange(file, fileList) {
+      if (fileList.length > 1) {
+        fileList.splice(0, 1)
+      }
+      console.log(file.raw.type)
+      const isJPEG = file.raw.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      const isJPG = file.raw.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      const isLt2M = file.size / 1024 / 1024 < 5
+      if (!isJPG && !isJPEG) {
+        this.$message.error("请上传 ppx 或 pptx 格式图片！")
+        this.$refs.pptUpload.clearFiles()
+      }
+      if (!isLt2M) {
+        this.$message.error("上传大小不能超过 5MB")
+        this.$refs.pptUpload.clearFiles()
+      }
+      this.pptFile.file = file
+      this.pptFile.raw = file.raw
+      console.log(this.pptFile)
+      return isLt2M && isJPG
+    },
+    pptUpload() {
+
     }
   },
   created() {
