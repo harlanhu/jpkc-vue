@@ -12,6 +12,7 @@ import section from "@/api/section/section";
 import sectionComment from "@/api/sectionComment/sectionComment";
 import layout from "@/api/layout/layout";
 import exam from "@/api/exam/exam"
+import score from "@/api/score/score";
 
 /**
  * 数据请求唯一入口
@@ -30,5 +31,6 @@ export default {
   section,
   sectionComment,
   layout,
-  exam
+  exam,
+  score
 }

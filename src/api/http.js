@@ -8,7 +8,7 @@ import router from "@/router";
  */
 switch (process.env.NODE_ENV) {
   case "development":
-    axios.defaults.baseURL = 'http://localhost:8080'
+    axios.defaults.baseURL = 'http://localhost:8088'
     break
   case "beta":
     axios.defaults.baseURL = 'http://192.168.31.51:8080'

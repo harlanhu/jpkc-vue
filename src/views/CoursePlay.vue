@@ -1,5 +1,6 @@
 <template>
   <div id="course-play">
+    <exam-dialog :exams="exams" :course="course" @updateMark="updateMark"/>
     <div class="menu">
       <nav-menu :section-list="course.sectionDtoList" @select="menuSelect"/>
       <div class="section-info">
@@ -7,7 +8,18 @@
         <div style="font-size: 14px; color: #999; margin-top: 5px">
           {{activeSection.sectionDesc}}
         </div>
-        <el-button style="margin: 30px 30px 10px 10px; float: right" type="primary" size="small" @click="examOnline">在线检测</el-button>
+        <el-button style="margin: 30px 30px 10px 10px;" type="primary" size="small" @click="downloadPpt">课件下载</el-button>
+      </div>
+      <div class="section-info">
+        <p style="text-align: center; color: #00c558; font-size: 16px">成绩检测</p>
+        <div style="font-size: 24px; text-align: center; margin-top: 10px; color: #00c758" v-if="isExistScore">
+          当前成绩：{{score.mark}}分
+        </div>
+        <div style="margin-top: 5px; font-size: 14px; color: #999" v-else>
+          暂无课程成绩，点击在线检测
+        </div>
+        <el-button v-if="isExistScore" style="margin: 30px 30px 10px 10px; float: right" type="primary" size="small" @click="examOnline">重新检测</el-button>
+        <el-button  v-else style="margin: 10px 30px 10px 10px; float: right" type="primary" size="small" @click="examOnline">在线检测</el-button>
       </div>
     </div>
     <div class="video-title">
@@ -69,10 +81,12 @@ import VPlayer from "@/components/common/VPlayer";
 import NavMenu from "@/components/common/NavMenu";
 import CourseAbout from "@/components/content/main/course/courseAbout";
 import Avatar from "@/components/common/Avatar";
+import ExamDialog from "@/components/content/dialog/course/ExamDialog";
 
 export default {
   name: "CoursePlay",
   components: {
+    ExamDialog,
     Avatar,
     CourseAbout,
     NavMenu,
@@ -97,7 +111,10 @@ export default {
         commentList: [],
         activeTagName: "1"
       },
-      comment: ""
+      comment: "",
+      exams: [],
+      isExistScore: false,
+      score: {}
     }
   },
   methods: {
@@ -107,6 +124,21 @@ export default {
         this.course = res.data
         let sectionList = res.data.sectionDtoList
         this.initActiveSection(sectionList[0])
+        this.$api.exam.getByCourseId(this.course.courseId)
+        .then(res => {
+          this.exams = res.data
+        })
+        this.$api.score.exist(this.course.courseId)
+        .then(res => {
+          this.isExistScore = res.data
+          if (res.data === true) {
+            this.$api.score.getByCourseId(this.course.courseId)
+            .then(res => {
+              console.log(res.data)
+              this.score = res.data
+            })
+          }
+        })
       })
     },
     menuSelect(sectionId, index) {
@@ -164,7 +196,13 @@ export default {
       })
     },
     examOnline() {
-      this.$router.push("/exam")
+      this.$bus.$emit("activeExamOnline", true)
+    },
+    downloadPpt() {
+      window.location.href = this.course.coursePpt;
+    },
+    updateMark(value) {
+      this.score.mark = value
     }
   },
   created() {

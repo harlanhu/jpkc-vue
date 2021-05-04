@@ -35,7 +35,7 @@ export default {
             topic: "",
             options: [""],
             answer: "1",
-            value: ""
+            value: 0
           }
         ]
       }
@@ -63,7 +63,7 @@ export default {
           topic: "",
           options: ["", ""],
           answer: "1",
-          value: ""
+          value: 0
         })
       }
     },

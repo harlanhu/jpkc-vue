@@ -16,8 +16,6 @@
       <el-table-column width="150" prop="courseUpdated" label="修改时间"/>
       <el-table-column width="70" prop="sectionCount" label="章节数"/>
       <el-table-column width="70" prop="courseHour" label="学时数"/>
-      <el-table-column width="80" prop="courseViews" label="观看数"/>
-      <el-table-column width="80" prop="courseStar" label="收藏数"/>
       <el-table-column width="80" prop="coursePrice" label="价格"/>
       <el-table-column width="200" prop="courseStatus" label="状态">
         <template slot-scope="scope">
