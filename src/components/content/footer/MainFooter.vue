@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="12">
             <div class="logo"></div>
-            <p>由高教社联手网易推出，让每一个有提升愿望的用户能够学到中国知名高校的课程，并获得认证。</p>
+            <p>让每一个有提升愿望的用户能够学到中国知名高校的课程，这里是精品课程网。</p>
           </el-col>
           <el-col :span="3" :offset="3">
             <h4>关于我们</h4>
@@ -29,7 +29,9 @@
             <h4>关注我们</h4>
             <div class="detail">
               <span>
-
+                <el-button size="small" type="text">GitHub</el-button>
+                <el-button size="small" type="text">QQ</el-button>
+                <el-button size="small" type="text">WeiBo</el-button>
               </span>
             </div>
           </el-col>
@@ -37,7 +39,7 @@
             <h4>友情链接</h4>
             <div class="detail">
               <span>
-                <el-button size="small" type="text">网易云课堂</el-button>
+                <el-button size="small" type="text">云课堂</el-button>
               </span>
             </div>
           </el-col>
@@ -78,7 +80,7 @@ p {
 .logo {
   width: 100%;
   height: 37px;
-  background: url(//edu-image.nosdn.127.net/f24bc450d3c643dd9fb61e4c77928acd.png?imageView&quality=100) no-repeat 0 0;
+  background: url("/src/assets/images/logo-white.png") no-repeat 0 0;
   background-size: contain;
 }
 
