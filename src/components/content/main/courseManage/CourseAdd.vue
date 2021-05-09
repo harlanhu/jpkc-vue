@@ -137,7 +137,6 @@
       </el-collapse>
     </div>
     <el-button @click="addCourse" class="submit-btn" type="primary">提交</el-button>
-    <el-button @click="test">dasd</el-button>
   </div>
 </template>
 
@@ -374,13 +373,13 @@ export default {
       console.log(file.raw.type)
       const isJPEG = file.raw.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation"
       const isJPG = file.raw.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-      const isLt2M = file.size / 1024 / 1024 < 5
+      const isLt2M = file.size / 1024 / 1024 < 50
       if (!isJPG && !isJPEG) {
         this.$message.error("请上传 ppx 或 pptx 格式图片！")
         this.$refs.pptUpload.clearFiles()
       }
       if (!isLt2M) {
-        this.$message.error("上传大小不能超过 5MB")
+        this.$message.error("上传大小不能超过 50MB")
         this.$refs.pptUpload.clearFiles()
       }
       this.pptFile.file = file

@@ -55,12 +55,15 @@ export default {
     },
     prevPage(val) {
       this.pageInfo.current = val
+      this.getOpenByTypeAndCategory(this.pageInfo.current, this.pageInfo.size, this.activeType.type, this.activeType.categoryId)
     },
     nextPage(val) {
       this.pageInfo.current = val
+      this.getOpenByTypeAndCategory(this.pageInfo.current, this.pageInfo.size, this.activeType.type, this.activeType.categoryId)
     },
     currentChange(val) {
       this.pageInfo.current = val
+      this.getOpenByTypeAndCategory(this.pageInfo.current, this.pageInfo.size, this.activeType.type, this.activeType.categoryId)
     },
     getAllCourse() {
       if (this.$route.params.categoryId === "" || typeof(this.$route.params.categoryId) === 'undefined') {

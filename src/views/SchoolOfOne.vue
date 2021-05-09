@@ -167,7 +167,7 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  background: url(https://img-ph-mirror.nosdn.127.net/SkD-CO-sd86gJDlfsRix0A==/6608230909190265551.jpg) no-repeat center center;
+  background: url(~assets/images/bgc.jpg) no-repeat center center;
   box-shadow: inset 50px 0 120px -20px #000000, inset 50px 0 120px -40px #000000, inset -50px 0 120px -20px #000000, inset -50px 0 120px -40px #000000, inset 0 10px 10px -10px #000000, inset 0 -10px 10px -10px #000000;
 }
 

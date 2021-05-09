@@ -86,8 +86,8 @@ export default {
           .then(res => {
             console.log(res)
             if (res.status === 200) {
-              this.getLCourse()
               this.clearForm()
+              this.getCoursesByUserId()
               this.$message.success("创建成功");
               this.lCourseAddDialog = false
             } else {
@@ -134,6 +134,12 @@ export default {
       this.logoFile.file = file
       this.logoFile.raw = file.raw
       return isLt2M && isPNG && isJPG
+    },
+    getCoursesByUserId() {
+      this.$api.course.getByUserId(this.$store.state.accountInfo.userId)
+          .then(res => {
+            this.courseList = res.data
+          })
     }
   },
   mounted() {
