@@ -16,7 +16,7 @@
     "chimee": "^0.12.0",
     "chimee-player": "^1.4.9",
     "chimee-plugin-controlbar": "^0.4.11",
-    "core-js": "^3.24.0",
+    "core-js": "^3.24.1",
     "css.gg": "^2.0.0",
     "dayjs": "^1.10.4",
     "echarts": "^5.0.2",
