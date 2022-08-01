@@ -42,6 +42,6 @@
     "@vue/cli-service": "~4.5.0",
     "postcss-pxtorem": "^5.1.1",
     "px2rem-loader": "^0.1.9",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.7.8"
   }
 }
