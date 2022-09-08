@@ -23,7 +23,7 @@
     "element-ui": "^2.15.9",
     "hls.js": "^1.0.0",
     "lib-flexible": "^0.3.2",
-    "mux.js": "^5.11.0",
+    "mux.js": "^6.2.0",
     "video.js": "^7.20.1",
     "videojs-contrib-hls": "^5.15.0",
     "videojs-contrib-hls.js": "^3.2.0",
