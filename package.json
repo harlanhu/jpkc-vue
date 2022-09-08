@@ -12,7 +12,7 @@
   "dependencies": {
     "aes-decrypter": "^3.1.2",
     "axios": "^0.21.2",
-    "better-scroll": "^2.2.1",
+    "better-scroll": "^2.4.2",
     "chimee": "^0.12.0",
     "chimee-player": "^1.4.9",
     "chimee-plugin-controlbar": "^0.4.11",
@@ -20,7 +20,7 @@
     "css.gg": "^2.0.0",
     "dayjs": "^1.10.4",
     "echarts": "^5.0.2",
-    "element-ui": "^2.14.1",
+    "element-ui": "^2.15.9",
     "hls.js": "^1.0.0",
     "lib-flexible": "^0.3.2",
     "mux.js": "^5.11.0",
