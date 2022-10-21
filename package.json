@@ -39,7 +39,7 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-service": "~5.0.8",
     "postcss-pxtorem": "^5.1.1",
     "px2rem-loader": "^0.1.9",
     "vue-template-compiler": "^2.7.10"
